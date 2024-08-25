@@ -4,7 +4,7 @@
 	font-size: 16px;
 	font-family: 'Inter', 'Avenir', 'Helvetica', 'Arial', sans-serif;
 	line-height: 1.5;
-	background-color: #242424;
+	background-color: #131316;
 	color-scheme: light dark;
 	font-synthesis: none;
 	text-rendering: optimizelegibility;
@@ -24,12 +24,6 @@ a:hover {
 }
 
 body {
-	display: flex;
-	min-width: 320px;
-	min-height: 100vh;
-	margin: 0;
-	justify-content: center;
-	align-items: center;
 }
 
 h1 {
@@ -71,4 +65,13 @@ button:focus-visible {
 	button {
 		background-color: #f9f9f9;
 	}
+}
+
+ul{
+	margin: 0;
+	padding: 0;
+}
+
+li{
+	list-style-type: none;
 }

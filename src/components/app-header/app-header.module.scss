@@ -1,0 +1,53 @@
+.header{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 88px;
+	background-color: #1C1C21;
+
+}
+
+.nav{
+	display: flex;
+	align-items: center;
+	width: 1280px;
+	height: 56px;
+}
+
+.items{
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-right: 124px;
+}
+
+.items .item,
+.in{
+	padding: 18px 20px;
+	cursor: pointer;
+}
+
+.items .item a,
+.in a{
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.items .item:hover a span,
+.in:hover a span {
+	color: #fff;
+}
+
+
+.items .item:hover svg,
+.in:hover a span{
+	fill: #fff;
+}
+
+.logo{
+	margin-right: auto;
+	cursor: pointer;
+}
