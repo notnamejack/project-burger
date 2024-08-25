@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import s from './app-header.module.scss';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-
 export function AppHeader (){
 	return (
 		<header className={clsx(s.header)}>
