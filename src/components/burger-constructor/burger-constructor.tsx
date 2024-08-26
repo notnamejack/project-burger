@@ -24,8 +24,8 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
-			<div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', gap: '10px', width: '100%' }}>
-				<div style={{paddingRight: 15}}>
+			<div className={clsx(s.body)}>
+				<div className={clsx(s.fixed)}>
 					{but && <ConstructorElement
 						type="top"
 						isLocked={true}
@@ -50,7 +50,7 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 						</li>)
 					}
 				</ul>
-				<div style={{paddingRight: 15}}>
+				<div className={clsx(s.fixed)}>
 					{but && <ConstructorElement
 						type="bottom"
 						isLocked={true}

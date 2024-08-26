@@ -5,6 +5,18 @@
 	width: 600px;
 }
 
+.body{
+	display: flex;
+	align-items: flex-end;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+.fixed{
+	padding-right: 15px;
+}
+
 .items{
 	display: flex;
 	flex-direction: column;
