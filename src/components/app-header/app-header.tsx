@@ -9,7 +9,8 @@ export function AppHeader (){
 			<div className={clsx(s.nav)}>
 				<nav className={clsx(s.left)}>
 					<ul className={clsx(s.items)}>
-						<li className={clsx(s.item)}>
+						<li className={`${clsx(s.item)} pl-5 pr-5 pb-5 pt-5`}>
+							{/* сделал <a></a> чтоб потом на линк поменять, чтоб между страницами переключать */}
 							<a>
 								<BurgerIcon type="secondary" />
 								<span className='text text_type_main-default text_color_inactive'>Конструктор</span>
@@ -26,7 +27,7 @@ export function AppHeader (){
 				<div className={clsx(s.logo)}>
 					<Logo />
 				</div>
-				<div className={clsx(s.in)}>
+				<div className={`${clsx(s.in)} pl-5 pr-5 pb-5 pt-5`}>
 					<a>
 						<ProfileIcon type="secondary" />
 						<span className='text text_type_main-default text_color_inactive'>Личный кабинет</span>

@@ -26,6 +26,13 @@ a:hover {
 body {
 }
 
+main{
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	width: 100%;
+}
+
 h1 {
 	font-size: 3.2em;
 	line-height: 1.1;
