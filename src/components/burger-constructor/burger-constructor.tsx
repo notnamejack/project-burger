@@ -39,7 +39,7 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 						paddingRight: height - (but ? 484 : 284) < (selectIngredients.length - (but ? 2 : 0) ) * 90 ? 0 : 15
 					 }}>
 					{selectIngredients.filter(i => i.type !== 'bun').map(item =>
-						<li className={clsx(s.item)}>
+						<li className={clsx(s.item)} key={item.index}>
 							<DragIcon type="primary" />
 							<ConstructorElement
 								text={item.name}
