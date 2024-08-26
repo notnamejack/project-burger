@@ -5,28 +5,17 @@ import clsx from 'clsx';
 import s from './burger-igredients.module.scss';
 
 interface IBurgerIngredients{
+	height: number,
 	selectIngredients: any[],
 	onAddIngredients: (value: any) => void
 }
 
 
-export function BurgerIngredients ({selectIngredients, onAddIngredients}: IBurgerIngredients){
+export function BurgerIngredients ({height, selectIngredients, onAddIngredients}: IBurgerIngredients){
 	const [current, setCurrent] = useState('Булки');
 	const [bun, setBun] = useState(data.filter(i => i.type === 'bun'));
 	const [main, setMain] = useState(data.filter(i => i.type === 'main'));
 	const [sauce, setSauce] = useState(data.filter(i => i.type === 'sauce'));
-	const [height, setHeight] = useState(window.document.documentElement.clientHeight);
-
-	useEffect(() => {
-		document.addEventListener("resize", trackMousePos)
-		return () => {
-			document.removeEventListener("resize", trackMousePos)
-		}
-	  },[])
-
-	const trackMousePos = (e: any) => {
-		setHeight(e.documentElement.clientHeight);
-	};
 
 	return(
 		<div>

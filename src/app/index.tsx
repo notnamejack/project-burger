@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AppHeader from '../components/app-header';
+import { AppHeader } from '../components';
 import Main from '../page';
 
 export const App = () => {
