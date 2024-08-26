@@ -3,22 +3,32 @@ import clsx from 'clsx';
 import s from './main.module.scss';
 import {BurgerConstructor, BurgerIngredients} from '../components'
 import { v4 } from "uuid";
+import { IIngredients } from "../data/ingredients";
+import { data } from "../utils/data";
 
 export function Main (){
 
-	const [selectIngredients, setSelectIngredients] = useState<any[]>([]);
-	const [price, setPrice] = useState();
+	const [ingredients, setIngredients] = useState<IIngredients[]>()
+	const [selectIngredients, setSelectIngredients] = useState<IIngredients[]>([]);
+	const [price, setPrice] = useState(0);
 	const [height, setHeight] = useState(window.document.documentElement.clientHeight);
 
 	useEffect(() => {
+		setIngredients(data);
+	},[])
+
+	useEffect(() => {
 		if(selectIngredients.length > 0){
-			setPrice(selectIngredients.reduce(function(sum, elem) {
-			return sum + elem.price;
-			}, 0))
+			var total = 0;
+			selectIngredients.forEach(item =>
+				total += item.price,
+			  )
+			setPrice(total);
+		}
+		else{
+			setPrice(0);
 		}
 	}, [selectIngredients])
-
-	console.log(height)
 
 	useEffect(() => {
 		window.addEventListener("resize", trackMousePos)
@@ -52,8 +62,18 @@ export function Main (){
 
 	return(
 		<div className={clsx(s.container)}>
-			<BurgerIngredients height={height} selectIngredients={selectIngredients} onAddIngredients={handlerAddIngredients}/>
-			<BurgerConstructor height={height} selectIngredients={selectIngredients} price={price} onDeleteIngredients={handlerDeleteIngredients}/>
+			<BurgerIngredients
+				bun={ingredients?.filter(i => i.type === 'bun') || []}
+				main={ingredients?.filter(i => i.type === 'main') || []}
+				sauce={ingredients?.filter(i => i.type === 'sauce') || []}
+				height={height}
+				selectIngredients={selectIngredients}
+				onAddIngredients={handlerAddIngredients}/>
+			<BurgerConstructor
+				height={height}
+				selectIngredients={selectIngredients}
+				price={price}
+				onDeleteIngredients={handlerDeleteIngredients}/>
 		</div>
 	)
 }

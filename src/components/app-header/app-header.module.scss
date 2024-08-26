@@ -41,9 +41,16 @@
 	color: #fff;
 }
 
+.items .item.active a span{
+	color: #fff;
+}
 
 .items .item:hover svg,
-.in:hover a span{
+.in:hover svg{
+	fill: #fff;
+}
+
+.items .item.active svg{
 	fill: #fff;
 }
 

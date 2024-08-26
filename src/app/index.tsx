@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { AppHeader } from '../components';
 import Main from '../page';
 

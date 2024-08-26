@@ -2,17 +2,18 @@ import clsx from 'clsx';
 import s from './burger-constructor.module.scss';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
+import { IIngredients } from '../../data/ingredients';
 
 interface IBurgerConstructor{
 	height: number,
-	selectIngredients: any[],
-	price?: string,
+	selectIngredients: IIngredients[],
+	price?: number,
 	onDeleteIngredients: (index: string) => void
 }
 
 export function BurgerConstructor({height, selectIngredients, price, onDeleteIngredients}: IBurgerConstructor){
 
-	const [but, setBut] = useState<any>();
+	const [but, setBut] = useState<IIngredients>();
 
 	useEffect(() => {
 		const find = selectIngredients.find(i => i.type === 'bun');
@@ -44,7 +45,7 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 								text={item.name}
 								price={item.price}
 								thumbnail={item.image}
-								handleClose={() => onDeleteIngredients(item.index)}
+								handleClose={() => onDeleteIngredients(item?.index || "")}
 							/>
 						</li>)
 					}
@@ -60,7 +61,7 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 				</div>
 
 			</div>
-			{price &&
+			{(price || price !== 0) &&
 				<div className={clsx(s.footer)}>
 					<p className="text text_type_digits-medium">{price}<CurrencyIcon type="primary" /></p>
 					<Button htmlType="button" type="primary" size="large">

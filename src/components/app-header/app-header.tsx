@@ -9,7 +9,7 @@ export function AppHeader (){
 			<div className={clsx(s.nav)}>
 				<nav className={clsx(s.left)}>
 					<ul className={clsx(s.items)}>
-						<li className={`${clsx(s.item)} pl-5 pr-5 pb-5 pt-5`}>
+						<li className={`${clsx(s.item, s.active)} pl-5 pr-5 pb-5 pt-5`}>
 							{/* сделал <a></a> чтоб потом на линк поменять, чтоб между страницами переключать */}
 							<a>
 								<BurgerIcon type="secondary" />

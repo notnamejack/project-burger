@@ -1,4 +1,6 @@
-export const data = [
+import { IIngredients } from "../data/ingredients";
+
+export const data: IIngredients[]  = [
     {
        "_id":"60666c42cc7b410027a1a9b1",
        "name":"Краторная булка N-200i",
