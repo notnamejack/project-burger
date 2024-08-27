@@ -3,9 +3,9 @@ import s from './burger-constructor.module.scss';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
 import { IIngredients } from '../../data/ingredients';
-import { createRoot } from 'react-dom/client';
 import Modal from '../modal';
 import IngredientDetails from '../ingredient-details';
+import OrderDetails from '../order-details';
 
 interface IBurgerConstructor{
 	height: number,
@@ -18,7 +18,8 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 
 	const [but, setBut] = useState<IIngredients>();
 	const [ingredient, setIngredient] = useState<IIngredients>();
-	const [openIngredient, setOpenIngredient] = useState(true);
+	const [openIngredient, setOpenIngredient] = useState(false);
+	const [openOrder, setOpenOrder] = useState(false);
 
 	useEffect(() => {
 		const find = selectIngredients.find(i => i.type === 'bun');
@@ -51,6 +52,7 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 					 }}>
 					{selectIngredients.filter(i => i.type !== 'bun').map((item, index) =>
 						<li className={clsx(s.item)} key={`${index}_${item._id}`}>
+							{/* сделал див, чтоб открывать описание ингредиента */}
 							<div className={clsx(s.click)} onClick={() => {handlerOpenIngredient(item)}}>
 								<DragIcon type="primary"/>
 							</div>
@@ -77,14 +79,19 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 			{(price || price !== 0) &&
 				<div className={clsx(s.footer)}>
 					<p className="text text_type_digits-medium">{price}<CurrencyIcon type="primary" /></p>
-					<Button htmlType="button" type="primary" size="large">
+					<Button htmlType="button" type="primary" size="large" onClick={() => setOpenOrder(!openOrder)}>
 						Оформить заказ
 					</Button>
 				</div>
 			}
 			{openIngredient &&
-				<Modal title='Детали ингредиента' onClose={() => setOpenIngredient(!openIngredient)}>
+				<Modal title='Детали ингредиента' onClose={() => setOpenIngredient(false)}>
 					<IngredientDetails ingredient={ingredient}/>
+				</Modal>
+			}
+			{openOrder &&
+				<Modal onClose={() => setOpenOrder(false)}>
+					<OrderDetails/>
 				</Modal>
 			}
 		</div>

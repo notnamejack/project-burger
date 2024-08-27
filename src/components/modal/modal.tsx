@@ -20,11 +20,17 @@ interface IModal extends IModalOverlay{
 export function Modal ({title, children, onClose}:IModal){
 
 	useEffect(() => {
-		window.addEventListener("keyup", onClose)
+		window.addEventListener("keyup", (e: KeyboardEvent) => handleClose(e))
 		return () => {
-			window.removeEventListener("keyup", onClose)
+			window.removeEventListener("keyup", (e: KeyboardEvent) => handleClose(e))
 		}
 	  },[])
+
+	const handleClose = (e: KeyboardEvent) => {
+		if(e.key === 'Escape'){
+			onClose()
+		}
+	}
 
 	return createPortal(
 		(
@@ -32,9 +38,9 @@ export function Modal ({title, children, onClose}:IModal){
 				<div className={clsx(s.modal)}>
 					<div className={clsx(s.head)}>
 						{title && <p className="text text_type_main-large">{title}</p>}
-						<Button htmlType="button" type="secondary" size="small" onClick={onClose}>
+						<div className={clsx(s.close)} onClick={onClose}>
 							<CloseIcon type="primary" />
-						</Button>
+						</div>
 					</div>
 					{children}
 				</div>
