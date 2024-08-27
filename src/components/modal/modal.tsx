@@ -32,7 +32,7 @@ export function Modal ({title, children, onClose}:IModal){
 				<div className={clsx(s.modal)}>
 					<div className={clsx(s.head)}>
 						{title && <p className="text text_type_main-large">{title}</p>}
-						<Button htmlType="button" type="secondary" size="small">
+						<Button htmlType="button" type="secondary" size="small" onClick={onClose}>
 							<CloseIcon type="primary" />
 						</Button>
 					</div>

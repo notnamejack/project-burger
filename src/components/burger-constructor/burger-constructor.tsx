@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { IIngredients } from '../../data/ingredients';
 import { createRoot } from 'react-dom/client';
 import Modal from '../modal';
+import IngredientDetails from '../ingredient-details';
 
 interface IBurgerConstructor{
 	height: number,
@@ -16,6 +17,8 @@ interface IBurgerConstructor{
 export function BurgerConstructor({height, selectIngredients, price, onDeleteIngredients}: IBurgerConstructor){
 
 	const [but, setBut] = useState<IIngredients>();
+	const [ingredient, setIngredient] = useState<IIngredients>();
+	const [openIngredient, setOpenIngredient] = useState(true);
 
 	useEffect(() => {
 		const find = selectIngredients.find(i => i.type === 'bun');
@@ -23,6 +26,12 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 			setBut(find);
 		}
 	},[selectIngredients])
+
+	const handlerOpenIngredient = (item: IIngredients) =>{
+		console.log(true)
+		setIngredient(item);
+		setOpenIngredient(!openIngredient);
+	}
 
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
@@ -42,7 +51,9 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 					 }}>
 					{selectIngredients.filter(i => i.type !== 'bun').map((item, index) =>
 						<li className={clsx(s.item)} key={`${index}_${item._id}`}>
-							<DragIcon type="primary" />
+							<div className={clsx(s.click)} onClick={() => {handlerOpenIngredient(item)}}>
+								<DragIcon type="primary"/>
+							</div>
 							<ConstructorElement
 								text={item.name}
 								price={item.price}
@@ -71,9 +82,11 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 					</Button>
 				</div>
 			}
-			<Modal title='Детали ингредиента' onClose={() =>{}}>
-				<></>
-			</Modal>
+			{openIngredient &&
+				<Modal title='Детали ингредиента' onClose={() => setOpenIngredient(!openIngredient)}>
+					<IngredientDetails ingredient={ingredient}/>
+				</Modal>
+			}
 		</div>
 	)
 }
