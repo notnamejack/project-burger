@@ -3,6 +3,8 @@ import s from './burger-constructor.module.scss';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
 import { IIngredients } from '../../data/ingredients';
+import { createRoot } from 'react-dom/client';
+import Modal from '../modal';
 
 interface IBurgerConstructor{
 	height: number,
@@ -69,6 +71,9 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 					</Button>
 				</div>
 			}
+			<Modal title='Детали ингредиента' onClose={() =>{}}>
+				<></>
+			</Modal>
 		</div>
 	)
 }
