@@ -4,9 +4,12 @@ import s from './main.module.scss';
 import {BurgerConstructor, BurgerIngredients} from '../components'
 import { v4 } from "uuid";
 import { IIngredients } from "../data/ingredients";
-import { data } from "../utils/data";
 
-export function Main (){
+interface IMain{
+	data: IIngredients[]
+}
+
+export function Main ({data}: IMain){
 
 	const [ingredients, setIngredients] = useState<IIngredients[]>()
 	const [selectIngredients, setSelectIngredients] = useState<IIngredients[]>([]);
@@ -15,7 +18,7 @@ export function Main (){
 
 	useEffect(() => {
 		setIngredients(data);
-	},[])
+	},[data])
 
 	useEffect(() => {
 		if(selectIngredients.length > 0){
