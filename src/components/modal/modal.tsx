@@ -26,6 +26,13 @@ export function Modal ({title, children, onClose}:IModal){
 		}
 	  },[])
 
+	  useEffect(() => {
+		document.body.style.overflow = "hidden"
+		return () => {
+	  		document.body.style.overflow = "visible"
+		}
+	  },[])
+
 	const handleClose = (e: KeyboardEvent) => {
 		if(e.key === 'Escape'){
 			onClose()
