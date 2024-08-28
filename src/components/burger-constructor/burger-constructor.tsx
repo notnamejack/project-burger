@@ -29,7 +29,6 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 	},[selectIngredients])
 
 	const handlerOpenIngredient = (item: IIngredients) =>{
-		console.log(true)
 		setIngredient(item);
 		setOpenIngredient(!openIngredient);
 	}

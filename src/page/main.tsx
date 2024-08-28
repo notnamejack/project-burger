@@ -59,7 +59,6 @@ export function Main ({data}: IMain){
 	}
 
 	const handlerDeleteIngredients = (index: string) =>{
-		console.log(index)
 		setSelectIngredients(selectIngredients.filter(i => i.index !== index));
 	}
 

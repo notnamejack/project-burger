@@ -23,13 +23,17 @@
 	text-shadow: 0px 4px 16px rgba(#3333FF, .5);
 }
 
-.img{
+.image{
 	position: relative;
 	width: 107px;
 	height: 102px;
 }
 
-.img svg{
+.image img{
+	position: absolute;
+}
+
+.image svg{
 	position: absolute;
 }
 
