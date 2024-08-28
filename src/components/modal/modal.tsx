@@ -3,13 +3,10 @@ import clsx from 'clsx';
 import s from './modal.module.scss';
 import { createPortal } from 'react-dom';
 import React, { useEffect } from 'react';
-import { Button, CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IModalOverlay, ModalOverlay } from '../modal-overlay/modal-overlay';
 
 const modalRoot = document.getElementById("modals") as HTMLDivElement;
-
-interface IModalOverlay{
-	onClose: () => void
-}
 
 interface IModal extends IModalOverlay{
 	children: React.ReactNode,
@@ -54,11 +51,5 @@ export function Modal ({title, children, onClose}:IModal){
 				<ModalOverlay onClose={onClose}/>
 			</div>
 		), modalRoot
-	)
-}
-
-function ModalOverlay ({onClose}:IModalOverlay){
-	return (
-		<div className={clsx(s.back)} onClick={onClose}></div>
 	)
 }
