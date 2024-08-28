@@ -20,9 +20,9 @@ interface IModal extends IModalOverlay{
 export function Modal ({title, children, onClose}:IModal){
 
 	useEffect(() => {
-		window.addEventListener("keyup", (e: KeyboardEvent) => handleClose(e))
+		window.addEventListener("keyup", handleClose)
 		return () => {
-			window.removeEventListener("keyup", (e: KeyboardEvent) => handleClose(e))
+			window.removeEventListener("keyup", handleClose)
 		}
 	  },[])
 
