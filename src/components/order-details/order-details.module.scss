@@ -1,0 +1,45 @@
+.container,
+.number,
+.status{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.container{
+	gap: 60px;
+	padding-bottom: 60px;
+}
+
+.number{
+	gap: 32px;
+}
+
+.status{
+	gap: 8px;
+}
+
+.order{
+	text-shadow: 0px 4px 16px rgba(#3333FF, .5);
+}
+
+.image{
+	position: relative;
+	width: 107px;
+	height: 102px;
+}
+
+.image img{
+	position: absolute;
+}
+
+.image svg{
+	position: absolute;
+}
+
+.icon{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}

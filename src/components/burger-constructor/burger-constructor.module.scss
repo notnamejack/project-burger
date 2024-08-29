@@ -1,0 +1,47 @@
+.constructor{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	width: 600px;
+}
+
+.body{
+	display: flex;
+	align-items: flex-end;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+.fixed{
+	padding-right: 15px;
+}
+
+.items{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 10px;
+	width: 100%;
+	overflow: auto;
+}
+
+.item{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 8px;
+	width: 100%;
+}
+
+.click{
+	cursor: pointer;
+}
+
+.footer{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 40px;
+	margin-top: 40px;
+}
