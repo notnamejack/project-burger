@@ -6,27 +6,31 @@ import { IIngredients } from '../../data/ingredients';
 import Modal from '../modal';
 import IngredientDetails from '../ingredient-details';
 import OrderDetails from '../order-details';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
 
 interface IBurgerConstructor{
 	height: number,
-	selectIngredients: IIngredients[],
-	price?: number,
 	onDeleteIngredients: (index: string) => void
 }
 
-export function BurgerConstructor({height, selectIngredients, price, onDeleteIngredients}: IBurgerConstructor){
+export function BurgerConstructor({height, onDeleteIngredients}: IBurgerConstructor){
 
-	const [but, setBut] = useState<IIngredients>();
+	// const [but, setBut] = useState<IIngredients>();
 	const [ingredient, setIngredient] = useState<IIngredients>();
 	const [openIngredient, setOpenIngredient] = useState(false);
 	const [openOrder, setOpenOrder] = useState(false);
 
-	useEffect(() => {
-		const find = selectIngredients.find(i => i.type === 'bun');
-		if(find && find._id !== but?._id){
-			setBut(find);
-		}
-	},[selectIngredients])
+	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items)
+	const price = useSelector((state: RootState) => state.ingredientsSelect.total)
+	const but = useSelector((state: RootState) => state.ingredientsSelect.bun)
+
+	// useEffect(() => {
+	// 	const find = selectIngredients.find(i => i.type === 'bun');
+	// 	if(find && find._id !== but?._id){
+	// 		setBut(find);
+	// 	}
+	// },[selectIngredients])
 
 	const handlerOpenIngredient = (item: IIngredients) =>{
 		setIngredient(item);
@@ -46,10 +50,10 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 					/>}
 				</div>
 				<ul className={clsx(s.items)}
-					style={{ height: height - (but ? 484 : 284) < (selectIngredients.length - (but ? 2 : 0) ) * 90 ? height - (but ? 524: 344) :'auto',
-						paddingRight: height - (but ? 484 : 284) < (selectIngredients.length - (but ? 2 : 0) ) * 90 ? 0 : 15
+					style={{ height: height - (but ? 484 : 284) < (selectIngredients.length) * 90 ? height - (but ? 524: 344) :'auto',
+						paddingRight: height - (but ? 484 : 284) < (selectIngredients.length) * 90 ? 0 : 15
 					 }}>
-					{selectIngredients.filter(i => i.type !== 'bun').map((item, index) =>
+					{selectIngredients.map((item, index) =>
 						<li className={clsx(s.item)} key={`${index}_${item._id}`}>
 							{/* сделал див, чтоб открывать описание ингредиента */}
 							<div className={clsx(s.click)} onClick={() => {handlerOpenIngredient(item)}}>

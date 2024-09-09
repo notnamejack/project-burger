@@ -2,15 +2,21 @@ import { useEffect, useState } from 'react';
 import { AppHeader } from '../components';
 import Main from '../page';
 import { IIngredients } from '../data/ingredients';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './store';
+import { setItems } from '../services/ingredients-splice';
 
 const url = 'https://norma.nomoreparties.space/api/ingredients';
 
 export const App = () => {
 
-	const [data, setData] = useState<IIngredients[]>([]);
+	// const [data, setData] = useState<IIngredients[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasError, setHasError] = useState(false);
 	const [codeError, setCodeError] = useState('');
+
+	const data = useSelector((state: RootState) => state.ingredients.items)
+  	const dispatch = useDispatch()
 
 	useEffect(()=>{
 		if(!isLoading && data.length === 0){
@@ -29,7 +35,7 @@ export const App = () => {
 			return Promise.reject(setCodeError(`${res.status}`));
 
 		})
-		.then(data => setData(data.data))
+		.then(data => dispatch(setItems(data.data)))
 		.catch(e => setHasError(true))
 		.finally(() => setIsLoading(false));
 	}
@@ -38,7 +44,7 @@ export const App = () => {
 		<div>
 			<AppHeader/>
 			<main>
-				<Main data={data}/>
+				<Main/>
 			</main>
 		</div>
 	);
