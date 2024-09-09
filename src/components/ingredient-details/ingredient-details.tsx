@@ -2,12 +2,16 @@
 import clsx from 'clsx';
 import s from './ingredient-details.module.scss';
 import { IIngredients } from '../../data/ingredients';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
 
 interface IIngredientDetails{
 	ingredient: IIngredients | undefined
 }
 
-export function IngredientDetails ({ingredient}: IIngredientDetails){
+export function IngredientDetails (){
+	const ingredient = useSelector((state: RootState) => state.ingredientsDetails.item);
+
 	return (
 		<div className={clsx(s.container)}>
 			<img className={clsx(s.img)} alt={ingredient?.name} src={ingredient?.image_large}/>

@@ -3,6 +3,11 @@ import clsx from 'clsx';
 import s from './burger-igredients.module.scss';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../igredients";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import Modal from "../modal";
+import IngredientDetails from "../ingredient-details";
+import { closeModal } from "../../services/ingredients-details-splice";
 
 interface IBurgerIngredients{
 	height: number
@@ -10,8 +15,11 @@ interface IBurgerIngredients{
 
 export function BurgerIngredients ({ height }: IBurgerIngredients){
 	const [current, setCurrent] = useState('Булки');
-
+	const openIngredient = useSelector((state: RootState) => state.ingredientsDetails.isOpen);
+	const dispatch = useDispatch();
 	return(
+		// подписываемся на событие onScroll и используем
+		// getBoundingClientRect().
 		<div>
 			<p className="text text_type_main-large mb-5 mt-10">
 				Соберите бургер
@@ -38,6 +46,12 @@ export function BurgerIngredients ({ height }: IBurgerIngredients){
 					<Ingredient title={"Начинки"} type={'main'}/>
 				</li>
 			</ul>
+
+			{openIngredient &&
+				<Modal title='Детали ингредиента' onClose={() => dispatch(closeModal())}>
+					<IngredientDetails/>
+				</Modal>
+			}
 
 		</div>
 	)

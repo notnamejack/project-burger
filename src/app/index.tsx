@@ -10,16 +10,14 @@ const url = 'https://norma.nomoreparties.space/api/ingredients';
 
 export const App = () => {
 
-	// const [data, setData] = useState<IIngredients[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasError, setHasError] = useState(false);
 	const [codeError, setCodeError] = useState('');
 
-	const data = useSelector((state: RootState) => state.ingredients.items)
   	const dispatch = useDispatch()
 
 	useEffect(()=>{
-		if(!isLoading && data.length === 0){
+		if(!isLoading){
 			getIngredients();
 		}
 	},[])

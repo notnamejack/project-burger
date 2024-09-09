@@ -20,14 +20,10 @@ export function Main (){
 		setHeight(window.document.documentElement.clientHeight);
 	};
 
-	const handlerDeleteIngredients = (index: string) =>{
-		// setSelectIngredients(selectIngredients.filter(i => i.index !== index));
-	}
-
 	return(
 		<div className={clsx(s.container)}>
 			<BurgerIngredients height={height}/>
-			<BurgerConstructor height={height} onDeleteIngredients={handlerDeleteIngredients}/>
+			<BurgerConstructor height={height}/>
 		</div>
 	)
 }

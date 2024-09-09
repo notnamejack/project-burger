@@ -11,7 +11,7 @@ interface IngredientsSelectState {
 
 interface IngredientState{
 	item: IIngredients,
-	type: string
+	type?: string
 }
 
 const initialState: IngredientsSelectState = {
@@ -43,9 +43,13 @@ const ingredientsSelectSlice = createSlice({
 			}
 		}
 	  },
+	  deleteItem: (state, action: PayloadAction<IngredientState>) => {
+		state.items = state.items.filter(i => i.index !== action.payload.item.index);
+		state.total -= action.payload.item.price;
+	  }
 	},
   })
 
-export const { addItem } = ingredientsSelectSlice.actions
+export const { addItem, deleteItem } = ingredientsSelectSlice.actions
 
 export default ingredientsSelectSlice.reducer

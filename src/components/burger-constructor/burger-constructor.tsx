@@ -1,41 +1,27 @@
 import clsx from 'clsx';
 import s from './burger-constructor.module.scss';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useState } from 'react';
-import { IIngredients } from '../../data/ingredients';
+import { useState } from 'react';
 import Modal from '../modal';
-import IngredientDetails from '../ingredient-details';
 import OrderDetails from '../order-details';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
+import { deleteItem } from '../../services/ingredients-select-splice';
+import { openModal } from '../../services/ingredients-details-splice';
+import { closeModal, openModal as  openDetailModal} from '../../services/order-splice';
 
 interface IBurgerConstructor{
-	height: number,
-	onDeleteIngredients: (index: string) => void
+	height: number
 }
 
-export function BurgerConstructor({height, onDeleteIngredients}: IBurgerConstructor){
+export function BurgerConstructor({height}: IBurgerConstructor){
 
-	// const [but, setBut] = useState<IIngredients>();
-	const [ingredient, setIngredient] = useState<IIngredients>();
-	const [openIngredient, setOpenIngredient] = useState(false);
-	const [openOrder, setOpenOrder] = useState(false);
+	const openOrder = useSelector((state: RootState) => state.order.isOpen);
+	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
+	const price = useSelector((state: RootState) => state.ingredientsSelect.total);
+	const but = useSelector((state: RootState) => state.ingredientsSelect.bun);
 
-	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items)
-	const price = useSelector((state: RootState) => state.ingredientsSelect.total)
-	const but = useSelector((state: RootState) => state.ingredientsSelect.bun)
-
-	// useEffect(() => {
-	// 	const find = selectIngredients.find(i => i.type === 'bun');
-	// 	if(find && find._id !== but?._id){
-	// 		setBut(find);
-	// 	}
-	// },[selectIngredients])
-
-	const handlerOpenIngredient = (item: IIngredients) =>{
-		setIngredient(item);
-		setOpenIngredient(!openIngredient);
-	}
+	const dispatch = useDispatch();
 
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
@@ -56,14 +42,14 @@ export function BurgerConstructor({height, onDeleteIngredients}: IBurgerConstruc
 					{selectIngredients.map((item, index) =>
 						<li className={clsx(s.item)} key={`${index}_${item._id}`}>
 							{/* сделал див, чтоб открывать описание ингредиента */}
-							<div className={clsx(s.click)} onClick={() => {handlerOpenIngredient(item)}}>
+							<div className={clsx(s.click)} onClick={() => {dispatch(openModal({item}))}}>
 								<DragIcon type="primary"/>
 							</div>
 							<ConstructorElement
 								text={item.name}
 								price={item.price}
 								thumbnail={item.image}
-								handleClose={() => onDeleteIngredients(item?.index || "")}
+								handleClose={() => dispatch(deleteItem({item}))}
 							/>
 						</li>)
 					}
@@ -82,18 +68,13 @@ export function BurgerConstructor({height, onDeleteIngredients}: IBurgerConstruc
 			{(price || price !== 0) &&
 				<div className={clsx(s.footer)}>
 					<p className="text text_type_digits-medium">{price}<CurrencyIcon type="primary" /></p>
-					<Button htmlType="button" type="primary" size="large" onClick={() => setOpenOrder(!openOrder)}>
+					<Button htmlType="button" type="primary" size="large" onClick={() => dispatch(openDetailModal())}>
 						Оформить заказ
 					</Button>
 				</div>
 			}
-			{openIngredient &&
-				<Modal title='Детали ингредиента' onClose={() => setOpenIngredient(false)}>
-					<IngredientDetails ingredient={ingredient}/>
-				</Modal>
-			}
 			{openOrder &&
-				<Modal onClose={() => setOpenOrder(false)}>
+				<Modal onClose={() => dispatch(closeModal())}>
 					<OrderDetails/>
 				</Modal>
 			}
