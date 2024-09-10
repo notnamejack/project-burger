@@ -6,9 +6,11 @@ import Modal from '../modal';
 import OrderDetails from '../order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import { deleteItem } from '../../services/ingredients-select-splice';
+import { addItem, deleteItem } from '../../services/ingredients-select-splice';
 import { openModal } from '../../services/ingredients-details-splice';
 import { closeModal, openModal as  openDetailModal} from '../../services/order-splice';
+import { useDrop } from 'react-dnd';
+import { IIngredients } from '../../data/ingredients';
 
 interface IBurgerConstructor{
 	height: number
@@ -23,9 +25,20 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 
 	const dispatch = useDispatch();
 
+	const [{ isHover }, dropRef] = useDrop({
+		accept: 'ingredient',
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        }),
+		drop: (item: IIngredients) => {
+			console.log(item);
+			dispatch(addItem({item: item, type: item.type}));
+		}
+	  });
+
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
-			<div className={clsx(s.body)}>
+			<div className={clsx(s.body)} ref={dropRef}>
 				<div className={clsx(s.fixed)}>
 					{but && <ConstructorElement
 						type="top"

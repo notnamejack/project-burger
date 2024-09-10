@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import clsx from 'clsx';
 import s from './burger-igredients.module.scss';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Ingredient from "../igredients";
+import Ingredients from "../igredients";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import Modal from "../modal";
@@ -62,13 +62,13 @@ export function BurgerIngredients ({ height }: IBurgerIngredients){
 			</div>
 			<ul className={`${clsx(s.ingredients)} pt-10`} style={{height: height - 300}} ref={ref}>
 				<li ref={refBun}>
-					<Ingredient title={"Булки"} type={'bun'}/>
+					<Ingredients title={"Булки"} type={'bun'}/>
 				</li>
 				<li className="mt-10" ref={refSauce}>
-					<Ingredient title={"Соусы"} type={'sauce'}/>
+					<Ingredients title={"Соусы"} type={'sauce'}/>
 				</li>
 				<li className="mt-10" ref={refMain}>
-					<Ingredient title={"Начинки"} type={'main'}/>
+					<Ingredients title={"Начинки"} type={'main'}/>
 				</li>
 			</ul>
 

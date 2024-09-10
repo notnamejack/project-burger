@@ -27,6 +27,7 @@ const ingredientsSelectSlice = createSlice({
 	initialState,
 	reducers: {
 	  addItem: (state, action: PayloadAction<IngredientState>) => {
+		console.log(action.payload.item);
 		if( action.payload.type !== 'bun'){
 			state.items.push({...action.payload.item, index: newGuid()})
 			state.total += action.payload.item.price

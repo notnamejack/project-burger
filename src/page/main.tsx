@@ -4,6 +4,8 @@ import s from './main.module.scss';
 import {BurgerConstructor, BurgerIngredients} from '../components'
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export function Main (){
 
@@ -22,8 +24,10 @@ export function Main (){
 
 	return(
 		<div className={clsx(s.container)}>
-			<BurgerIngredients height={height}/>
-			<BurgerConstructor height={height}/>
+			<DndProvider backend={HTML5Backend}>
+				<BurgerIngredients height={height}/>
+				<BurgerConstructor height={height}/>
+			</DndProvider>
 		</div>
 	)
 }
