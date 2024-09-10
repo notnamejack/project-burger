@@ -15,8 +15,8 @@ interface IngredientState{
 }
 
 interface IngredientMoveState{
-	dragIndex: number,
-	hoverIndex: number,
+	fromIndex: number,
+	toIndex: number,
 	item: IIngredients,
 }
 
@@ -54,8 +54,10 @@ const ingredientsSelectSlice = createSlice({
 		state.total -= action.payload.item.price;
 	  },
 	  moveItem: (state, action: PayloadAction<IngredientMoveState>) => {
-		state.items.splice(action.payload.dragIndex, 1);
-		state.items.splice(action.payload.hoverIndex, 0, action.payload.item);
+		const ingredients = [...state.items];
+   		ingredients.splice(action.payload.toIndex, 0, ingredients.splice(action.payload.fromIndex, 1)[0]);
+
+		state.items = ingredients;
 	  }
 	},
   })

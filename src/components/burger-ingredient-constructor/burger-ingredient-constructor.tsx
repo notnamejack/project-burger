@@ -75,13 +75,7 @@ export function BurgerIngredientConstructor ({ingredient, index}:IBurgerIngredie
 		if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
 		  return
 		}
-
-		console.log(`dragIndex ${dragIndex}`)
-		console.log(`hoverIndex ${hoverIndex}`)
-
-		console.log(item)
-
-		dispatch(moveItem({dragIndex, hoverIndex, item: item.ingredient}))
+		dispatch(moveItem({fromIndex: dragIndex, toIndex: hoverIndex, item: item.ingredient}))
 
 		item.index = hoverIndex
 	  },

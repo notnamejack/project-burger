@@ -23,6 +23,7 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 	const openOrder = useSelector((state: RootState) => state.order.isOpen);
 	const price = useSelector((state: RootState) => state.ingredientsSelect.total);
 	const but = useSelector((state: RootState) => state.ingredientsSelect.bun);
+	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
 
 	const dispatch = useDispatch();
 
@@ -38,8 +39,8 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
-			<div className={clsx(s.body)}>
-				<div className={clsx(s.fixed)} ref={toppRef}>
+			<div className={clsx(s.body)} ref={toppRef}>
+				<div className={clsx(s.fixed)}>
 					{but && <ConstructorElement
 						type="top"
 						isLocked={true}
@@ -52,7 +53,14 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 						<p className="text text_type_main-default">Выберите булку</p>
 					</div>}
 				</div>
-				<BurgerIngredientsConstructor height={height}/>
+				{selectIngredients.length !== 0 && <BurgerIngredientsConstructor height={height}/>}
+				{selectIngredients.length === 0 &&
+					<div className={clsx(s.fixed)}>
+						<div className={`${clsx(s.bun)} ${isHover && clsx(s.hover)} constructor-element`}>
+							<p className="text text_type_main-default">Выберите начинку или соус</p>
+						</div>
+					</div>
+				}
 				<div className={clsx(s.fixed)}>
 					{but && <ConstructorElement
 						type="bottom"
