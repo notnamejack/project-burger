@@ -14,6 +14,12 @@ interface IngredientState{
 	type?: string
 }
 
+interface IngredientMoveState{
+	dragIndex: number,
+	hoverIndex: number,
+	item: IIngredients,
+}
+
 const initialState: IngredientsSelectState = {
 	items: [],
 	total: 0,
@@ -46,10 +52,14 @@ const ingredientsSelectSlice = createSlice({
 	  deleteItem: (state, action: PayloadAction<IngredientState>) => {
 		state.items = state.items.filter(i => i.index !== action.payload.item.index);
 		state.total -= action.payload.item.price;
+	  },
+	  moveItem: (state, action: PayloadAction<IngredientMoveState>) => {
+		state.items.splice(action.payload.dragIndex, 1);
+		state.items.splice(action.payload.hoverIndex, 0, action.payload.item);
 	  }
 	},
   })
 
-export const { addItem, deleteItem } = ingredientsSelectSlice.actions
+export const { addItem, deleteItem, moveItem } = ingredientsSelectSlice.actions
 
 export default ingredientsSelectSlice.reducer

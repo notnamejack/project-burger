@@ -11,6 +11,7 @@ import { openModal } from '../../services/ingredients-details-splice';
 import { closeModal, openModal as  openDetailModal} from '../../services/order-splice';
 import { useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
+import { BurgerIngredientConstructor } from '../burger-ingredient-constructor/burger-ingredient-constructor';
 
 interface IBurgerConstructor{
 	height: number
@@ -36,15 +37,7 @@ export function BurgerIngredientsConstructor ({height}:IBurgerConstructor){
 				paddingRight: height - 484 < (selectIngredients.length) * 90 ? 0 : 15
 			}}>
 			{selectIngredients.map((item, index) =>
-				<li className={clsx(s.item)} key={`${index}_${item._id}`}>
-					<DragIcon type="primary"/>
-					<ConstructorElement
-						text={item.name}
-						price={item.price}
-						thumbnail={item.image}
-						handleClose={() => dispatch(deleteItem({item}))}
-					/>
-				</li>)
+				<BurgerIngredientConstructor ingredient={item} index={index} key={index}/>)
 			}
 			{selectIngredients.length === 0 &&
 				<div className={`${clsx(s.bun)} ${isHover && clsx(s.hover)} constructor-element`}>
