@@ -18,9 +18,9 @@ export function Ingredient ({ingredient, count}: IIngredient){
 	const [{ opacity }, ref] = useDrag({
 		type: 'ingredient',
 		item: ingredient,
-			collect: monitor => ({
-				opacity: monitor.isDragging() ? 0.5 : 1
-			  })
+		collect: monitor => ({
+			opacity: monitor.isDragging() ? 0.5 : 1
+			})
 	  });
 
 	return (
