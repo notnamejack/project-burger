@@ -15,8 +15,6 @@ interface IBurgerIngredients{
 
 export function BurgerIngredients ({ height }: IBurgerIngredients){
 	const [current, setCurrent] = useState('Булки');
-	const openIngredient = useSelector((state: RootState) => state.ingredientsDetails.isOpen);
-	const dispatch = useDispatch();
 
 	const ref = useRef<HTMLUListElement>(null);
 	const refBun = useRef<HTMLLIElement>(null);
@@ -71,13 +69,6 @@ export function BurgerIngredients ({ height }: IBurgerIngredients){
 					<Ingredients title={"Начинки"} type={'main'}/>
 				</li>
 			</ul>
-
-			{openIngredient &&
-				<Modal title='Детали ингредиента' onClose={() => dispatch(closeModal())}>
-					<IngredientDetails/>
-				</Modal>
-			}
-
 		</div>
 	)
 }

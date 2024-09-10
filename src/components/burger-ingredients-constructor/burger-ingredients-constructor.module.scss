@@ -15,10 +15,7 @@
 }
 
 .fixed{
-	display: flex;
-	justify-content: flex-end;
 	padding-right: 15px;
-	width: 100%;
 }
 
 .items{
@@ -36,6 +33,7 @@
 	justify-content: flex-end;
 	gap: 8px;
 	width: 100%;
+	cursor: move;
 }
 
 .click{
