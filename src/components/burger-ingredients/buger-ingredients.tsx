@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from 'clsx';
 import s from './burger-igredients.module.scss';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -17,6 +17,31 @@ export function BurgerIngredients ({ height }: IBurgerIngredients){
 	const [current, setCurrent] = useState('Булки');
 	const openIngredient = useSelector((state: RootState) => state.ingredientsDetails.isOpen);
 	const dispatch = useDispatch();
+
+	const ref = useRef<HTMLUListElement>(null);
+	const refBun = useRef<HTMLLIElement>(null);
+	const refSauce = useRef<HTMLLIElement>(null);
+	const refMain = useRef<HTMLLIElement>(null);
+
+	useEffect(() => {
+		if(ref.current){
+			const _ref = ref.current;
+			_ref.addEventListener("scroll", handlerScroll)
+			return () => {
+				_ref.removeEventListener("scroll", handlerScroll)
+			}
+		}
+	},[])
+
+	const handlerScroll = () => {
+		if(refBun.current && refBun.current.getBoundingClientRect().y <= 284)
+			setCurrent('Булки')
+		if(refSauce.current && refSauce.current?.getBoundingClientRect().y <= 284)
+			setCurrent('Соусы')
+		if(refMain.current && refMain.current?.getBoundingClientRect().y <= 284)
+			setCurrent('Начинки')
+	}
+
 	return(
 		// подписываемся на событие onScroll и используем
 		// getBoundingClientRect().
@@ -35,14 +60,14 @@ export function BurgerIngredients ({ height }: IBurgerIngredients){
 					Начинки
 				</Tab>
 			</div>
-			<ul className={`${clsx(s.ingredients)} pt-10`} style={{height: height - 300}}>
-				<li>
+			<ul className={`${clsx(s.ingredients)} pt-10`} style={{height: height - 300}} ref={ref}>
+				<li ref={refBun}>
 					<Ingredient title={"Булки"} type={'bun'}/>
 				</li>
-				<li className="mt-10">
+				<li className="mt-10" ref={refSauce}>
 					<Ingredient title={"Соусы"} type={'sauce'}/>
 				</li>
-				<li className="mt-10">
+				<li className="mt-10" ref={refMain}>
 					<Ingredient title={"Начинки"} type={'main'}/>
 				</li>
 			</ul>
