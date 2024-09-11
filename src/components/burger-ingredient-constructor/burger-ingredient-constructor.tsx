@@ -5,10 +5,10 @@ import { useRef, useState } from 'react';
 import Modal from '../modal';
 import OrderDetails from '../order-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
-import { addItem, deleteItem, moveItem } from '../../services/ingredients-select-splice';
-import { openModal } from '../../services/ingredients-details-splice';
-import { closeModal, openModal as  openDetailModal} from '../../services/order-splice';
+import { RootState } from '../../services/store';
+import { deleteItem, moveItem } from '../../services/ingredients-select-splice/reducer';
+import { openModal } from '../../services/ingredients-details-splice/reducer';
+import { closeModal, openModal as  openDetailModal} from '../../services/order-splice/reducer';
 import { useDrag, useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
 import type { Identifier, XYCoord } from 'dnd-core'
@@ -75,7 +75,7 @@ export function BurgerIngredientConstructor ({ingredient, index}:IBurgerIngredie
 		if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
 		  return
 		}
-		dispatch(moveItem({fromIndex: dragIndex, toIndex: hoverIndex, item: item.ingredient}))
+		dispatch(moveItem({fromIndex: dragIndex, toIndex: hoverIndex}))
 
 		item.index = hoverIndex
 	  },

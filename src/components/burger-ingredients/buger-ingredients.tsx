@@ -4,10 +4,10 @@ import s from './burger-igredients.module.scss';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "../igredients";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { RootState } from "../../services/store";
 import Modal from "../modal";
 import IngredientDetails from "../ingredient-details";
-import { closeModal } from "../../services/ingredients-details-splice";
+import { closeModal } from "../../services/ingredients-details-splice/reducer";
 
 interface IBurgerIngredients{
 	height: number

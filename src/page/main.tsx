@@ -3,15 +3,15 @@ import clsx from 'clsx';
 import s from './main.module.scss';
 import {BurgerConstructor, BurgerIngredients, IngredientDetails, Modal} from '../components'
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../app/store";
+import { RootState } from "../services/store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { closeModal } from "../services/ingredients-details-splice";
+import { closeModal } from "../services/ingredients-details-splice/reducer";
 
 export function Main (){
 
 	const [height, setHeight] = useState(window.document.documentElement.clientHeight);
-	const openIngredient = useSelector((state: RootState) => state.ingredientsDetails.isOpen);
+	const item = useSelector((state: RootState) => state.ingredientsDetails.item);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -31,7 +31,7 @@ export function Main (){
 				<BurgerIngredients height={height}/>
 				<BurgerConstructor height={height}/>
 			</DndProvider>
-			{openIngredient &&
+			{item &&
 				<Modal title='Детали ингредиента' onClose={() => dispatch(closeModal())}>
 					<IngredientDetails/>
 				</Modal>

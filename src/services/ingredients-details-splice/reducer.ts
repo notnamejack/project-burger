@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { IIngredients } from '../data/ingredients'
+import { IIngredients } from '../../data/ingredients'
 
 interface IngredientDetailsState {
   item: IIngredients | null,
-  isOpen: boolean,
 }
 
 interface IngredientDetails{
@@ -13,24 +12,19 @@ interface IngredientDetails{
 
 const initialState: IngredientDetailsState = {
 	item: null,
-	isOpen: false,
 }
 
-const ingredientsDetailsSlice = createSlice({
+export const ingredientsDetailsSlice = createSlice({
 	name: 'ingredientsDetails',
 	initialState,
 	reducers: {
 	  openModal: (state, action: PayloadAction<IngredientDetails>) => {
-		state.item = action.payload.item,
-		state.isOpen = true
+		state.item = action.payload.item
 	  },
 	  closeModal: (state) => {
-		state.item = null,
-		state.isOpen = false
+		state.item = null
 	  },
 	},
   })
 
 export const { openModal, closeModal } = ingredientsDetailsSlice.actions
-
-export default ingredientsDetailsSlice.reducer

@@ -5,7 +5,7 @@ import s from './igredient.module.scss';
 import { IIngredients } from "../../data/ingredients";
 import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
-import { openModal } from "../../services/ingredients-details-splice";
+import { openModal } from "../../services/ingredients-details-splice/reducer";
 
 interface IIngredient {
 	ingredient: IIngredients,

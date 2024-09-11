@@ -5,10 +5,10 @@ import { useState } from 'react';
 import Modal from '../modal';
 import OrderDetails from '../order-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
-import { addItem, deleteItem } from '../../services/ingredients-select-splice';
-import { openModal } from '../../services/ingredients-details-splice';
-import { closeModal, openModal as  openDetailModal} from '../../services/order-splice';
+import { RootState } from '../../services/store';
+import { setIngredient, deleteItem, setBun } from '../../services/ingredients-select-splice/reducer';
+import { openModal } from '../../services/ingredients-details-splice/reducer';
+import { closeModal, openModal as  openDetailModal} from '../../services/order-splice/reducer';
 import { useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
 import BurgerIngredientsConstructorfunction from '../burger-ingredients-constructor';
@@ -33,7 +33,10 @@ export function BurgerConstructor({height}: IBurgerConstructor){
             isHover: monitor.isOver(),
         }),
 		drop: (item: IIngredients) => {
-			dispatch(addItem({item: item, type: item.type}));
+			if(item.type !== 'bun')
+				dispatch(setIngredient(item));
+			else
+				dispatch(setBun(item));
 		}
 	  });
 

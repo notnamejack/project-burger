@@ -8,7 +8,7 @@ const initialState: OrderState = {
 	isOpen: false
 }
 
-const orderSplice = createSlice({
+export const orderSplice = createSlice({
 	name: 'order',
 	initialState,
 	reducers: {
@@ -22,5 +22,3 @@ const orderSplice = createSlice({
   })
 
 export const { openModal, closeModal } = orderSplice.actions
-
-export default orderSplice.reducer

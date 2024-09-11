@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { IIngredients } from '../data/ingredients'
+import { IIngredients } from '../../data/ingredients'
 import { v4 } from "uuid";
 
 interface IngredientsSelectState {
@@ -10,14 +10,12 @@ interface IngredientsSelectState {
 }
 
 interface IngredientState{
-	item: IIngredients,
-	type?: string
+	item: IIngredients
 }
 
 interface IngredientMoveState{
 	fromIndex: number,
-	toIndex: number,
-	item: IIngredients,
+	toIndex: number
 }
 
 const initialState: IngredientsSelectState = {
@@ -28,30 +26,23 @@ const initialState: IngredientsSelectState = {
 
 const newGuid = (): string => v4()
 
-const ingredientsSelectSlice = createSlice({
+export const ingredientsSelectSlice = createSlice({
 	name: 'ingredientsSelect',
 	initialState,
 	reducers: {
-	  addItem: (state, action: PayloadAction<IngredientState>) => {
-		if( action.payload.type !== 'bun'){
-			state.items.push({...action.payload.item, index: newGuid()})
-			state.total += action.payload.item.price
+	  setIngredient: {
+		reducer: (state, action: PayloadAction<IIngredients>) => {
+			state.items.push(action.payload);
+		},
+		prepare: (item: IIngredients) => {
+			return {payload: {...item, index: newGuid()}}
 		}
-		else{
-			if(!state.bun){
-				state.bun = action.payload.item
-				state.total += (action.payload.item.price * 2)
-			}
-			else{
-				state.total -= state.bun.price * 2
-				state.bun = action.payload.item
-				state.total += (action.payload.item.price * 2)
-			}
-		}
+	  },
+	  setBun: (state, action: PayloadAction<IIngredients>) => {
+		state.bun = action.payload
 	  },
 	  deleteItem: (state, action: PayloadAction<IngredientState>) => {
 		state.items = state.items.filter(i => i.index !== action.payload.item.index);
-		state.total -= action.payload.item.price;
 	  },
 	  moveItem: (state, action: PayloadAction<IngredientMoveState>) => {
 		const ingredients = [...state.items];
@@ -62,6 +53,4 @@ const ingredientsSelectSlice = createSlice({
 	},
   })
 
-export const { addItem, deleteItem, moveItem } = ingredientsSelectSlice.actions
-
-export default ingredientsSelectSlice.reducer
+export const { setIngredient, setBun, deleteItem, moveItem } = ingredientsSelectSlice.actions
