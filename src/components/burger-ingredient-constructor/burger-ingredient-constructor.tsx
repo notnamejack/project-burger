@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services/store';
 import { deleteItem, moveItem } from '../../services/ingredients-select-splice/reducer';
 import { openModal } from '../../services/ingredients-details-splice/reducer';
-import { closeModal, openModal as  openDetailModal} from '../../services/order-splice/reducer';
 import { useDrag, useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
 import type { Identifier, XYCoord } from 'dnd-core'

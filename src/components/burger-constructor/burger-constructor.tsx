@@ -8,11 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services/store';
 import { setIngredient, deleteItem, setBun } from '../../services/ingredients-select-splice/reducer';
 import { openModal } from '../../services/ingredients-details-splice/reducer';
-import { closeModal, openModal as  openDetailModal} from '../../services/order-splice/reducer';
 import { useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
 import BurgerIngredientsConstructorfunction from '../burger-ingredients-constructor';
 import BurgerIngredientsConstructor from '../burger-ingredients-constructor';
+import { useSetOrderMutation} from '../../services/order/api';
+import { addOrder, deleteOrder } from '../../services/order-details-splice/reducer';
 
 interface IBurgerConstructor{
 	height: number
@@ -20,9 +21,10 @@ interface IBurgerConstructor{
 
 export function BurgerConstructor({height}: IBurgerConstructor){
 
-	const openOrder = useSelector((state: RootState) => state.order.isOpen);
+	const order = useSelector((state: RootState) => state.order.orderDetail);
 	const but = useSelector((state: RootState) => state.ingredientsSelect.bun);
 	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
+	const [ addIngredients, { error: addUserError, isLoading: isAddingUser }, ] = useSetOrderMutation();
 
 	const dispatch = useDispatch();
 
@@ -48,6 +50,22 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 			total += but.price * 2
 		return total;
 	}, [selectIngredients, but])
+
+
+	const handlerSend = async () => {
+		var ingredients = [];
+		if(but){
+			ingredients.push(but?._id);
+			selectIngredients.forEach(item => {
+				ingredients.push(item._id);
+			})
+			ingredients.push(but?._id);
+
+			dispatch(addOrder(await addIngredients({ingredients: ingredients}).then(result => {return result.data})))
+
+		}
+
+	}
 
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
@@ -89,12 +107,12 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 			</div>
 			<div className={clsx(s.footer)}>
 				<p className="text text_type_digits-medium">{`${total} `}<CurrencyIcon type="primary" /></p>
-				<Button htmlType="button" type="primary" size="large" onClick={() => dispatch(openDetailModal())}>
+				<Button htmlType="button" type="primary" size="large" onClick={() => handlerSend()}>
 					Оформить заказ
 				</Button>
 			</div>
-			{openOrder &&
-				<Modal onClose={() => dispatch(closeModal())}>
+			{order &&
+				<Modal onClose={() => dispatch(deleteOrder())}>
 					<OrderDetails/>
 				</Modal>
 			}

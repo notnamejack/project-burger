@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services/store';
 import { deleteItem } from '../../services/ingredients-select-splice/reducer';
 import { openModal } from '../../services/ingredients-details-splice/reducer';
-import { closeModal, openModal as  openDetailModal} from '../../services/order-splice/reducer';
 import { useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
 import { BurgerIngredientConstructor } from '../burger-ingredient-constructor/burger-ingredient-constructor';
