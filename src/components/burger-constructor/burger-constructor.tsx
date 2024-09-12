@@ -1,19 +1,15 @@
 import clsx from 'clsx';
 import s from './burger-constructor.module.scss';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useMemo, useState } from 'react';
-import Modal from '../modal';
-import OrderDetails from '../order-details';
+import { Button, ConstructorElement, CurrencyIcon,  } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../services/store';
-import { setIngredient, deleteItem, setBun } from '../../services/ingredients-select-splice/reducer';
-import { openModal } from '../../services/ingredients-details-splice/reducer';
+import { setIngredient, setBun } from '../../services/ingredients-select-splice/reducer';
 import { useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
-import BurgerIngredientsConstructorfunction from '../burger-ingredients-constructor';
 import BurgerIngredientsConstructor from '../burger-ingredients-constructor';
 import { useSetOrderMutation} from '../../services/order/api';
-import { addOrder, deleteOrder } from '../../services/order-details-splice/reducer';
+import { addOrder } from '../../services/order-details-splice/reducer';
 
 interface IBurgerConstructor{
 	height: number
@@ -21,7 +17,6 @@ interface IBurgerConstructor{
 
 export function BurgerConstructor({height}: IBurgerConstructor){
 
-	const order = useSelector((state: RootState) => state.order.orderDetail);
 	const but = useSelector((state: RootState) => state.ingredientsSelect.bun);
 	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
 	const [ addIngredients, { error: addUserError, isLoading: isAddingUser }, ] = useSetOrderMutation();
@@ -62,9 +57,7 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 			ingredients.push(but?._id);
 
 			dispatch(addOrder(await addIngredients({ingredients: ingredients}).then(result => {return result.data})))
-
 		}
-
 	}
 
 	return(
@@ -111,11 +104,6 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 					Оформить заказ
 				</Button>
 			</div>
-			{order &&
-				<Modal onClose={() => dispatch(deleteOrder())}>
-					<OrderDetails/>
-				</Modal>
-			}
 		</div>
 	)
 }

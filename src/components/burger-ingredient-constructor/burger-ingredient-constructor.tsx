@@ -1,13 +1,9 @@
 import clsx from 'clsx';
 import s from './burger-ingredient-constructor.module.scss';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useRef, useState } from 'react';
-import Modal from '../modal';
-import OrderDetails from '../order-details';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services/store';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { deleteItem, moveItem } from '../../services/ingredients-select-splice/reducer';
-import { openModal } from '../../services/ingredients-details-splice/reducer';
 import { useDrag, useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
 import type { Identifier, XYCoord } from 'dnd-core'

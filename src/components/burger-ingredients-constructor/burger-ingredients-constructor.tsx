@@ -1,15 +1,7 @@
 import clsx from 'clsx';
 import s from './burger-ingredients-constructor.module.scss';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
-import Modal from '../modal';
-import OrderDetails from '../order-details';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { RootState } from '../../services/store';
-import { deleteItem } from '../../services/ingredients-select-splice/reducer';
-import { openModal } from '../../services/ingredients-details-splice/reducer';
-import { useDrop } from 'react-dnd';
-import { IIngredients } from '../../data/ingredients';
 import { BurgerIngredientConstructor } from '../burger-ingredient-constructor/burger-ingredient-constructor';
 
 interface IBurgerConstructor{

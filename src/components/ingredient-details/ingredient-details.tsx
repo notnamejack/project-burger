@@ -1,13 +1,8 @@
 
 import clsx from 'clsx';
 import s from './ingredient-details.module.scss';
-import { IIngredients } from '../../data/ingredients';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../services/store';
-
-interface IIngredientDetails{
-	ingredient: IIngredients | undefined
-}
 
 export function IngredientDetails (){
 	const ingredient = useSelector((state: RootState) => state.ingredientsDetails.item);

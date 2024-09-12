@@ -5,15 +5,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../services/store";
 import Ingredient from "../ingredient";
 import { useGetIngredientsQuery } from '../../services/ingredients/api';
-import { IIngredients } from '../../data/ingredients';
 
 interface IIngredientItem{
 	title: string;
 	type: string,
-}
-
-interface IIngredientDate{
-	data: IIngredients[];
 }
 
 export function Ingredients ({title, type}: IIngredientItem){

@@ -3,11 +3,6 @@ import clsx from 'clsx';
 import s from './burger-igredients.module.scss';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredients from "../igredients";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../services/store";
-import Modal from "../modal";
-import IngredientDetails from "../ingredient-details";
-import { closeModal } from "../../services/ingredients-details-splice/reducer";
 
 interface IBurgerIngredients{
 	height: number
@@ -41,8 +36,6 @@ export function BurgerIngredients ({ height }: IBurgerIngredients){
 	}
 
 	return(
-		// подписываемся на событие onScroll и используем
-		// getBoundingClientRect().
 		<div>
 			<p className="text text_type_main-large mb-5 mt-10">
 				Соберите бургер

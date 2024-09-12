@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import clsx from 'clsx';
 import s from './main.module.scss';
-import {BurgerConstructor, BurgerIngredients, IngredientDetails, Modal} from '../components'
+import {BurgerConstructor, BurgerIngredients, IngredientDetails, Modal, OrderDetails} from '../components'
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../services/store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { closeModal } from "../services/ingredients-details-splice/reducer";
+import { deleteOrder } from "../services/order-details-splice/reducer";
 
 export function Main (){
 
 	const [height, setHeight] = useState(window.document.documentElement.clientHeight);
 	const item = useSelector((state: RootState) => state.ingredientsDetails.item);
+	const order = useSelector((state: RootState) => state.order.orderDetail);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -34,6 +36,11 @@ export function Main (){
 			{item &&
 				<Modal title='Детали ингредиента' onClose={() => dispatch(closeModal())}>
 					<IngredientDetails/>
+				</Modal>
+			}
+			{order &&
+				<Modal onClose={() => dispatch(deleteOrder())}>
+					<OrderDetails/>
 				</Modal>
 			}
 		</div>
