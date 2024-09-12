@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import s from './burger-constructor.module.scss';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Modal from '../modal';
 import OrderDetails from '../order-details';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,6 @@ interface IBurgerConstructor{
 export function BurgerConstructor({height}: IBurgerConstructor){
 
 	const openOrder = useSelector((state: RootState) => state.order.isOpen);
-	const price = useSelector((state: RootState) => state.ingredientsSelect.total);
 	const but = useSelector((state: RootState) => state.ingredientsSelect.bun);
 	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
 
@@ -39,6 +38,16 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 				dispatch(setBun(item));
 		}
 	  });
+
+	const total = useMemo(() => {
+		var total = 0;
+			selectIngredients.forEach(item =>
+				total += item.price,
+			  )
+		if(but)
+			total += but.price * 2
+		return total;
+	}, [selectIngredients, but])
 
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
@@ -79,7 +88,7 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 				</div>
 			</div>
 			<div className={clsx(s.footer)}>
-				<p className="text text_type_digits-medium">{`${price} `}<CurrencyIcon type="primary" /></p>
+				<p className="text text_type_digits-medium">{`${total} `}<CurrencyIcon type="primary" /></p>
 				<Button htmlType="button" type="primary" size="large" onClick={() => dispatch(openDetailModal())}>
 					Оформить заказ
 				</Button>

@@ -5,7 +5,6 @@ import { v4 } from "uuid";
 
 interface IngredientsSelectState {
   items: IIngredients[],
-  total: number,
   bun: IIngredients | null,
 }
 
@@ -20,7 +19,6 @@ interface IngredientMoveState{
 
 const initialState: IngredientsSelectState = {
 	items: [],
-	total: 0,
 	bun: null
 } satisfies IngredientsSelectState as IngredientsSelectState
 
