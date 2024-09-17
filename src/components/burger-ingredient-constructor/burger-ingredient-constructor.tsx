@@ -80,7 +80,7 @@ export function BurgerIngredientConstructor ({ingredient, index}:IBurgerIngredie
 	drag(drop(ref));
 
 	return (
-		<li ref={ref} className={clsx(s.item)} key={`${index}_${ingredient._id}`} data-handler-id={handlerId}>
+		<li className={clsx(s.item)} key={`${index}_${ingredient._id}`} data-handler-id={handlerId}>
 			<DragIcon type="primary"/>
 			<ConstructorElement
 				text={ingredient.name}
