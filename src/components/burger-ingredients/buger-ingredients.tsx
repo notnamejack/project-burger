@@ -1,21 +1,39 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from 'clsx';
 import s from './burger-igredients.module.scss';
-import { IIngredients } from "../../data/ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Ingredient from "../igredients";
+import Ingredients from "../igredients";
 
 interface IBurgerIngredients{
-	bun: IIngredients[] | [];
-	main: IIngredients[] | [];
-	sauce: IIngredients[] | [];
-	height: number,
-	selectIngredients: IIngredients[],
-	onAddIngredients: (value: IIngredients) => void
+	height: number
 }
 
-export function BurgerIngredients ({bun, main, sauce, height, selectIngredients, onAddIngredients}: IBurgerIngredients){
+export function BurgerIngredients ({ height }: IBurgerIngredients){
 	const [current, setCurrent] = useState('Булки');
+
+	const ref = useRef<HTMLUListElement>(null);
+	const refBun = useRef<HTMLLIElement>(null);
+	const refSauce = useRef<HTMLLIElement>(null);
+	const refMain = useRef<HTMLLIElement>(null);
+
+	useEffect(() => {
+		if(ref.current){
+			const _ref = ref.current;
+			_ref.addEventListener("scroll", handlerScroll)
+			return () => {
+				_ref.removeEventListener("scroll", handlerScroll)
+			}
+		}
+	},[])
+
+	const handlerScroll = () => {
+		if(refBun.current && refBun.current.getBoundingClientRect().y <= 284)
+			setCurrent('Булки')
+		if(refSauce.current && refSauce.current?.getBoundingClientRect().y <= 284)
+			setCurrent('Соусы')
+		if(refMain.current && refMain.current?.getBoundingClientRect().y <= 284)
+			setCurrent('Начинки')
+	}
 
 	return(
 		<div>
@@ -33,18 +51,17 @@ export function BurgerIngredients ({bun, main, sauce, height, selectIngredients,
 					Начинки
 				</Tab>
 			</div>
-			<ul className={`${clsx(s.ingredients)} pt-10`} style={{height: height - 300}}>
-				<li>
-					<Ingredient title={"Булки"} items={bun} selectIngredients={selectIngredients} handlerAdd={onAddIngredients}/>
+			<ul className={`${clsx(s.ingredients)} pt-10`} style={{height: height - 300}} ref={ref}>
+				<li ref={refBun}>
+					<Ingredients title={"Булки"} type={'bun'}/>
 				</li>
-				<li className="mt-10">
-					<Ingredient title={"Соусы"} items={sauce} selectIngredients={selectIngredients} handlerAdd={onAddIngredients}/>
+				<li className="mt-10" ref={refSauce}>
+					<Ingredients title={"Соусы"} type={'sauce'}/>
 				</li>
-				<li className="mt-10">
-					<Ingredient title={"Начинки"} items={main} selectIngredients={selectIngredients} handlerAdd={onAddIngredients}/>
+				<li className="mt-10" ref={refMain}>
+					<Ingredients title={"Начинки"} type={'main'}/>
 				</li>
 			</ul>
-
 		</div>
 	)
 }

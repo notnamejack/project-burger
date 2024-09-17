@@ -3,12 +3,17 @@ import clsx from 'clsx';
 import s from './order-details.module.scss';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import DoneBack from '../../images/done_back.svg'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../services/store';
 
 export function OrderDetails (){
+
+	const order = useSelector((state: RootState) => state.order.orderDetail);
+
 	return (
 		<div className={clsx(s.container)}>
 			<div className={clsx(s.number)}>
-				<p className={`${clsx(s.order)} text text_type_digits-large`}>034536</p>
+				<p className={`${clsx(s.order)} text text_type_digits-large`}>{`${order?.order.number}`}</p>
 				<p className="text text_type_main-medium">идентификатор заказа</p>
 			</div>
 			<div className={clsx(s.image)}>

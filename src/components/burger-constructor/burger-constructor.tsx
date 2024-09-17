@@ -1,41 +1,68 @@
 import clsx from 'clsx';
 import s from './burger-constructor.module.scss';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useState } from 'react';
+import { Button, ConstructorElement, CurrencyIcon,  } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../services/store';
+import { setIngredient, setBun } from '../../services/ingredients-select-splice/reducer';
+import { useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
-import Modal from '../modal';
-import IngredientDetails from '../ingredient-details';
-import OrderDetails from '../order-details';
+import BurgerIngredientsConstructor from '../burger-ingredients-constructor';
+import { useSetOrderMutation} from '../../services/order/api';
+import { addOrder } from '../../services/order-details-splice/reducer';
 
 interface IBurgerConstructor{
-	height: number,
-	selectIngredients: IIngredients[],
-	price?: number,
-	onDeleteIngredients: (index: string) => void
+	height: number
 }
 
-export function BurgerConstructor({height, selectIngredients, price, onDeleteIngredients}: IBurgerConstructor){
+export function BurgerConstructor({height}: IBurgerConstructor){
 
-	const [but, setBut] = useState<IIngredients>();
-	const [ingredient, setIngredient] = useState<IIngredients>();
-	const [openIngredient, setOpenIngredient] = useState(false);
-	const [openOrder, setOpenOrder] = useState(false);
+	const but = useSelector((state: RootState) => state.ingredientsSelect.bun);
+	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
+	const [ addIngredients, { error: addUserError, isLoading: isAddingUser }, ] = useSetOrderMutation();
 
-	useEffect(() => {
-		const find = selectIngredients.find(i => i.type === 'bun');
-		if(find && find._id !== but?._id){
-			setBut(find);
+	const dispatch = useDispatch();
+
+	const [{ isHover }, toppRef] = useDrop({
+		accept: 'ingredient',
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        }),
+		drop: (item: IIngredients) => {
+			if(item.type !== 'bun')
+				dispatch(setIngredient(item));
+			else
+				dispatch(setBun(item));
 		}
-	},[selectIngredients])
+	  });
 
-	const handlerOpenIngredient = (item: IIngredients) =>{
-		setIngredient(item);
-		setOpenIngredient(!openIngredient);
+	const total = useMemo(() => {
+		var total = 0;
+			selectIngredients.forEach(item =>
+				total += item.price,
+			  )
+		if(but)
+			total += but.price * 2
+		return total;
+	}, [selectIngredients, but])
+
+
+	const handlerSend = async () => {
+		var ingredients = [];
+		if(but){
+			ingredients.push(but?._id);
+			selectIngredients.forEach(item => {
+				ingredients.push(item._id);
+			})
+			ingredients.push(but?._id);
+
+			dispatch(addOrder(await addIngredients({ingredients: ingredients}).then(result => {return result.data})))
+		}
 	}
 
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
-			<div className={clsx(s.body)}>
+			<div className={clsx(s.body)} ref={toppRef}>
 				<div className={clsx(s.fixed)}>
 					{but && <ConstructorElement
 						type="top"
@@ -44,26 +71,19 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 						price={but.price}
 						thumbnail={but.image}
 					/>}
+					{!but &&
+					<div className={`${clsx(s.bun)} ${isHover && clsx(s.hover)} constructor-element constructor-element_pos_top`}>
+						<p className="text text_type_main-default">Выберите булку</p>
+					</div>}
 				</div>
-				<ul className={clsx(s.items)}
-					style={{ height: height - (but ? 484 : 284) < (selectIngredients.length - (but ? 2 : 0) ) * 90 ? height - (but ? 524: 344) :'auto',
-						paddingRight: height - (but ? 484 : 284) < (selectIngredients.length - (but ? 2 : 0) ) * 90 ? 0 : 15
-					 }}>
-					{selectIngredients.filter(i => i.type !== 'bun').map((item, index) =>
-						<li className={clsx(s.item)} key={`${index}_${item._id}`}>
-							{/* сделал див, чтоб открывать описание ингредиента */}
-							<div className={clsx(s.click)} onClick={() => {handlerOpenIngredient(item)}}>
-								<DragIcon type="primary"/>
-							</div>
-							<ConstructorElement
-								text={item.name}
-								price={item.price}
-								thumbnail={item.image}
-								handleClose={() => onDeleteIngredients(item?.index || "")}
-							/>
-						</li>)
-					}
-				</ul>
+				{selectIngredients.length !== 0 && <BurgerIngredientsConstructor height={height}/>}
+				{selectIngredients.length === 0 &&
+					<div className={clsx(s.fixed)}>
+						<div className={`${clsx(s.bun)} ${isHover && clsx(s.hover)} constructor-element`}>
+							<p className="text text_type_main-default">Выберите начинку или соус</p>
+						</div>
+					</div>
+				}
 				<div className={clsx(s.fixed)}>
 					{but && <ConstructorElement
 						type="bottom"
@@ -72,27 +92,18 @@ export function BurgerConstructor({height, selectIngredients, price, onDeleteIng
 						price={but.price}
 						thumbnail={but.image}
 					/>}
+					{!but &&
+					<div className={`${clsx(s.bun)} ${isHover && clsx(s.hover)} constructor-element constructor-element_pos_bottom`}>
+						<p className="text text_type_main-default">Выберите булку</p>
+					</div>}
 				</div>
-
 			</div>
-			{(price || price !== 0) &&
-				<div className={clsx(s.footer)}>
-					<p className="text text_type_digits-medium">{price}<CurrencyIcon type="primary" /></p>
-					<Button htmlType="button" type="primary" size="large" onClick={() => setOpenOrder(!openOrder)}>
-						Оформить заказ
-					</Button>
-				</div>
-			}
-			{openIngredient &&
-				<Modal title='Детали ингредиента' onClose={() => setOpenIngredient(false)}>
-					<IngredientDetails ingredient={ingredient}/>
-				</Modal>
-			}
-			{openOrder &&
-				<Modal onClose={() => setOpenOrder(false)}>
-					<OrderDetails/>
-				</Modal>
-			}
+			<div className={clsx(s.footer)}>
+				<p className="text text_type_digits-medium">{`${total} `}<CurrencyIcon type="primary" /></p>
+				<Button htmlType="button" type="primary" size="large" onClick={() => handlerSend()}>
+					Оформить заказ
+				</Button>
+			</div>
 		</div>
 	)
 }
