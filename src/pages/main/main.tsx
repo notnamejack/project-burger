@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import clsx from 'clsx';
 import s from './main.module.scss';
-import {BurgerConstructor, BurgerIngredients, IngredientDetails, Modal, OrderDetails} from '../components'
+
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../services/store";
+
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { closeModal } from "../services/ingredients-details-splice/reducer";
-import { deleteOrder } from "../services/order-details-splice/reducer";
+import { RootState } from "../../services/store";
+import { BurgerConstructor, BurgerIngredients, IngredientDetails, Modal, OrderDetails } from "../../components";
+import { closeModal } from "../../services/ingredients-details-splice/reducer";
+import { deleteOrder } from "../../services/order-details-splice/reducer";
+
+
 
 export function Main (){
 
