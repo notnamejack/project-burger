@@ -1,9 +1,15 @@
 import clsx from 'clsx';
 import s from './register.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useNavigate } from 'react-router-dom';
 
 
 export function Register (){
+	const navigate = useNavigate();
+
+	const onClickLogin = () => {
+		navigate('/login');
+	}
 
 	return(
 		<div className={clsx(s.container)}>
@@ -52,7 +58,7 @@ export function Register (){
 				</div>
 				<div className={clsx(s.button)}>
 					<p className="text text_type_main-default text_color_inactive">
-						Уже зарегистрированы? <Button htmlType="button" type="secondary" size="medium">
+						Уже зарегистрированы? <Button htmlType="button" type="secondary" size="medium" onClick={onClickLogin}>
 							Войти
 						</Button>
 					</p>
