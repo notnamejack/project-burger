@@ -1,0 +1,37 @@
+.container{
+	display: flex;
+	align-items: flex-start;
+	gap: 60px;
+	width: 1240px;
+	height: calc(100vh - 88px);
+}
+
+.nav{
+	padding-top: 120px;
+	width: 320px;
+}
+
+.nav li{
+	padding: 20px 0;
+}
+
+.nav li:hover  span{
+	color: #fff;
+}
+
+.nav li button{
+	padding: 0;
+	font-size: 24px;
+	font-weight: 700;
+	color: var(--text-inactive-color);
+}
+
+.nav li button:focus,
+.nav li button:focus-visible,
+.nav li button:active,
+.nav li button:hover{
+	outline: none;
+}
+.active span{
+	color: #fff;
+}

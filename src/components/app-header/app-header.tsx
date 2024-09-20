@@ -13,13 +13,13 @@ export function AppHeader (){
 					<ul className={clsx(s.items)}>
 						<li className={`${clsx(s.item)} pl-5 pr-5 pb-5 pt-5`}>
 							{/* сделал <a></a> чтоб потом на линк поменять, чтоб между страницами переключать */}
-							<NavLink to={'/'} >
+							<NavLink to={'/'} className={({isActive}) => isActive ? clsx(s.active) : ''}>
 								<BurgerIcon type="secondary" />
 								<span className='text text_type_main-default text_color_inactive'>Конструктор</span>
 							</NavLink>
 						</li>
 						<li className={clsx(s.item)}>
-							<NavLink to={'/'} >
+							<NavLink to={'/order'} className={({isActive}) => isActive ? clsx(s.active) : ''}>
 								<ListIcon type="secondary" />
 								<span className='text text_type_main-default text_color_inactive'>Лента заказов</span>
 							</NavLink>
@@ -30,10 +30,10 @@ export function AppHeader (){
 					<Logo />
 				</div>
 				<div className={`${clsx(s.in)} pl-5 pr-5 pb-5 pt-5`}>
-					<a>
+					<NavLink to={'/profile'} className={({isActive}) => isActive ? clsx(s.active) : ''}>
 						<ProfileIcon type="secondary" />
 						<span className='text text_type_main-default text_color_inactive'>Личный кабинет</span>
-					</a>
+					</NavLink>
 				</div>
 			</div>
 		</header>

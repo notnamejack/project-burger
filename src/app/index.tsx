@@ -5,20 +5,21 @@ import { ForgotPassword, Login, Main, Profile, Register } from '../pages';
 
 export const App = () => {
 	return (
-		<div>
+		<BrowserRouter>
 			<AppHeader/>
 			<main>
-				<BrowserRouter>
-					<Routes>
-						<Route path='/' element={<Main/>}/>
-						<Route path='/login' element={<Login/>}/>
-						<Route path='/register' element={<Register/>}/>
-						<Route path='/forgot-password' element={<ForgotPassword/>}/>
-						<Route path='/reset-password' element={<ForgotPassword/>}/>
-						<Route path='/profile' element={<Profile/>}/>
-					</Routes>
-				</BrowserRouter>
+				<Routes>
+					<Route path='/' element={<Main/>}/>
+					<Route path='/login' element={<Login/>}/>
+					<Route path='/register' element={<Register/>}/>
+					<Route path='/forgot-password' element={<ForgotPassword/>}/>
+					<Route path='/reset-password' element={<ForgotPassword/>}/>
+					<Route path='/profile' element={<Profile/>}>
+						<Route path=':orders' element={<></>}/>
+						<Route path='' element={<></>}/>
+					</Route>
+				</Routes>
 			</main>
-		</div>
+		</BrowserRouter>
 	);
 };
