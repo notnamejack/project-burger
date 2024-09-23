@@ -3,9 +3,13 @@ import s from './login.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
+import { login } from '../../services/auth/actions';
+import { useAppDispatch } from '../../services/store';
 
 
 export function Login (){
+    const dispatch = useAppDispatch();
+
 	const [email, setEmail] = useState('')
 	const emailRef = useRef(null)
 
@@ -20,6 +24,13 @@ export function Login (){
 
 	const onClickForgotPassword = () => {
 		navigate('/forgot-password');
+	}
+
+	const onClick = () => {
+		const form = {email: "capjack38@ya.ru", password: "qwaszX12@"};
+		dispatch(login({form}));
+
+		// {email: "capjack38@ya.ru", password: "qwaszX12@"}
 	}
 
 	return(
@@ -54,7 +65,7 @@ export function Login (){
 						size={'default'}
 						extraClass="ml-1"
 						/>
-					<Button htmlType="button" type="primary" size="large">
+					<Button htmlType="button" type="primary" size="large" onClick={onClick}>
 						Войти
 					</Button>
 				</div>

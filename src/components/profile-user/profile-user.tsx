@@ -2,8 +2,12 @@
 import clsx from 'clsx';
 import s from './profile-user.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../services/auth/reducer';
 
 export function ProfileUser(){
+	const user = useSelector(getUser);
+
 	return(
 		<div className={clsx(s.container)}>
 			<Input
@@ -11,7 +15,7 @@ export function ProfileUser(){
 				placeholder={'Имя'}
 				onChange={e => {}}
 				icon='EditIcon'
-				value={''}
+				value={user?.name || ''}
 				name={'name'}
 				error={false}
 				errorText={'Ошибка'}
@@ -23,7 +27,7 @@ export function ProfileUser(){
 				placeholder={'E-mail'}
 				onChange={e => {}}
 				icon='CloseIcon'
-				value={''}
+				value={user?.email || ''}
 				name={'name'}
 				error={false}
 				errorText={'Ошибка'}
