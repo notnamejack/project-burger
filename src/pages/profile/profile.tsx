@@ -1,15 +1,21 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import clsx from 'clsx';
 import s from './profile.module.scss';
+import { useState } from "react";
+import { ProfileUser } from "../../components";
+
+const pathDefault = '/profile'
 
 export function Profile(){
+	const { pathname } = useLocation();
+
 	return(
 		<div className={clsx(s.container)}>
 			<nav className={clsx(s.nav)}>
 				<ul>
 					<li>
-						<NavLink to={'/profile'} className={({isActive}) => isActive ? clsx(s.active) : ''}>
+						<NavLink to={'/profile'} end className={({isActive}) => isActive ? clsx(s.active) : ''}>
 							<span className='text text_type_main-medium text_color_inactive'>Профиль</span>
 						</NavLink>
 					</li>
@@ -26,7 +32,9 @@ export function Profile(){
 				</ul>
 			</nav>
 			<div>
-				<Outlet/>
+				{pathname === pathDefault
+				? <ProfileUser/>
+				:<Outlet/>}
 			</div>
 		</div>
 	)
