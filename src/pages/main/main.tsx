@@ -37,11 +37,11 @@ export function Main (){
 				<BurgerIngredients height={height}/>
 				<BurgerConstructor height={height}/>
 			</DndProvider>
-			{item &&
+			{/* {item &&
 				<Modal title='Детали ингредиента' onClose={() => dispatch(closeModal())}>
 					<IngredientDetails/>
 				</Modal>
-			}
+			} */}
 			{order &&
 				<Modal onClose={() => dispatch(deleteOrder())}>
 					<OrderDetails/>

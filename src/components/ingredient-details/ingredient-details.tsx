@@ -2,10 +2,20 @@
 import clsx from 'clsx';
 import s from './ingredient-details.module.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../services/store';
+import { RootState, useAppDispatch } from '../../services/store';
+import { useEffect } from 'react';
+import { openModal } from '../../services/ingredients-details-splice/reducer';
 
 export function IngredientDetails (){
 	const ingredient = useSelector((state: RootState) => state.ingredientsDetails.item);
+	const dispatch = useAppDispatch();
+
+
+
+	useEffect(() => {
+		const copy = ingredient
+		// dispatch(openModal({item: copy}))
+	}, [])
 
 	return (
 		<div className={clsx(s.container)}>

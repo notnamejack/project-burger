@@ -1,6 +1,6 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import { api } from "../../utils/api";
-import { IUser } from "./reducer";
+import { IUser, setIsAuthChecked } from "./reducer";
 
 export interface FormLogin{
 	email: string,
@@ -32,4 +32,17 @@ export const logout = createAsyncThunk(
     }
 )
 
-export const setUser = createAction<IUser>("auth/setUser");
+export const setUser = createAction("auth/setUser");
+
+export const checkUserAuth = createAsyncThunk(
+    "auth/checkUserAuth",
+    async (_, {dispatch} ) => {
+        if (localStorage.getItem("accessToken")) {
+            await api.getUser()
+                .then(user => {console.log(user); dispatch(setUser(user))})
+                .finally(() => dispatch(setIsAuthChecked(true)));
+        } else {
+            dispatch(setIsAuthChecked(true));
+        }
+    }
+)

@@ -2,14 +2,10 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import clsx from 'clsx';
 import s from './profile.module.scss';
-import { ProfileUser } from "../../components";
 import { useAppDispatch } from "../../services/store";
 import { logout } from "../../services/auth/actions";
 
-const pathDefault = '/profile'
-
 export function Profile(){
-	const { pathname } = useLocation();
     const dispatch = useAppDispatch();
 
 	const onClick = () => {
@@ -38,9 +34,7 @@ export function Profile(){
 				</ul>
 			</nav>
 			<div>
-				{pathname === pathDefault
-				? <ProfileUser/>
-				:<Outlet/>}
+				<Outlet/>
 			</div>
 		</div>
 	)

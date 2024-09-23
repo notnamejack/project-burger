@@ -26,7 +26,7 @@ return fetch(`${apiConfig.baseUrl}/auth/token`, {
 });
 };
 
-const fetchWithRefresh = async ({url, options}: {url: string, options: any}) => {
+const fetchWithRefresh = async (url: string, options: any) => {
 	try {
 	  const res = await fetch(url, options);
 	  return await checkReponse(res);
@@ -102,22 +102,31 @@ const logout = async () => {
 }
 
 const getUser = async () => {
-	fetchWithRefresh(`${apiConfig.baseUrl}/user`,
-	{
+	const request = await fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
+		method: "GET",
+		headers: {
+		"Content-Type": "application/json;charset=utf-8",
+		authorization: localStorage.getItem('accessToken')
+		}})
+	try {
+		return await request.user
+    } catch (error) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        throw error;
+    }
+}
+
+const patchUser = async (form: FormRegister) => {
+	const request = await fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
 		method: "GET",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
-		  authorization = refreshData.accessToken
-		}
-	}).then(data => {
-		if (!data.success) {
-			return Promise.reject(data);
-		  }
-		return data.user
-	});
-}
-
-const patchUser = async () => {
+		  authorization: localStorage.getItem('accessToken')
+		},
+		body:JSON.stringify({form})
+	})
+	return await request
 
 }
 

@@ -32,7 +32,7 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(setUser, (state, action) => {
-                state.user = action.payload;
+                state.user = action.payload || null;
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.user = action.payload;
