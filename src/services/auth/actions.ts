@@ -11,6 +11,11 @@ export interface FormRegister extends FormLogin{
 	name: string
 }
 
+export interface FormReset{
+	password: string,
+	token: string
+}
+
 export const login = createAsyncThunk(
     "auth/login",
     async ({ form }: { form: FormLogin }) => {
@@ -22,6 +27,20 @@ export const register = createAsyncThunk(
     "auth/register",
     async ({ form }: { form: FormRegister }) => {
         return api.register(form)
+    }
+);
+
+export const forgot = createAsyncThunk(
+    "auth/forgot",
+    async ({ email }: { email: string }) => {
+        return api.forgot(email)
+    }
+);
+
+export const reset = createAsyncThunk(
+    "auth/reset",
+    async ({ form }: { form: FormReset }) => {
+        return api.reset(form)
     }
 );
 

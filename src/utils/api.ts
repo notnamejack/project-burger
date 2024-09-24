@@ -1,4 +1,4 @@
-import { FormLogin, FormRegister } from "../services/auth/actions";
+import { FormLogin, FormRegister, FormReset } from "../services/auth/actions";
 import { apiConfig } from "./apiConfig";
 
 const checkReponse = (res: any) => {
@@ -80,6 +80,42 @@ const register = async (form: FormRegister) => {
 	  });
 }
 
+const forgot = async (email: string) => {
+	return await fetch(`${apiConfig.baseUrl}/password-reset`, {
+		method: "POST",
+		headers: {
+		  "Content-Type": "application/json;charset=utf-8",
+		},
+		body: JSON.stringify({email}),
+	  })
+	  .then(checkReponse)
+	  .then((data) => {
+		if (!data.success) {
+			return Promise.reject(data);
+		  }
+		localStorage.setItem("resetPassword", data.success);
+		return data.message;
+	  });
+}
+
+const reset = async (form: FormReset) => {
+	return await fetch(`${apiConfig.baseUrl}/password-reset/reset`, {
+		method: "POST",
+		headers: {
+		  "Content-Type": "application/json;charset=utf-8",
+		},
+		body: JSON.stringify(form),
+	  })
+	  .then(checkReponse)
+	  .then((data) => {
+		if (!data.success) {
+			return Promise.reject(data);
+		  }
+		localStorage.removeItem("resetPassword");
+		return data.message;
+	  });
+}
+
 const logout = async () => {
 	return await fetch(`${apiConfig.baseUrl}/auth/logout`, {
 		method: "POST",
@@ -133,6 +169,8 @@ const patchUser = async (form: FormRegister) => {
 export const api = {
     login,
 	register,
+	forgot,
+	reset,
     logout,
 	getUser,
 	patchUser

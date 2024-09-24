@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {login, logout, register, setUser} from "./actions";
+import {login, logout, register, forgot, setUser, reset} from "./actions";
 
 
 interface UserState {
 	user: IUser | null,
+	message: string | null,
 	isAuthChecked: boolean,
 	loading: boolean,
 	error: string | null
@@ -16,6 +17,7 @@ export interface IUser{
 
 const initialState: UserState = {
     user: null,
+	message: null,
     isAuthChecked: false,
 	loading: false,
 	error: null
@@ -59,9 +61,38 @@ export const authSlice = createSlice({
             })
             .addCase(register.fulfilled, (state, action) => {
                 state.user = action.payload;
+                state.loading = false;
                 state.isAuthChecked = true;
             })
             .addCase(register.rejected, (state, action) => {
+                state.error = action.error.message || null;
+                state.loading = false;
+            })
+            .addCase(forgot.pending, (state) => {
+                state.loading = true;
+                state.message = null;
+				state.error = null;
+            })
+            .addCase(forgot.fulfilled, (state, action) => {
+                state.message = action.payload;
+                state.loading = false;
+                state.isAuthChecked = true;
+            })
+            .addCase(forgot.rejected, (state, action) => {
+                state.error = action.error.message || null;
+                state.loading = false;
+            })
+            .addCase(reset.pending, (state) => {
+                state.loading = true;
+                state.message = null;
+				state.error = null;
+            })
+            .addCase(reset.fulfilled, (state, action) => {
+                state.message = action.payload;
+                state.loading = false;
+                state.isAuthChecked = true;
+            })
+            .addCase(reset.rejected, (state, action) => {
                 state.error = action.error.message || null;
                 state.loading = false;
             })

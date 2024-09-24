@@ -2,13 +2,31 @@ import clsx from 'clsx';
 import s from './forgot-password.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../services/store';
+import { useSelector } from 'react-redux';
+import { getError, getLoading } from '../../services/auth/reducer';
+import { useRef, useState } from 'react';
+import { forgot } from '../../services/auth/actions';
 
 
 export function ForgotPassword (){
+    const dispatch = useAppDispatch();
+	const loading = useSelector(getLoading);
+	const error = useSelector(getError);
+
+	const [email, setEmail] = useState<string>();
+	const emailRef = useRef(null);
+
 	const navigate = useNavigate();
 
 	const onClickLogin = () => {
 		navigate('/login');
+	}
+
+	const onClick = () => {
+		if(email ){
+			dispatch(forgot({email}));
+		}
 	}
 
 	return(
@@ -19,23 +37,26 @@ export function ForgotPassword (){
 						Восстановление пароля
 					</p>
 					<Input
+						ref={emailRef}
 						type={'email'}
-						placeholder={'Укажите e-mail'}
-						onChange={e => {}}
-						value={''}
-						name={'name'}
-						error={false}
-						errorText={'Ошибка'}
+						name={'email'}
+						placeholder={'E-mail'}
+						value={email || ''}
+						onChange={e => setEmail(e.target.value)}
+						error={email !== undefined ? email?.length === 0 : false}
+						disabled={loading}
+						errorText={'E-mail - не введён'}
 						size={'default'}
 						extraClass="ml-1"
 						/>
-					<Button htmlType="button" type="primary" size="large">
+					{error && <p className="text text_type_main-default text_color_inactive">{error}</p>}
+					<Button htmlType="button" type="primary" size="large" onClick={onClick} disabled={loading}>
 						Восстановить
 					</Button>
 				</div>
 				<div className={clsx(s.button)}>
 					<p className="text text_type_main-default text_color_inactive">
-						Вспомнили пароль? <Button htmlType="button" type="secondary" size="medium" onClick={onClickLogin}>
+						Вспомнили пароль? <Button htmlType="button" type="secondary" size="medium" onClick={onClickLogin} disabled={loading}>
 							Войти
 						</Button>
 					</p>
