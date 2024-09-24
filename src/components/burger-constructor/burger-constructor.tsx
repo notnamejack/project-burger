@@ -11,7 +11,7 @@ import BurgerIngredientsConstructor from '../burger-ingredients-constructor';
 import { useSetOrderMutation} from '../../services/order/api';
 import { addOrder } from '../../services/order-details-splice/reducer';
 import { getUser } from '../../services/auth/reducer';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface IBurgerConstructor{
 	height: number

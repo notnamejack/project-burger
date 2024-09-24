@@ -10,7 +10,7 @@ interface UserState {
 	error: string | null
 }
 
-export interface IUser{
+interface IUser{
 	name: string,
 	email: string,
 }

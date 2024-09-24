@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import s from './app-header.module.scss';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
-import { isAction } from 'redux';
 import { useSelector } from 'react-redux';
 import { getUser } from '../../services/auth/reducer';
 

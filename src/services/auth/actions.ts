@@ -1,6 +1,6 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import { api } from "../../utils/api";
-import { IUser, setIsAuthChecked } from "./reducer";
+import { setIsAuthChecked } from "./reducer";
 
 export interface FormLogin{
 	email: string,

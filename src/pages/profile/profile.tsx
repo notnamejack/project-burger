@@ -1,5 +1,5 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import clsx from 'clsx';
 import s from './profile.module.scss';
 import { useAppDispatch } from "../../services/store";

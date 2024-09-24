@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import s from './login.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { login } from '../../services/auth/actions';
 import { useAppDispatch } from '../../services/store';
 import { getError, getLoading } from '../../services/auth/reducer';

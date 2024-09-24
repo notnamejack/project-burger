@@ -3,12 +3,11 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 import clsx from 'clsx';
 import s from './igredient.module.scss';
 import { IIngredients } from "../../data/ingredients";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import { openModal } from "../../services/ingredients-details-splice/reducer";
 import { useMemo } from "react";
 import { RootState } from "../../services/store";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IIngredient {
 	ingredient: IIngredients
