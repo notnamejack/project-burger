@@ -4,9 +4,9 @@ import s from './profile-user.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { getError, getLoading, getUser } from '../../services/auth/reducer';
-import { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../../services/store';
-import { patchUser } from '../../services/auth/actions';
+import { FormRegister, patchUser } from '../../services/auth/actions';
 
 export function ProfileUser(){
     const dispatch = useAppDispatch();
@@ -14,87 +14,102 @@ export function ProfileUser(){
 	const loading = useSelector(getLoading);
 	const error = useSelector(getError);
 
-	const [name, setName] = useState<string | undefined>();
-	const nameRef = useRef(null);
+	const [form, setForm] = useState<FormRegister>({
+		name: undefined,
+        email: undefined,
+		password: undefined
+    })
 
-	const [email, setEmail] = useState<string | undefined>();
-	const emailRef = useRef(null);
-
-	const [password, setPassword] = useState<string | undefined>('123456789');
 	const [isIcon, setIsIcon] = useState(false);
-	const passwordRef = useRef<HTMLInputElement>(null);
 
 	const [isEdit, setIsEdit] = useState(false);
 
 	useEffect(() => {
 		if(isEdit){
-			setPassword(undefined);
+			setForm({ ...form, password: undefined })
 		}
 		else{
-			setName(user?.name);
-			setEmail(user?.email);
-			setPassword('123456789');
+			setForm({
+				name: user?.name,
+				email: user?.email,
+				password: '123456789'
+			})
 		}
 	}, [isEdit])
 
-	useEffect(() => {
-		setName(user?.name);
-		setEmail(user?.email);
+	useEffect(() => {setForm({
+			...form,
+			name: user?.name,
+			email: user?.email
+		})
 	}, [user])
 
-	const onClick = () =>{
-		if(email && name && password){
-			const form = {email, name, password};
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+      	...form,
+          [e.target.name]: e.target.value
+        });
+    }
+
+	const handleInputEdit = (name: string) => {
+        setForm({
+			...form,
+			[name]: undefined
+		  });
+    }
+
+	const formSubmit = useCallback(
+	(e: React.ChangeEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if(form.email && form.name && form.password){
 			dispatch(patchUser({form}));
 			setIsEdit(!isEdit)
 		}
 		else{
-			setPassword('')
+			setForm({ ...form, password: '' })
 		}
-	}
+	}, [form]);
+
 
 	return(
-		<div className={clsx(s.container)}>
+		<form className={clsx(s.container)} onSubmit={formSubmit}>
 			<Input
-				ref={nameRef}
 				type={'text'}
 				name={'name'}
 				placeholder={'Имя'}
-				value={name || ''}
-				onChange={e => setName(e.target.value)}
-				onIconClick={!isEdit ? () => setIsEdit(!isEdit) : () => {setName(undefined)}}
+				value={form.name || ''}
+				onChange={handleInputChange}
+				onIconClick={!isEdit ? () => setIsEdit(!isEdit) : () => handleInputEdit('name')}
 				icon={!isEdit ? 'EditIcon' : 'CloseIcon'}
-				error={name !== undefined ? name?.length === 0 : false}
+				error={form.name !== undefined ? form.name?.length === 0 : false}
 				disabled={loading || !isEdit}
 				errorText={'Имя - не введёно'}
 				size={'default'}
 				extraClass="ml-1"
 				/>
 			<Input
-				ref={emailRef}
 				type={'email'}
 				name={'email'}
 				placeholder={'E-mail'}
-				value={email || ''}
-				onChange={e => setEmail(e.target.value)}
-				onIconClick={!isEdit ? () => setIsEdit(!isEdit) : () => {setEmail(undefined)}}
+				value={form.email || ''}
+				onChange={handleInputChange}
+				onIconClick={!isEdit ? () => setIsEdit(!isEdit) : () => handleInputEdit('email')}
 				icon={!isEdit ? 'EditIcon' : 'CloseIcon'}
-				error={email !== undefined ? email?.length === 0 : false}
+				error={form.email !== undefined ? form.email?.length === 0 : false}
 				disabled={loading || !isEdit}
 				errorText={'E-mail - не введён'}
 				size={'default'}
 				extraClass="ml-1"
 				/>
 			<Input
-				ref={passwordRef}
 				type={isIcon ? 'text' : 'password'}
 				name={'password'}
 				placeholder={'Пароль'}
-				value={password || ''}
-				onChange={e => setPassword(e.target.value)}
+				value={form.password || ''}
+				onChange={handleInputChange}
 				onIconClick={isEdit ? () => setIsIcon(!isIcon) : () => {setIsEdit(!isEdit)}}
 				icon={!isEdit ? 'EditIcon' : !isIcon ? 'ShowIcon' : 'HideIcon'}
-				error={password !== undefined ? password?.length === 0 : false}
+				error={form.password !== undefined ? form.password?.length === 0 : false}
 				disabled={loading || !isEdit}
 				errorText={'Пароль - не введён'}
 				size={'default'}
@@ -106,10 +121,10 @@ export function ProfileUser(){
 				<Button htmlType="button" type="secondary" size="medium" onClick={() => setIsEdit(!isEdit)} disabled={loading}>
 					Отмена
 				</Button>
-				<Button htmlType="button" type="primary" size="medium" onClick={onClick} disabled={loading}>
+				<Button htmlType="submit" type="primary" size="medium" disabled={loading}>
 					Сохранить
 				</Button>
 			</div>}
-		</div>
+		</form>
 	)
 }

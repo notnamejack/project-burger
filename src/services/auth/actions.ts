@@ -3,12 +3,12 @@ import { api } from "../../utils/api";
 import { setIsAuthChecked } from "./reducer";
 
 export interface FormLogin{
-	email: string,
-	password: string
+	email: string | undefined,
+	password: string | undefined
 }
 
 export interface FormRegister extends FormLogin{
-	name: string
+	name: string | undefined
 }
 
 export interface FormReset{
