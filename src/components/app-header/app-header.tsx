@@ -4,8 +4,13 @@ import s from './app-header.module.scss';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
 import { isAction } from 'redux';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../services/auth/reducer';
 
 export function AppHeader (){
+
+	const user = useSelector(getUser);
+
 	return (
 		<header className={clsx(s.header)}>
 			<div className={clsx(s.nav)}>
@@ -32,7 +37,7 @@ export function AppHeader (){
 				<div className={`${clsx(s.in)} pl-5 pr-5 pb-5 pt-5`}>
 					<NavLink to={'/profile'} className={({isActive}) => isActive ? clsx(s.active) : ''}>
 						<ProfileIcon type="secondary" />
-						<span className='text text_type_main-default text_color_inactive'>Личный кабинет</span>
+						<span className='text text_type_main-default text_color_inactive'>{!user ? 'Личный кабинет' : user.name}</span>
 					</NavLink>
 				</div>
 			</div>

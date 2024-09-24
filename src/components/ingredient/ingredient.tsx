@@ -8,7 +8,7 @@ import { useDrag } from "react-dnd";
 import { openModal } from "../../services/ingredients-details-splice/reducer";
 import { useMemo } from "react";
 import { RootState } from "../../services/store";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 interface IIngredient {
 	ingredient: IIngredients
@@ -19,6 +19,7 @@ export function Ingredient ({ingredient}: IIngredient){
 	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items)
 	const bun = useSelector((state: RootState) => state.ingredientsSelect.bun)
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const [{ opacity }, ref] = useDrag({
 		type: 'ingredient',
@@ -40,11 +41,12 @@ export function Ingredient ({ingredient}: IIngredient){
 	}, [selectIngredients, bun])
 
 	return (
-		<li key={ingredient._id} className={clsx(s.item)} onClick={() => navigate(`/ingredients/${ingredient._id}`)} ref={ref}>
-			{count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
-			<img alt={ingredient.name} src={ingredient.image}/>
-			<p className="text text_type_digits-default">{ingredient.price}<CurrencyIcon type="primary"/></p>
-			<p className="text text_type_main-default">{ingredient.name}</p>
+		<li key={ingredient._id} className={clsx(s.item)} ref={ref}
+			onClick={() => navigate(`/ingredients/${ingredient._id}`, {state:{backgroundLocation: location }})}>
+				{count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
+				<img alt={ingredient.name} src={ingredient.image}/>
+				<p className="text text_type_digits-default">{`${ingredient.price} `}<CurrencyIcon type="primary"/></p>
+				<p className="text text_type_main-default">{ingredient.name}</p>
 		</li>
 	)
 }

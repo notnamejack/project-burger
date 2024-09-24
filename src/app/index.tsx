@@ -1,20 +1,23 @@
-import { AppHeader, IngredientDetails, OnlyAuth, OnlyUnAuth } from '../components';
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { AppHeader, IngredientDetails, Modal, OnlyAuth, OnlyUnAuth } from '../components';
+import {  Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ForgotPassword, Login, Main, Profile, ProfileUser, Register, ResetPassword } from '../pages';
 import { useEffect } from 'react';
 import { checkUserAuth } from '../services/auth/actions';
 import { useAppDispatch } from '../services/store';
+import { closeModal } from '../services/ingredients-details-splice/reducer';
 
 
 export const App = () => {
 	const dispatch = useAppDispatch();
-	const location = useLocation();
 	const navigate = useNavigate();
-	const background = location.state && location.state.background;
+
+	let location = useLocation();
+	let state = location.state as { backgroundLocation?: Location };
+
 
 	const handleModalClose = () => {
-	  // Возвращаемся к предыдущему пути при закрытии модалки
 	  navigate(-1);
+	  dispatch(closeModal())
 	};
 
     useEffect(() => {
@@ -25,7 +28,7 @@ export const App = () => {
 		<>
 			<AppHeader/>
 			<main>
-				<Routes location={background || location}>
+				<Routes location={state?.backgroundLocation || location}>
 					<Route path='/' element={<Main/>}/>
 					<Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
 					<Route path='/login' element={<OnlyUnAuth component={<Login />} />}/>
@@ -37,17 +40,20 @@ export const App = () => {
 						<Route path=':orders' element={<></>}/>
 					</Route>
 				</Routes>
-			</main>
-			{background && (
+
+			{state?.backgroundLocation && (
 				<Routes>
 					<Route
 					path='/ingredients/:ingredientId'
 					element={
-						<IngredientDetails />
+						<Modal title='Детали ингредиента' onClose={handleModalClose}>
+							<IngredientDetails/>
+						</Modal>
 					}
 					/>
 				</Routes>
 			)}
+			</main>
 		</>
 	);
 };
