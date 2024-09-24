@@ -5,7 +5,7 @@ const checkReponse = (res: any) => {
 	return res.ok ? res.json() : res.json().then((err: any) => Promise.reject(err));
   };
 
-const refreshToken = () => {
+export const refreshToken = () => {
 return fetch(`${apiConfig.baseUrl}/auth/token`, {
 	method: "POST",
 	headers: {
@@ -21,7 +21,7 @@ return fetch(`${apiConfig.baseUrl}/auth/token`, {
 		return Promise.reject(refreshData);
 	}
 	localStorage.setItem("refreshToken", refreshData.refreshToken);
-	localStorage.setItem("accessToken", refreshData.accessToken);
+	localStorage.setItem("accessToken", refreshData.accessToken.split('Bearer ')[0]);
 	return refreshData;
 });
 };
@@ -37,7 +37,7 @@ const fetchWithRefresh = async (url: string, options: any) => {
 		const res = await fetch(url, options); //повторяем запрос
 		return await checkReponse(res);
 	  } else {
-		return Promise.reject(err);
+		return Promise.reject(err.message);
 	  }
 	}
   };
@@ -56,7 +56,7 @@ const login = async (form: FormLogin) => {
 			return Promise.reject(data);
 		  }
 		localStorage.setItem("refreshToken", data.refreshToken);
-		localStorage.setItem("accessToken", data.accessToken);
+		localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[0]);
 		localStorage.removeItem("resetPassword");
 		return data.user;
 	  });
@@ -76,7 +76,7 @@ const register = async (form: FormRegister) => {
 			return Promise.reject(data);
 		  }
 		localStorage.setItem("refreshToken", data.refreshToken);
-		localStorage.setItem("accessToken", data.accessToken);
+		localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[0]);
 		return data.user;
 	  });
 }
@@ -143,7 +143,7 @@ const getUser = async () => {
 		method: "GET",
 		headers: {
 		"Content-Type": "application/json;charset=utf-8",
-		authorization: localStorage.getItem('accessToken')
+		authorization: `Bearer ${localStorage.getItem('accessToken')}`
 		}})
 	try {
 		return await request.user
@@ -159,7 +159,7 @@ const patchUser = async (form: FormRegister) => {
 		method: "PATCH",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
-		  authorization: localStorage.getItem('accessToken')
+		  authorization: `Bearer ${localStorage.getItem('accessToken')}`
 		},
 		body:JSON.stringify(form)
 	})

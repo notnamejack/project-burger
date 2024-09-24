@@ -10,6 +10,8 @@ import { IIngredients } from '../../data/ingredients';
 import BurgerIngredientsConstructor from '../burger-ingredients-constructor';
 import { useSetOrderMutation} from '../../services/order/api';
 import { addOrder } from '../../services/order-details-splice/reducer';
+import { getUser } from '../../services/auth/reducer';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 interface IBurgerConstructor{
 	height: number
@@ -20,6 +22,9 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 	const but = useSelector((state: RootState) => state.ingredientsSelect.bun);
 	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
 	const [ addIngredients, { error: addUserError, isLoading: isAddingUser }, ] = useSetOrderMutation();
+	const user = useSelector(getUser);
+    const location = useLocation();
+	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
 
@@ -48,6 +53,8 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 
 
 	const handlerSend = async () => {
+		if(!user)
+			return navigate('/login',{state: { from: location }})
 		var ingredients = [];
 		if(but){
 			ingredients.push(but?._id);

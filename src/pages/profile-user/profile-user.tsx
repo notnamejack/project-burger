@@ -100,6 +100,7 @@ export function ProfileUser(){
 				size={'default'}
 				extraClass="ml-1"
 				/>
+			{error && <p className="text text_type_main-default text_color_inactive">{error}</p>}
 			{isEdit &&
 			<div className={clsx(s.btn)}>
 				<Button htmlType="button" type="secondary" size="medium" onClick={() => setIsEdit(!isEdit)} disabled={loading}>

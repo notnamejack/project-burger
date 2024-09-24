@@ -5,3 +5,8 @@
 	padding-top: 120px;
 	gap: 24px;
 }
+
+.container input::-ms-reveal,
+.container input::-ms-clear {
+  display: none;
+}
