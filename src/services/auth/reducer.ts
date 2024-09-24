@@ -4,7 +4,9 @@ import {login, logout, register, setUser} from "./actions";
 
 interface UserState {
 	user: IUser | null,
-	isAuthChecked: boolean
+	isAuthChecked: boolean,
+	loading: boolean,
+	error: string | null
 }
 
 export interface IUser{
@@ -14,7 +16,9 @@ export interface IUser{
 
 const initialState: UserState = {
     user: null,
-    isAuthChecked: false
+    isAuthChecked: false,
+	loading: false,
+	error: null
 }
 
 export const authSlice = createSlice({
@@ -27,6 +31,8 @@ export const authSlice = createSlice({
     },
     selectors: {
         getUser: state => state.user,
+        getLoading: state => state.loading,
+        getError: state => state.error,
         getIsAuthChecked: state => state.isAuthChecked,
     },
     extraReducers: (builder) => {
@@ -34,9 +40,17 @@ export const authSlice = createSlice({
             .addCase(setUser, (state, action) => {
                 state.user = action.payload || null;
             })
+            .addCase(login.pending, (state) => {
+                state.loading = true;
+            })
             .addCase(login.fulfilled, (state, action) => {
                 state.user = action.payload;
+                state.loading = false;
                 state.isAuthChecked = true;
+            })
+            .addCase(login.rejected, (state, action) => {
+                state.error = action.error.message || null;
+                state.loading = false;
             })
             .addCase(register.fulfilled, (state, action) => {
                 state.user = action.payload;
@@ -49,4 +63,4 @@ export const authSlice = createSlice({
 })
 
 export const { setIsAuthChecked } = authSlice.actions;
-export const { getIsAuthChecked, getUser } = authSlice.selectors;
+export const { getIsAuthChecked, getUser, getLoading, getError } = authSlice.selectors;
