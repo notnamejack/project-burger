@@ -4,20 +4,26 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../services/store';
 import { useSelector } from 'react-redux';
-import { getError, getLoading } from '../../services/auth/reducer';
-import { useRef, useState } from 'react';
+import { getError, getLoading, getMessage } from '../../services/auth/reducer';
+import { useEffect, useRef, useState } from 'react';
 import { forgot } from '../../services/auth/actions';
 
 
 export function ForgotPassword (){
     const dispatch = useAppDispatch();
 	const loading = useSelector(getLoading);
+	const message = useSelector(getMessage);
 	const error = useSelector(getError);
 
 	const [email, setEmail] = useState<string>();
 	const emailRef = useRef(null);
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if(message?.toLocaleLowerCase() === 'Reset email sent'.toLocaleLowerCase())
+			navigate('/reset-password')
+	}, [message])
 
 	const onClickLogin = () => {
 		navigate('/login');

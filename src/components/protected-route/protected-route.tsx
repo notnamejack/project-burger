@@ -2,11 +2,10 @@ import {useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
 import { getIsAuthChecked, getUser } from "../../services/auth/reducer";
 
-const Protected = ({onlyUnAuth = false, component}: {onlyUnAuth?: boolean, component:React.ReactNode}) => {
+const Protected = ({onlyUnAuth = false, resetPasswor = false, component}: {onlyUnAuth?: boolean, resetPasswor?: boolean, component:React.ReactNode}) => {
     const isAuthChecked = useSelector(getIsAuthChecked);
     const user = useSelector(getUser);
     const location = useLocation();
-
     // url = /profile, onlyUnAuth = false, user = null
     // url = /login, from: /profile, onlyUnAuth = true, user = null
     // url = /login, from: /profile, onlyUnAuth = true, user != null
@@ -17,7 +16,7 @@ const Protected = ({onlyUnAuth = false, component}: {onlyUnAuth?: boolean, compo
         return <p>Загрузка...</p>;
     }
 
-    if (!onlyUnAuth && !user) {
+    if (!onlyUnAuth && !user && !resetPasswor) {
         // для авторизованного, но неавторизован
         return <Navigate to="/login" state={{ from: location }} />;
     }
@@ -28,8 +27,10 @@ const Protected = ({onlyUnAuth = false, component}: {onlyUnAuth?: boolean, compo
         return <Navigate to={from} />;
     }
 
-    // onlyUnAuth && !user для неавторизованных и неавторизован
-    // !onlyUnAuth && user для авторизованных и авторизован
+	if(resetPasswor && !localStorage.getItem("resetPassword")){
+        return <Navigate to="/login" state={{ from: location }} />;
+	}
+
 
     return component;
 }
@@ -37,4 +38,8 @@ const Protected = ({onlyUnAuth = false, component}: {onlyUnAuth?: boolean, compo
 export const OnlyAuth = Protected;
 export const OnlyUnAuth = ({component}: {component:React.ReactNode}) => (
     <Protected onlyUnAuth={true} component={component} />
+);
+
+export const OnlyReset = ({component}: {component:React.ReactNode}) => (
+    <Protected resetPasswor={true} component={component} />
 );

@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { checkUserAuth } from '../services/auth/actions';
 import { useAppDispatch } from '../services/store';
 import { closeModal } from '../services/ingredients-details-splice/reducer';
+import { OnlyReset } from '../components/protected-route';
 
 
 export const App = () => {
@@ -34,7 +35,7 @@ export const App = () => {
 					<Route path='/login' element={<OnlyUnAuth component={<Login />} />}/>
 					<Route path='/register' element={<OnlyUnAuth component={<Register/>} />}/>
 					<Route path='/forgot-password' element={<OnlyUnAuth component={<ForgotPassword/>} />}/>
-					<Route path='/reset-password' element={<OnlyUnAuth component={<ResetPassword/>} />}/>
+					<Route path='/reset-password' element={<OnlyReset component={<ResetPassword/>} />}/>
 					<Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
 						<Route path='' element={<ProfileUser/>}/>
 						<Route path=':orders' element={<></>}/>

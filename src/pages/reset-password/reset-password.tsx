@@ -3,8 +3,8 @@ import s from './reset-password.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch } from '../../services/store';
 import { useSelector } from 'react-redux';
-import { getError, getLoading } from '../../services/auth/reducer';
-import { useRef, useState } from 'react';
+import { getError, getLoading, getMessage } from '../../services/auth/reducer';
+import { useEffect, useRef, useState } from 'react';
 import { reset } from '../../services/auth/actions';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 export function ResetPassword (){
     const dispatch = useAppDispatch();
 	const loading = useSelector(getLoading);
+	const message = useSelector(getMessage);
 	const error = useSelector(getError);
 
 	const [password, setPassword] = useState<string>();
@@ -22,6 +23,11 @@ export function ResetPassword (){
 	const tokenRef = useRef(null);
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if(message?.toLocaleLowerCase() === 'Password successfully reset'.toLocaleLowerCase())
+			navigate('/login')
+	}, [message])
 
 	const onClickLogin = () => {
 		navigate('/login');

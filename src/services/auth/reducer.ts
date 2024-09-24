@@ -34,6 +34,7 @@ export const authSlice = createSlice({
     selectors: {
         getUser: state => state.user,
         getLoading: state => state.loading,
+        getMessage: state => state.message,
         getError: state => state.error,
         getIsAuthChecked: state => state.isAuthChecked,
     },
@@ -103,4 +104,4 @@ export const authSlice = createSlice({
 })
 
 export const { setIsAuthChecked } = authSlice.actions;
-export const { getIsAuthChecked, getUser, getLoading, getError } = authSlice.selectors;
+export const { getIsAuthChecked, getUser, getLoading, getMessage, getError } = authSlice.selectors;
