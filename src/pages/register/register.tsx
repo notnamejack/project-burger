@@ -35,6 +35,11 @@ export function Register (){
 			const form = {email, password, name};
 			dispatch(register({form}));
 		}
+		else{
+			setName('');
+			setEmail('');
+			setPassword('');
+		}
 	}
 
 	return(

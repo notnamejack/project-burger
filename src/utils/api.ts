@@ -57,6 +57,7 @@ const login = async (form: FormLogin) => {
 		  }
 		localStorage.setItem("refreshToken", data.refreshToken);
 		localStorage.setItem("accessToken", data.accessToken);
+		localStorage.removeItem("resetPassword");
 		return data.user;
 	  });
 }
@@ -155,14 +156,14 @@ const getUser = async () => {
 
 const patchUser = async (form: FormRegister) => {
 	const request = await fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
-		method: "GET",
+		method: "PATCH",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
 		  authorization: localStorage.getItem('accessToken')
 		},
-		body:JSON.stringify({form})
+		body:JSON.stringify(form)
 	})
-	return await request
+	return await request.user;
 
 }
 

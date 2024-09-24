@@ -33,6 +33,9 @@ export function ForgotPassword (){
 		if(email ){
 			dispatch(forgot({email}));
 		}
+		else{
+			setEmail('');
+		}
 	}
 
 	return(

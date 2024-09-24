@@ -36,6 +36,10 @@ export function Login (){
 			const form = {email, password};
 			dispatch(login({form}));
 		}
+		else{
+			setEmail('');
+			setPassword('');
+		}
 	}
 	return(
 		<div className={clsx(s.container)}>

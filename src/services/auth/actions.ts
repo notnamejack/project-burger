@@ -58,10 +58,17 @@ export const checkUserAuth = createAsyncThunk(
     async (_, {dispatch} ) => {
         if (localStorage.getItem("accessToken")) {
             await api.getUser()
-                .then(user => {console.log(user); dispatch(setUser(user))})
+                .then(user => {dispatch(setUser(user))})
                 .finally(() => dispatch(setIsAuthChecked(true)));
         } else {
             dispatch(setIsAuthChecked(true));
         }
     }
 )
+
+export const patchUser = createAsyncThunk(
+    "auth/patchUser",
+    async ({ form }: { form: FormRegister }) => {
+        return api.patchUser(form)
+    }
+);

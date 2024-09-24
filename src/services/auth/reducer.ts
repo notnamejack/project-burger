@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {login, logout, register, forgot, setUser, reset} from "./actions";
+import {login, logout, register, forgot, setUser, reset, patchUser} from "./actions";
 
 
 interface UserState {
@@ -94,6 +94,19 @@ export const authSlice = createSlice({
                 state.isAuthChecked = true;
             })
             .addCase(reset.rejected, (state, action) => {
+                state.error = action.error.message || null;
+                state.loading = false;
+            })
+            .addCase(patchUser.pending, (state) => {
+                state.loading = true;
+				state.error = null;
+            })
+            .addCase(patchUser.fulfilled, (state, action) => {
+                state.user = action.payload;
+                state.loading = false;
+                state.isAuthChecked = true;
+            })
+            .addCase(patchUser.rejected, (state, action) => {
                 state.error = action.error.message || null;
                 state.loading = false;
             })

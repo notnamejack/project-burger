@@ -38,6 +38,10 @@ export function ResetPassword (){
 			const form = {password, token};
 			dispatch(reset({form}));
 		}
+		else{
+			setToken('');
+			setPassword('');
+		}
 	}
 
 	return(
