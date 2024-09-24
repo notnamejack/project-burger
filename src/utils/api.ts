@@ -21,7 +21,7 @@ return fetch(`${apiConfig.baseUrl}/auth/token`, {
 		return Promise.reject(refreshData);
 	}
 	localStorage.setItem("refreshToken", refreshData.refreshToken);
-	localStorage.setItem("accessToken", refreshData.accessToken.split('Bearer ')[0]);
+	localStorage.setItem("accessToken", refreshData.accessToken.split('Bearer ')[1]);
 	return refreshData;
 });
 };
@@ -56,7 +56,7 @@ const login = async (form: FormLogin) => {
 			return Promise.reject(data);
 		  }
 		localStorage.setItem("refreshToken", data.refreshToken);
-		localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[0]);
+		localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
 		localStorage.removeItem("resetPassword");
 		return data.user;
 	  });
@@ -76,7 +76,7 @@ const register = async (form: FormRegister) => {
 			return Promise.reject(data);
 		  }
 		localStorage.setItem("refreshToken", data.refreshToken);
-		localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[0]);
+		localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
 		return data.user;
 	  });
 }

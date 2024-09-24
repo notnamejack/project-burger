@@ -15,7 +15,6 @@ export const App = () => {
 	let location = useLocation();
 	let state = location.state as { backgroundLocation?: Location };
 
-
 	const handleModalClose = () => {
 	  navigate(-1);
 	  dispatch(closeModal())
