@@ -3,10 +3,9 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 import clsx from 'clsx';
 import s from './igredient.module.scss';
 import { IIngredients } from "../../data/ingredients";
-import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { useMemo } from "react";
-import { RootState } from "../../services/store";
+import { useAppSelector } from "../../services/store";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface IIngredient {
@@ -15,8 +14,8 @@ interface IIngredient {
 
 export function Ingredient ({ingredient}: IIngredient){
 
-	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items)
-	const bun = useSelector((state: RootState) => state.ingredientsSelect.bun)
+	const selectIngredients = useAppSelector((state) => state.ingredientsSelect.items)
+	const bun = useAppSelector((state) => state.ingredientsSelect.bun)
 	const navigate = useNavigate();
 	const location = useLocation();
 

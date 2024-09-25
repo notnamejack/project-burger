@@ -4,15 +4,14 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { login } from '../../services/auth/actions';
-import { useAppDispatch } from '../../services/store';
-import { getError, getLoading } from '../../services/auth/reducer';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/store';
+import { getError, getLoading } from '../../services/auth/reducer';;
 
 
 export function Login (){
     const dispatch = useAppDispatch();
-	const loading = useSelector(getLoading);
-	const error = useSelector(getError);
+	const loading = useAppSelector(getLoading);
+	const error = useAppSelector(getError);
 
 	const [email, setEmail] = useState<string>();
 	const emailRef = useRef(null);

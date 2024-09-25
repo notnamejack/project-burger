@@ -6,7 +6,7 @@ import { orderSplice } from "./order-details-splice/reducer";
 import { ingredientsDetailsSlice } from "./ingredients-details-splice/reducer";
 import { orderApi } from "./order/api";
 import { authSlice } from "./auth/reducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //произвел настройку согласно https://redux-toolkit.js.org/tutorials/quick-start
 export const store = configureStore({
@@ -25,7 +25,7 @@ export const store = configureStore({
 })
 
 export type RootState = ReturnType<typeof store.getState>
-
 export type AppDispatch = typeof store.dispatch
 
-export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+export const useAppSelector = useSelector.withTypes<RootState>()

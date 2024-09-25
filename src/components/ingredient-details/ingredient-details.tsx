@@ -1,15 +1,14 @@
 
 import clsx from 'clsx';
 import s from './ingredient-details.module.scss';
-import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { openModal } from '../../services/ingredients-details-splice/reducer';
 import { useLocation, useParams } from 'react-router-dom';
 import { useGetIngredientsQuery } from '../../services/ingredients/api';
 
 export function IngredientDetails (){
-	const ingredient = useSelector((state: RootState) => state.ingredientsDetails.item);
+	const ingredient = useAppSelector((state) => state.ingredientsDetails.item);
 	const {data} = useGetIngredientsQuery();
 	const dispatch = useAppDispatch();
 

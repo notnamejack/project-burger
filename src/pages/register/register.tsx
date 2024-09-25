@@ -2,8 +2,7 @@ import clsx from 'clsx';
 import s from './register.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../services/store';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading } from '../../services/auth/reducer';
 import { useRef, useState } from 'react';
 import { register } from '../../services/auth/actions';
@@ -11,8 +10,8 @@ import { register } from '../../services/auth/actions';
 
 export function Register (){
     const dispatch = useAppDispatch();
-	const loading = useSelector(getLoading);
-	const error = useSelector(getError);
+	const loading = useAppSelector(getLoading);
+	const error = useAppSelector(getError);
 
 	const [name, setName] = useState<string>();
 	const nameRef = useRef(null);

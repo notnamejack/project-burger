@@ -2,17 +2,16 @@
 import clsx from 'clsx';
 import s from './profile-user.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import { getError, getLoading, getUser } from '../../services/auth/reducer';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useAppDispatch } from '../../services/store';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import { FormRegister, patchUser } from '../../services/auth/actions';
 
 export function ProfileUser(){
     const dispatch = useAppDispatch();
-	const user = useSelector(getUser);
-	const loading = useSelector(getLoading);
-	const error = useSelector(getError);
+	const user = useAppSelector(getUser);
+	const loading = useAppSelector(getLoading);
+	const error = useAppSelector(getError);
 
 	const [form, setForm] = useState<FormRegister>({
 		name: undefined,

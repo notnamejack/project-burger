@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import s from './app-header.module.scss';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { getUser } from '../../services/auth/reducer';
+import { useAppSelector } from '../../services/store';
 
 export function AppHeader (){
 
-	const user = useSelector(getUser);
+	const user = useAppSelector(getUser);
 
 	return (
 		<header className={clsx(s.header)}>

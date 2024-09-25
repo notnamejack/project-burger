@@ -3,12 +3,11 @@ import clsx from 'clsx';
 import s from './order-details.module.scss';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import DoneBack from '../../images/done_back.svg'
-import { useSelector } from 'react-redux';
-import { RootState } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 
 export function OrderDetails (){
 
-	const order = useSelector((state: RootState) => state.order.orderDetail);
+	const order = useAppSelector((state) => state.order.orderDetail);
 
 	return (
 		<div className={clsx(s.container)}>

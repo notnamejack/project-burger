@@ -2,8 +2,7 @@ import clsx from 'clsx';
 import s from './forgot-password.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../services/store';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading, getMessage } from '../../services/auth/reducer';
 import { useEffect, useRef, useState } from 'react';
 import { forgot } from '../../services/auth/actions';
@@ -11,9 +10,9 @@ import { forgot } from '../../services/auth/actions';
 
 export function ForgotPassword (){
     const dispatch = useAppDispatch();
-	const loading = useSelector(getLoading);
-	const message = useSelector(getMessage);
-	const error = useSelector(getError);
+	const loading = useAppSelector(getLoading);
+	const message = useAppSelector(getMessage);
+	const error = useAppSelector(getError);
 
 	const [email, setEmail] = useState<string>();
 	const emailRef = useRef(null);

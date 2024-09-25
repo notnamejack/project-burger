@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import s from './burger-constructor.module.scss';
 import { Button, ConstructorElement, CurrencyIcon,  } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../services/store';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../services/store';
 import { setIngredient, setBun } from '../../services/ingredients-select-splice/reducer';
 import { useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
@@ -12,6 +12,7 @@ import { useSetOrderMutation} from '../../services/order/api';
 import { addOrder } from '../../services/order-details-splice/reducer';
 import { getUser } from '../../services/auth/reducer';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Modal from '../modal';
 
 interface IBurgerConstructor{
 	height: number
@@ -19,10 +20,10 @@ interface IBurgerConstructor{
 
 export function BurgerConstructor({height}: IBurgerConstructor){
 
-	const but = useSelector((state: RootState) => state.ingredientsSelect.bun);
-	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
-	const [ addIngredients, { error: addUserError, isLoading: isAddingUser }, ] = useSetOrderMutation();
-	const user = useSelector(getUser);
+	const but = useAppSelector((state) => state.ingredientsSelect.bun);
+	const selectIngredients = useAppSelector((state) => state.ingredientsSelect.items);
+	const [ addIngredients, { isLoading }, ] = useSetOrderMutation();
+	const user = useAppSelector(getUser);
     const location = useLocation();
 	const navigate = useNavigate();
 
@@ -107,10 +108,17 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 			</div>
 			<div className={clsx(s.footer)}>
 				<p className="text text_type_digits-medium">{`${total} `}<CurrencyIcon type="primary" /></p>
-				<Button htmlType="button" type="primary" size="large" onClick={() => handlerSend()}>
+				<Button htmlType="button" type="primary" size="large" onClick={() => handlerSend()} disabled={isLoading}>
 					Оформить заказ
 				</Button>
 			</div>
+			{isLoading &&
+				<Modal title='Формирование заказа' onClose={() => {}}>
+					<div className={clsx(s.loading)}>
+						<span className={clsx(s.loader)}></span>
+					</div>
+				</Modal>
+			}
 		</div>
 	)
 }

@@ -1,10 +1,10 @@
-import {useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
 import { getIsAuthChecked, getUser } from "../../services/auth/reducer";
+import { useAppSelector } from "../../services/store";
 
 const Protected = ({onlyUnAuth = false, resetPasswor = false, component}: {onlyUnAuth?: boolean, resetPasswor?: boolean, component:React.ReactNode}) => {
-    const isAuthChecked = useSelector(getIsAuthChecked);
-    const user = useSelector(getUser);
+    const isAuthChecked = useAppSelector(getIsAuthChecked);
+    const user = useAppSelector(getUser);
     const location = useLocation();
     // url = /profile, onlyUnAuth = false, user = null
     // url = /login, from: /profile, onlyUnAuth = true, user = null
