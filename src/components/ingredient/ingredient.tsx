@@ -28,7 +28,7 @@ export function Ingredient ({ingredient}: IIngredient){
 	  });
 
 	const count = useMemo(() => {
-		var count = 0;
+		let count = 0;
 		if(ingredient.type !== 'bun')
 			count = selectIngredients.filter(i => i._id === ingredient._id).length;
 

@@ -42,7 +42,7 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 	  });
 
 	const total = useMemo(() => {
-		var total = 0;
+		let total = 0;
 			selectIngredients.forEach(item =>
 				total += item.price,
 			  )
@@ -55,7 +55,7 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 	const handlerSend = async () => {
 		if(!user)
 			return navigate('/login',{state: { from: location }})
-		var ingredients = [];
+		let ingredients = [];
 		if(but){
 			ingredients.push(but?._id);
 			selectIngredients.forEach(item => {

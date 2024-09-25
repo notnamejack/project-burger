@@ -19,7 +19,7 @@ prepareHeaders: (headers) => {
 });
 
 const baseQueryWithReauth: BaseQueryFn< string | FetchArgs, unknown, FetchBaseQueryError > = async (args, api, extraOptions) => {
-  var result = await baseQuery(args, api, extraOptions);
+  let result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 403) {
 	const refreshData = await refreshToken();
     if (refreshData) {
