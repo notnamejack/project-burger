@@ -49,7 +49,7 @@ export function ForgotPassword (){
 	return(
 		<div className={clsx(s.container)}>
 			<div className={clsx(s.body)}>
-				<div className={clsx(s.input)}>
+				<form className={clsx(s.input)} onSubmit={formSubmit}>
 					<p className="text text_type_main-medium">
 						Восстановление пароля
 					</p>
@@ -69,7 +69,7 @@ export function ForgotPassword (){
 					<Button htmlType="submit" type="primary" size="large" disabled={loading}>
 						Восстановить
 					</Button>
-				</div>
+				</form>
 				<div className={clsx(s.button)}>
 					<p className="text text_type_main-default text_color_inactive">
 						Вспомнили пароль? <Button htmlType="button" type="secondary" size="medium" onClick={onClickLogin} disabled={loading}>
