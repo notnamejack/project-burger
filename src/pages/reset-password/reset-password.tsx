@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import s from './reset-password.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { getError, getLoading, getMessage } from '../../services/auth/reducer';
-import { useEffect, useRef, useState } from 'react';
-import { reset } from '../../services/auth/actions';
+import { getError, getLoading, getMessage, setError } from '../../services/auth/reducer';
+import { useCallback, useEffect, useState } from 'react';
+import { FormReset, reset } from '../../services/auth/actions';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -14,12 +14,12 @@ export function ResetPassword (){
 	const message = useAppSelector(getMessage);
 	const error = useAppSelector(getError);
 
-	const [password, setPassword] = useState<string>();
-	const [isIcon, setIsIcon] = useState(false);
-	const passwordRef = useRef<HTMLInputElement>(null);
+	const [form, setForm] = useState<FormReset>({
+		password: undefined,
+		token: undefined
+    })
 
-	const [token, setToken] = useState<string>();
-	const tokenRef = useRef(null);
+	const [isIcon, setIsIcon] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -30,59 +30,64 @@ export function ResetPassword (){
 
 	const onClickLogin = () => {
 		navigate('/login');
+		dispatch(setError());
 	}
 
-	const onClick = () => {
-		if(token && password){
-			const form = {password, token};
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+      	...form,
+          [e.target.name]: e.target.value
+        });
+    }
+
+	const formSubmit = useCallback(
+	(e: React.ChangeEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if(form.token && form.password){
 			dispatch(reset({form}));
 		}
-		else{
-			setToken('');
-			setPassword('');
-		}
-	}
+		form.token === undefined && setForm({ ...form, token: '' });
+		form.password === undefined && setForm({ ...form, password: '' });
+	}, [form]);
 
 	return(
 		<div className={clsx(s.container)}>
 			<div className={clsx(s.body)}>
-				<div className={clsx(s.input)}>
+				<form className={clsx(s.input)} onSubmit={formSubmit}>
 					<p className="text text_type_main-medium">
 						Восстановление пароля
 					</p>
 					<Input
-						ref={passwordRef}
 						type={isIcon ? 'text' : 'password'}
 						name={'password'}
 						placeholder={'Пароль'}
-						value={password || ''}
-						onChange={e => setPassword(e.target.value)}
+						value={form.password || ''}
+						onChange={handleInputChange}
 						onIconClick={() => setIsIcon(!isIcon)}
 						icon={!isIcon ? 'ShowIcon' : 'HideIcon'}
-						error={password !== undefined ? password?.length === 0 : false}
+						error={form.password !== undefined ? form.password?.length === 0 : false}
 						disabled={loading}
 						errorText={'Пароль - не введён'}
 						size={'default'}
 						extraClass="ml-1"
 						/>
 					<Input
-						ref={tokenRef}
 						type={'text'}
 						name={'token'}
 						placeholder={'Введите код из письма'}
-						value={token || ''}
-						onChange={e => setToken(e.target.value)}
-						error={token !== undefined ? token?.length === 0 : false}
+						value={form.token || ''}
+						onChange={handleInputChange}
+						error={form.token !== undefined ? form.token?.length === 0 : false}
 						disabled={loading}
 						errorText={'Код из письма не введён'}
 						size={'default'}
 						extraClass="ml-1"
 						/>
 					{error && <p className="text text_type_main-default text_color_inactive">{error}</p>}
-					<Button htmlType="button" type="primary" size="large" onClick={onClick} disabled={loading}>
+					<Button htmlType="submit" type="primary" size="large" disabled={loading}>
 						Сохранить
 					</Button>
-				</div>
+				</form>
 				<div className={clsx(s.button)}>
 					<p className="text text_type_main-default text_color_inactive">
 						Вспомнили пароль? <Button htmlType="button" type="secondary" size="medium" onClick={onClickLogin} disabled={loading}>

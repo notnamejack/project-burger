@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {login, logout, register, forgot, setUser, reset, patchUser} from "./actions";
 
 
@@ -29,6 +29,9 @@ export const authSlice = createSlice({
     reducers: {
         setIsAuthChecked: (state, action) => {
             state.isAuthChecked = action.payload;
+        },
+        setError: (state) => {
+            state.error = null;
         }
     },
     selectors: {
@@ -116,5 +119,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const { setIsAuthChecked } = authSlice.actions;
+export const { setIsAuthChecked, setError } = authSlice.actions;
 export const { getIsAuthChecked, getUser, getLoading, getMessage, getError } = authSlice.selectors;

@@ -3,7 +3,7 @@ import s from './forgot-password.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { getError, getLoading, getMessage } from '../../services/auth/reducer';
+import { getError, getLoading, getMessage, setError } from '../../services/auth/reducer';
 import { useEffect, useRef, useState } from 'react';
 import { forgot } from '../../services/auth/actions';
 
@@ -26,6 +26,7 @@ export function ForgotPassword (){
 
 	const onClickLogin = () => {
 		navigate('/login');
+		dispatch(setError());
 	}
 
 	const onClick = () => {

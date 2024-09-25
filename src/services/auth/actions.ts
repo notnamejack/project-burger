@@ -12,8 +12,8 @@ export interface FormRegister extends FormLogin{
 }
 
 export interface FormReset{
-	password: string,
-	token: string
+	password: string | undefined,
+	token: string | undefined
 }
 
 export const login = createAsyncThunk(
