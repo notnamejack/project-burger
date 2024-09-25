@@ -13,8 +13,8 @@ export function IngredientDetails (){
 	const dispatch = useAppDispatch();
 
 	const params = useParams()
-	let location = useLocation();
-	let state = location.state as { backgroundLocation?: Location };
+	const location = useLocation();
+	const state = location.state as { backgroundLocation?: Location };
 
 	useEffect(() => {
 		const copy = data?.data.find(i => i._id.toLocaleUpperCase() === params.ingredientId?.toLocaleUpperCase());
