@@ -1,4 +1,4 @@
-import { FormLogin, FormRegister, FormReset } from "../services/auth/actions";
+import { IFormLogin, IFormRegister, IFormReset, IFormForgot } from "../services/auth/actions";
 import { apiConfig } from "./apiConfig";
 
 const checkReponse = (res: any) => {
@@ -42,7 +42,7 @@ const fetchWithRefresh = async (url: string, options: any) => {
 	}
   };
 
-const login = async (form: FormLogin) => {
+const login = async (form: IFormLogin) => {
 	return await fetch(`${apiConfig.baseUrl}/auth/login`, {
 		method: "POST",
 		headers: {
@@ -62,7 +62,7 @@ const login = async (form: FormLogin) => {
 	  });
 }
 
-const register = async (form: FormRegister) => {
+const register = async (form: IFormRegister) => {
 	return await fetch(`${apiConfig.baseUrl}/auth/register`, {
 		method: "POST",
 		headers: {
@@ -81,13 +81,13 @@ const register = async (form: FormRegister) => {
 	  });
 }
 
-const forgot = async (email: string) => {
+const forgot = async (form: IFormForgot) => {
 	return await fetch(`${apiConfig.baseUrl}/password-reset`, {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
 		},
-		body: JSON.stringify({email}),
+		body: JSON.stringify(form),
 	  })
 	  .then(checkReponse)
 	  .then((data) => {
@@ -99,7 +99,7 @@ const forgot = async (email: string) => {
 	  });
 }
 
-const reset = async (form: FormReset) => {
+const reset = async (form: IFormReset) => {
 	return await fetch(`${apiConfig.baseUrl}/password-reset/reset`, {
 		method: "POST",
 		headers: {
@@ -154,7 +154,7 @@ const getUser = async () => {
     }
 }
 
-const patchUser = async (form: FormRegister) => {
+const patchUser = async (form: IFormRegister) => {
 	const request = await fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
 		method: "PATCH",
 		headers: {

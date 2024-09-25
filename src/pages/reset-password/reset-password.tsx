@@ -4,7 +4,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading, getMessage, setError } from '../../services/auth/reducer';
 import { useCallback, useEffect, useState } from 'react';
-import { FormReset, reset } from '../../services/auth/actions';
+import { IFormReset, reset } from '../../services/auth/actions';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -14,7 +14,7 @@ export function ResetPassword (){
 	const message = useAppSelector(getMessage);
 	const error = useAppSelector(getError);
 
-	const [form, setForm] = useState<FormReset>({
+	const [form, setForm] = useState<IFormReset>({
 		password: undefined,
 		token: undefined
     })

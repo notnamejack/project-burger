@@ -5,7 +5,7 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { getError, getLoading, getUser } from '../../services/auth/reducer';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { FormRegister, patchUser } from '../../services/auth/actions';
+import { IFormRegister, patchUser } from '../../services/auth/actions';
 
 export function ProfileUser(){
     const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export function ProfileUser(){
 	const loading = useAppSelector(getLoading);
 	const error = useAppSelector(getError);
 
-	const [form, setForm] = useState<FormRegister>({
+	const [form, setForm] = useState<IFormRegister>({
 		name: undefined,
         email: undefined,
 		password: undefined

@@ -3,7 +3,7 @@ import s from './login.module.scss';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
-import { FormLogin, login } from '../../services/auth/actions';
+import { IFormLogin, login } from '../../services/auth/actions';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading, setError } from '../../services/auth/reducer';;
 
@@ -13,7 +13,7 @@ export function Login (){
 	const loading = useAppSelector(getLoading);
 	const error = useAppSelector(getError);
 
-	const [form, setForm] = useState<FormLogin>({
+	const [form, setForm] = useState<IFormLogin>({
         email: undefined,
 		password: undefined
     })

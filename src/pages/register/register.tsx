@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading, setError } from '../../services/auth/reducer';
 import { useCallback, useState } from 'react';
-import { FormRegister, register } from '../../services/auth/actions';
+import { IFormRegister, register } from '../../services/auth/actions';
 
 
 export function Register (){
@@ -13,7 +13,7 @@ export function Register (){
 	const loading = useAppSelector(getLoading);
 	const error = useAppSelector(getError);
 
-	const [form, setForm] = useState<FormRegister>({
+	const [form, setForm] = useState<IFormRegister>({
 		name: undefined,
         email: undefined,
 		password: undefined

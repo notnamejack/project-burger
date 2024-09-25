@@ -4,8 +4,8 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading, getMessage, setError } from '../../services/auth/reducer';
-import { useEffect, useRef, useState } from 'react';
-import { forgot } from '../../services/auth/actions';
+import { useCallback, useEffect, useState } from 'react';
+import { forgot, IFormForgot } from '../../services/auth/actions';
 
 
 export function ForgotPassword (){
@@ -14,8 +14,9 @@ export function ForgotPassword (){
 	const message = useAppSelector(getMessage);
 	const error = useAppSelector(getError);
 
-	const [email, setEmail] = useState<string>();
-	const emailRef = useRef(null);
+	const [form, setForm] = useState<IFormForgot>({
+		email: undefined
+    })
 
 	const navigate = useNavigate();
 
@@ -29,14 +30,21 @@ export function ForgotPassword (){
 		dispatch(setError());
 	}
 
-	const onClick = () => {
-		if(email ){
-			dispatch(forgot({email}));
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+      	...form,
+          [e.target.name]: e.target.value
+        });
+    }
+
+	const formSubmit = useCallback(
+	(e: React.ChangeEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if(form.email){
+			dispatch(forgot({form}));
 		}
-		else{
-			setEmail('');
-		}
-	}
+		form.email === undefined && setForm({ ...form, email: '' });
+	}, [form]);
 
 	return(
 		<div className={clsx(s.container)}>
@@ -46,20 +54,19 @@ export function ForgotPassword (){
 						Восстановление пароля
 					</p>
 					<Input
-						ref={emailRef}
 						type={'email'}
 						name={'email'}
 						placeholder={'E-mail'}
-						value={email || ''}
-						onChange={e => setEmail(e.target.value)}
-						error={email !== undefined ? email?.length === 0 : false}
+						value={form.email || ''}
+						onChange={handleInputChange}
+						error={form.email !== undefined ? form.email?.length === 0 : false}
 						disabled={loading}
 						errorText={'E-mail - не введён'}
 						size={'default'}
 						extraClass="ml-1"
 						/>
 					{error && <p className="text text_type_main-default text_color_inactive">{error}</p>}
-					<Button htmlType="button" type="primary" size="large" onClick={onClick} disabled={loading}>
+					<Button htmlType="submit" type="primary" size="large" disabled={loading}>
 						Восстановить
 					</Button>
 				</div>

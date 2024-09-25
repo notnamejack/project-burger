@@ -2,44 +2,46 @@ import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import { api } from "../../utils/api";
 import { setIsAuthChecked } from "./reducer";
 
-export interface FormLogin{
+export interface IFormForgot{
 	email: string | undefined,
+}
+export interface IFormLogin extends IFormForgot{
 	password: string | undefined
 }
 
-export interface FormRegister extends FormLogin{
+export interface IFormRegister extends IFormLogin{
 	name: string | undefined
 }
 
-export interface FormReset{
+export interface IFormReset{
 	password: string | undefined,
 	token: string | undefined
 }
 
 export const login = createAsyncThunk(
     "auth/login",
-    async ({ form }: { form: FormLogin }) => {
+    async ({ form }: { form: IFormLogin }) => {
         return api.login(form)
     }
 );
 
 export const register = createAsyncThunk(
     "auth/register",
-    async ({ form }: { form: FormRegister }) => {
+    async ({ form }: { form: IFormRegister }) => {
         return api.register(form)
     }
 );
 
 export const forgot = createAsyncThunk(
     "auth/forgot",
-    async ({ email }: { email: string }) => {
-        return api.forgot(email)
+    async ({ form }: { form: IFormForgot }) => {
+        return api.forgot(form)
     }
 );
 
 export const reset = createAsyncThunk(
     "auth/reset",
-    async ({ form }: { form: FormReset }) => {
+    async ({ form }: { form: IFormReset }) => {
         return api.reset(form)
     }
 );
@@ -68,7 +70,7 @@ export const checkUserAuth = createAsyncThunk(
 
 export const patchUser = createAsyncThunk(
     "auth/patchUser",
-    async ({ form }: { form: FormRegister }) => {
+    async ({ form }: { form: IFormRegister }) => {
         return api.patchUser(form)
     }
 );
