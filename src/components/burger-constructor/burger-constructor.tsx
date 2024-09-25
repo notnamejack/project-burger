@@ -2,8 +2,7 @@ import clsx from 'clsx';
 import s from './burger-constructor.module.scss';
 import { Button, ConstructorElement, CurrencyIcon,  } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import { setIngredient, setBun } from '../../services/ingredients-select-splice/reducer';
 import { useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
@@ -27,7 +26,7 @@ export function BurgerConstructor({height}: IBurgerConstructor){
     const location = useLocation();
 	const navigate = useNavigate();
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const [{ isHover }, toppRef] = useDrop({
 		accept: 'ingredient',
