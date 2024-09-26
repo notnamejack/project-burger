@@ -7,6 +7,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { RootState, useAppDispatch, useAppSelector } from "../../services/store";
 import { BurgerConstructor, BurgerIngredients, Modal, OrderDetails } from "../../components";
 import { deleteOrder } from "../../services/order-details-splice/reducer";
+import { deleteAll } from "../../services/ingredients-select-splice/reducer";
 
 
 
@@ -34,7 +35,7 @@ export function Main (){
 				<BurgerConstructor height={height}/>
 			</DndProvider>
 			{order &&
-				<Modal onClose={() => dispatch(deleteOrder())}>
+				<Modal onClose={() => {dispatch(deleteOrder()), dispatch(deleteAll())}}>
 					<OrderDetails/>
 				</Modal>
 			}

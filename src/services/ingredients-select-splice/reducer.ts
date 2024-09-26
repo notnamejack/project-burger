@@ -42,6 +42,10 @@ export const ingredientsSelectSlice = createSlice({
 	  deleteItem: (state, action: PayloadAction<IngredientState>) => {
 		state.items = state.items.filter(i => i.index !== action.payload.item.index);
 	  },
+	  deleteAll: (state) => {
+		state.items = [];
+		state.bun = null;
+	  },
 	  moveItem: (state, action: PayloadAction<IngredientMoveState>) => {
 		const ingredients = [...state.items];
    		ingredients.splice(action.payload.toIndex, 0, ingredients.splice(action.payload.fromIndex, 1)[0]);
@@ -51,4 +55,4 @@ export const ingredientsSelectSlice = createSlice({
 	},
   })
 
-export const { setIngredient, setBun, deleteItem, moveItem } = ingredientsSelectSlice.actions
+export const { setIngredient, setBun, deleteItem, deleteAll, moveItem } = ingredientsSelectSlice.actions
