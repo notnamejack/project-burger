@@ -46,12 +46,7 @@ export const reset = createAsyncThunk(
     }
 );
 
-export const logout = createAsyncThunk(
-    "auth/logout",
-    async () => {
-        return api.logout();
-    }
-)
+export const logout = createAsyncThunk("auth/logout", api.logout);
 
 export const setUser = createAction("auth/setUser");
 
