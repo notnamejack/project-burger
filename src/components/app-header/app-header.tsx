@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import s from './app-header.module.scss';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { getUser } from '../../services/auth/reducer';
 import { useAppSelector } from '../../services/store';
 
@@ -30,9 +30,9 @@ export function AppHeader (){
 						</li>
 					</ul>
 				</nav>
-				<div className={clsx(s.logo)}>
+				<Link to={'/'} className={clsx(s.logo)}>
 					<Logo />
-				</div>
+				</Link>
 				<div className={`${clsx(s.in)} pl-5 pr-5 pb-5 pt-5`}>
 					<NavLink to={'/profile'} className={({isActive}) => isActive ? clsx(s.active) : ''}>
 						<ProfileIcon type="secondary" />
