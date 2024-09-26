@@ -3,7 +3,7 @@ import s from './burger-ingredient-constructor.module.scss';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useRef } from 'react';
 import { deleteItem, moveItem } from '../../services/ingredients-select-splice/reducer';
-import { useDrag, useDrop } from 'react-dnd';
+import { DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
 import type { Identifier, XYCoord } from 'dnd-core'
 import { useAppDispatch } from '../../services/store';
@@ -31,7 +31,7 @@ export function BurgerIngredientConstructor ({ingredient, index}:IBurgerIngredie
 		item: () => {
 		  return { ingredient, index }
 		},
-		collect: (monitor: any) => ({
+		collect: (monitor: DragSourceMonitor) => ({
 		  isDragging: monitor.isDragging(),
 		}),
 	  })

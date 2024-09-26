@@ -4,14 +4,14 @@ import { apiConfig } from "./apiConfig";
 const BASE_URL = apiConfig.baseUrl;
 
 const checkReponse = (res: any) => {
-	return res.ok ? res.json() : res.json().then((err: any) => Promise.reject(err));
+	return res.ok ? res.json() : res.json().then((err: Object) => Promise.reject(err));
   };
 
 const checkSuccess = (res: any) => {
 	return res && res.success ? res : Promise.reject(`Ответ не success: ${res}`);
 };
 
-const request = (url: string, options: any) => {
+const request = (url: string, options: RequestInit) => {
 	return fetch(`${BASE_URL}${url}`, options)
 		.then(checkReponse)
 		.then(checkSuccess);
@@ -33,14 +33,17 @@ export const refreshToken = () => {
 		});
 };
 
-const fetchWithRefresh = async (url: string, options: any) => {
+const fetchWithRefresh = async (url: string, options: RequestInit) => {
 	try {
 	  const res = await fetch(url, options);
 	  return await checkReponse(res);
 	} catch (err: any) {
 	  if (err.message === "jwt expired") {
 		const refreshData = await refreshToken(); //обновляем токен
-		options.headers.authorization = refreshData.accessToken;
+		options.headers = {
+			"Content-Type": "application/json;charset=utf-8",
+			authorization: `Bearer ${ refreshData.accessToken}`
+		};
 		const res = await fetch(url, options); //повторяем запрос
 		return await checkReponse(res);
 	  } else {
