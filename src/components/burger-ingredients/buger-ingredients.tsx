@@ -40,7 +40,7 @@ export function BurgerIngredients ({ height }: IBurgerIngredients){
 			<p className="text text_type_main-large mb-5 mt-10">
 				Соберите бургер
 			</p>
-			<div style={{ display: 'flex', justifyContent: 'center' }}>
+			<div className={clsx(s.tabs)}>
 				<Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
 					Булки
 				</Tab>

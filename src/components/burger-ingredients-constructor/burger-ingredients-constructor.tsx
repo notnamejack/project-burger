@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import s from './burger-ingredients-constructor.module.scss';
-import {  useSelector } from 'react-redux';
-import { RootState } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 import { BurgerIngredientConstructor } from '../burger-ingredient-constructor/burger-ingredient-constructor';
 
 interface IBurgerConstructor{
@@ -10,7 +9,7 @@ interface IBurgerConstructor{
 
 export function BurgerIngredientsConstructor ({height}:IBurgerConstructor){
 
-	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items);
+	const selectIngredients = useAppSelector((state) => state.ingredientsSelect.items);
 
 	return (
 		<ul className={clsx(s.items)}

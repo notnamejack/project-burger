@@ -3,21 +3,21 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 import clsx from 'clsx';
 import s from './igredient.module.scss';
 import { IIngredients } from "../../data/ingredients";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import { openModal } from "../../services/ingredients-details-splice/reducer";
 import { useMemo } from "react";
-import { RootState } from "../../services/store";
+import { useAppSelector } from "../../services/store";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IIngredient {
 	ingredient: IIngredients
 }
 
 export function Ingredient ({ingredient}: IIngredient){
-	const dispatch = useDispatch()
 
-	const selectIngredients = useSelector((state: RootState) => state.ingredientsSelect.items)
-	const bun = useSelector((state: RootState) => state.ingredientsSelect.bun)
+	const selectIngredients = useAppSelector((state) => state.ingredientsSelect.items)
+	const bun = useAppSelector((state) => state.ingredientsSelect.bun)
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const [{ opacity }, ref] = useDrag({
 		type: 'ingredient',
@@ -28,7 +28,7 @@ export function Ingredient ({ingredient}: IIngredient){
 	  });
 
 	const count = useMemo(() => {
-		var count = 0;
+		let count = 0;
 		if(ingredient.type !== 'bun')
 			count = selectIngredients.filter(i => i._id === ingredient._id).length;
 
@@ -39,11 +39,12 @@ export function Ingredient ({ingredient}: IIngredient){
 	}, [selectIngredients, bun])
 
 	return (
-		<li key={ingredient._id} className={clsx(s.item)} onClick={() => dispatch(openModal({item: ingredient}))} ref={ref}>
-			{count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
-			<img alt={ingredient.name} src={ingredient.image}/>
-			<p className="text text_type_digits-default">{ingredient.price}<CurrencyIcon type="primary"/></p>
-			<p className="text text_type_main-default">{ingredient.name}</p>
+		<li key={ingredient._id} className={clsx(s.item)} ref={ref}
+			onClick={() => navigate(`/ingredients/${ingredient._id}`, {state:{backgroundLocation: location }})}>
+				{count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
+				<img alt={ingredient.name} src={ingredient.image}/>
+				<p className="text text_type_digits-default">{`${ingredient.price} `}<CurrencyIcon type="primary"/></p>
+				<p className="text text_type_main-default">{ingredient.name}</p>
 		</li>
 	)
 }

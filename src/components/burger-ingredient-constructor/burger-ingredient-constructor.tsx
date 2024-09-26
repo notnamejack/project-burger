@@ -2,11 +2,11 @@ import clsx from 'clsx';
 import s from './burger-ingredient-constructor.module.scss';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import { deleteItem, moveItem } from '../../services/ingredients-select-splice/reducer';
-import { useDrag, useDrop } from 'react-dnd';
+import { DragSourceMonitor, useDrag, useDrop } from 'react-dnd';
 import { IIngredients } from '../../data/ingredients';
 import type { Identifier, XYCoord } from 'dnd-core'
+import { useAppDispatch } from '../../services/store';
 
 interface IBurgerIngredient{
 	ingredient: IIngredients,
@@ -22,7 +22,7 @@ interface DragItem {
 
 export function BurgerIngredientConstructor ({ingredient, index}:IBurgerIngredient){
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const ref = useRef<HTMLLIElement>(null)
 
@@ -31,7 +31,7 @@ export function BurgerIngredientConstructor ({ingredient, index}:IBurgerIngredie
 		item: () => {
 		  return { ingredient, index }
 		},
-		collect: (monitor: any) => ({
+		collect: (monitor: DragSourceMonitor) => ({
 		  isDragging: monitor.isDragging(),
 		}),
 	  })
@@ -80,7 +80,7 @@ export function BurgerIngredientConstructor ({ingredient, index}:IBurgerIngredie
 	drag(drop(ref));
 
 	return (
-		<li className={clsx(s.item)} key={`${index}_${ingredient._id}`} data-handler-id={handlerId}>
+		<li className={clsx(s.item)} ref={ref} data-handler-id={handlerId}>
 			<DragIcon type="primary"/>
 			<ConstructorElement
 				text={ingredient.name}

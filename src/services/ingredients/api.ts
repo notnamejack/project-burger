@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IIngredients } from '../../data/ingredients';
+import { apiConfig } from '../../utils/apiConfig';
 
 interface IApi{
 	data: IIngredients[]
@@ -8,7 +9,14 @@ interface IApi{
 export const ingredientsApi = createApi({
     reducerPath: "ingredientsApi",
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://norma.nomoreparties.space/api'
+        baseUrl: apiConfig.baseUrl,
+		prepareHeaders: (headers) => {
+            for (let [key, value] of Object.entries(apiConfig.headers)) {
+                headers.set(key, value);
+            }
+
+            return headers;
+        }
     }),
     endpoints: (builder) => ({
         getIngredients: builder.query<IApi, void>({

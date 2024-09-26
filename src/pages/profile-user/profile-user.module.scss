@@ -1,0 +1,12 @@
+.container{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	padding-top: 120px;
+	gap: 24px;
+}
+
+.container input::-ms-reveal,
+.container input::-ms-clear {
+  display: none;
+}
