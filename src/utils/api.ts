@@ -1,29 +1,36 @@
 import { IFormLogin, IFormRegister, IFormReset, IFormForgot } from "../services/auth/actions";
 import { apiConfig } from "./apiConfig";
 
+const BASE_URL = apiConfig.baseUrl;
+
 const checkReponse = (res: any) => {
 	return res.ok ? res.json() : res.json().then((err: any) => Promise.reject(err));
   };
 
+const checkSuccess = (res: any) => {
+	return res && res.success ? res : Promise.reject(`Ответ не success: ${res}`);
+};
+
+const request = (url: string, options: any) => {
+	return fetch(`${BASE_URL}${url}`, options)
+		.then(checkReponse)
+		.then(checkSuccess);
+};
+
 export const refreshToken = () => {
-return fetch(`${apiConfig.baseUrl}/auth/token`, {
-	method: "POST",
-	headers: {
-	"Content-Type": "application/json;charset=utf-8",
-	},
-	body: JSON.stringify({
-	token: localStorage.getItem("refreshToken"),
-	}),
-})
-.then(checkReponse)
-.then((refreshData) => {
-	if (!refreshData.success) {
-		return Promise.reject(refreshData);
-	}
-	localStorage.setItem("refreshToken", refreshData.refreshToken);
-	localStorage.setItem("accessToken", refreshData.accessToken.split('Bearer ')[1]);
-	return refreshData;
-});
+	return request('/auth/token',{
+		method: "POST",
+		headers: {
+		"Content-Type": "application/json;charset=utf-8",
+		},
+		body: JSON.stringify({
+		token: localStorage.getItem("refreshToken"),
+		}),
+		}).then((refreshData) => {
+			localStorage.setItem("refreshToken", refreshData.refreshToken);
+			localStorage.setItem("accessToken", refreshData.accessToken.split('Bearer ')[1]);
+			return refreshData;
+		});
 };
 
 const fetchWithRefresh = async (url: string, options: any) => {
@@ -43,38 +50,29 @@ const fetchWithRefresh = async (url: string, options: any) => {
   };
 
 const login = async (form: IFormLogin) => {
-	return await fetch(`${apiConfig.baseUrl}/auth/login`, {
+	return await request('/auth/login', {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
 		},
 		body: JSON.stringify(form),
-	  })
-	  .then(checkReponse)
-	  .then((data) => {
-		if (!data.success) {
-			return Promise.reject(data);
-		  }
-		localStorage.setItem("refreshToken", data.refreshToken);
-		localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
-		localStorage.removeItem("resetPassword");
-		return data.user;
-	  });
+	  }).then((data) => {
+			localStorage.setItem("refreshToken", data.refreshToken);
+			localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
+			localStorage.removeItem("resetPassword");
+			return data.user
+		});
 }
 
 const register = async (form: IFormRegister) => {
-	return await fetch(`${apiConfig.baseUrl}/auth/register`, {
+	return await request('/auth/register', {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
 		},
 		body: JSON.stringify(form),
 	  })
-	  .then(checkReponse)
 	  .then((data) => {
-		if (!data.success) {
-			return Promise.reject(data);
-		  }
 		localStorage.setItem("refreshToken", data.refreshToken);
 		localStorage.setItem("accessToken", data.accessToken.split('Bearer ')[1]);
 		return data.user;
@@ -82,43 +80,35 @@ const register = async (form: IFormRegister) => {
 }
 
 const forgot = async (form: IFormForgot) => {
-	return await fetch(`${apiConfig.baseUrl}/password-reset`, {
+	return await request('/password-reset', {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
 		},
 		body: JSON.stringify(form),
 	  })
-	  .then(checkReponse)
 	  .then((data) => {
-		if (!data.success) {
-			return Promise.reject(data);
-		  }
 		localStorage.setItem("resetPassword", data.success);
 		return data.message;
 	  });
 }
 
 const reset = async (form: IFormReset) => {
-	return await fetch(`${apiConfig.baseUrl}/password-reset/reset`, {
+	return await request('/password-reset/reset', {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
 		},
 		body: JSON.stringify(form),
 	  })
-	  .then(checkReponse)
 	  .then((data) => {
-		if (!data.success) {
-			return Promise.reject(data);
-		  }
 		localStorage.removeItem("resetPassword");
 		return data.message;
 	  });
 }
 
 const logout = async () => {
-	return await fetch(`${apiConfig.baseUrl}/auth/logout`, {
+	return await request('/auth/logout', {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
@@ -127,11 +117,7 @@ const logout = async () => {
 		  token: localStorage.getItem("refreshToken"),
 		}),
 	  })
-	  .then(checkReponse)
 	  .then((data) => {
-		if (!data.success) {
-			return Promise.reject(data);
-		  }
 		localStorage.removeItem("refreshToken");
 		localStorage.removeItem("accessToken");
 		return data.message;
@@ -139,7 +125,7 @@ const logout = async () => {
 }
 
 const getUser = async () => {
-	const request = await fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
+	const request = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
 		method: "GET",
 		headers: {
 		"Content-Type": "application/json;charset=utf-8",
@@ -155,7 +141,7 @@ const getUser = async () => {
 }
 
 const patchUser = async (form: IFormRegister) => {
-	const request = await fetchWithRefresh(`${apiConfig.baseUrl}/auth/user`, {
+	const request = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
 		method: "PATCH",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
