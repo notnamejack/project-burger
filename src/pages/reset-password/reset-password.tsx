@@ -6,6 +6,7 @@ import { getError, getLoading, getMessage, setError } from '../../services/auth/
 import { useCallback, useEffect, useState } from 'react';
 import { IFormReset, reset } from '../../services/auth/actions';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../hook/useForm';
 
 
 export function ResetPassword (){
@@ -14,10 +15,11 @@ export function ResetPassword (){
 	const message = useAppSelector(getMessage);
 	const error = useAppSelector(getError);
 
-	const [form, setForm] = useState<IFormReset>({
+	const {form, handleInputChange, setForm} = useForm<IFormReset>({
 		password: undefined,
 		token: undefined
-    })
+	});
+
 
 	const [isIcon, setIsIcon] = useState(false);
 
@@ -32,13 +34,6 @@ export function ResetPassword (){
 		navigate('/login');
 		dispatch(setError());
 	}
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({
-      	...form,
-          [e.target.name]: e.target.value
-        });
-    }
 
 	const formSubmit = useCallback(
 	(e: React.ChangeEvent<HTMLFormElement>) => {

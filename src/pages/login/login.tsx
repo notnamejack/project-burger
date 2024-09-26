@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
 import { IFormLogin, login } from '../../services/auth/actions';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { getError, getLoading, setError } from '../../services/auth/reducer';;
+import { getError, getLoading, setError } from '../../services/auth/reducer';import { useForm } from '../../hook/useForm';
+;
 
 
 export function Login (){
@@ -13,10 +14,10 @@ export function Login (){
 	const loading = useAppSelector(getLoading);
 	const error = useAppSelector(getError);
 
-	const [form, setForm] = useState<IFormLogin>({
-        email: undefined,
-		password: undefined
-    })
+	const {form, handleInputChange, setForm} = useForm<IFormLogin>({
+		password: undefined,
+		email: undefined
+	});
 
 	const [isIcon, setIsIcon] = useState(false);
 
@@ -31,13 +32,6 @@ export function Login (){
 		navigate('/forgot-password');
 		dispatch(setError());
 	}
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({
-      	...form,
-          [e.target.name]: e.target.value
-        });
-    }
 
 	const formSubmit = useCallback(
 	(e: React.ChangeEvent<HTMLFormElement>) => {

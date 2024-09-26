@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading, getMessage, setError } from '../../services/auth/reducer';
 import { useCallback, useEffect, useState } from 'react';
 import { forgot, IFormForgot } from '../../services/auth/actions';
+import { useForm } from '../../hook/useForm';
 
 
 export function ForgotPassword (){
@@ -14,9 +15,9 @@ export function ForgotPassword (){
 	const message = useAppSelector(getMessage);
 	const error = useAppSelector(getError);
 
-	const [form, setForm] = useState<IFormForgot>({
+	const {form, handleInputChange, setForm} = useForm<IFormForgot>({
 		email: undefined
-    })
+	});
 
 	const navigate = useNavigate();
 
@@ -29,13 +30,6 @@ export function ForgotPassword (){
 		navigate('/login');
 		dispatch(setError());
 	}
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({
-      	...form,
-          [e.target.name]: e.target.value
-        });
-    }
 
 	const formSubmit = useCallback(
 	(e: React.ChangeEvent<HTMLFormElement>) => {

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading, setError } from '../../services/auth/reducer';
 import { useCallback, useState } from 'react';
 import { IFormRegister, register } from '../../services/auth/actions';
+import { useForm } from '../../hook/useForm';
 
 
 export function Register (){
@@ -13,11 +14,11 @@ export function Register (){
 	const loading = useAppSelector(getLoading);
 	const error = useAppSelector(getError);
 
-	const [form, setForm] = useState<IFormRegister>({
+	const {form, handleInputChange, setForm} = useForm<IFormRegister>({
 		name: undefined,
         email: undefined,
 		password: undefined
-    })
+	});
 
 	const [isIcon, setIsIcon] = useState(false);
 
@@ -27,12 +28,6 @@ export function Register (){
 		navigate('/login');
 		dispatch(setError());
 	}
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({
-      	...form,
-          [e.target.name]: e.target.value
-        });
-    }
 
 	const formSubmit = useCallback(
 	(e: React.ChangeEvent<HTMLFormElement>) => {
