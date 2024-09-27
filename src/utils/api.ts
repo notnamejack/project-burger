@@ -3,18 +3,27 @@ import { apiConfig } from "./apiConfig";
 
 const BASE_URL = apiConfig.baseUrl;
 
-const checkReponse = (res: any) => {
+type IResponseApi<TDataKey extends string = '', TDataType = {}> = {
+	[key in TDataKey]: TDataType
+} & {
+	success: boolean,
+	accessToken: string,
+	refreshToken: string,
+	message: string
+}
+
+const checkReponse = (res: Response) => {
 	return res.ok ? res.json() : res.json().then((err: Object) => Promise.reject(err));
   };
 
-const checkSuccess = (res: any) => {
+const checkSuccess = <TDataKey extends string, TDataType>(res: IResponseApi<TDataKey, TDataType>) => {
 	return res && res.success ? res : Promise.reject(`Ответ не success: ${res}`);
 };
 
-const request = (url: string, options: RequestInit) => {
+const request = <TDataKey extends string, TDataType>(url: string, options: RequestInit) => {
 	return fetch(`${BASE_URL}${url}`, options)
 		.then(checkReponse)
-		.then(checkSuccess);
+		.then(checkSuccess<TDataKey, TDataType>);
 };
 
 export const refreshToken = () => {
@@ -37,23 +46,24 @@ const fetchWithRefresh = async (url: string, options: RequestInit) => {
 	try {
 	  const res = await fetch(url, options);
 	  return await checkReponse(res);
-	} catch (err: any) {
-	  if (err.message === "jwt expired") {
-		const refreshData = await refreshToken(); //обновляем токен
-		options.headers = {
-			"Content-Type": "application/json;charset=utf-8",
-			authorization: `Bearer ${ refreshData.accessToken}`
-		};
-		const res = await fetch(url, options); //повторяем запрос
-		return await checkReponse(res);
-	  } else {
-		return Promise.reject(err.message);
-	  }
+	} catch (e) {
+		const err = e as Error;
+		if (err.message === "jwt expired") {
+			const accessToken = await refreshToken(); //обновляем токен
+			options.headers = {
+				"Content-Type": "application/json;charset=utf-8",
+				authorization: `Bearer ${accessToken}`
+			};
+			const res = await fetch(url, options); //повторяем запрос
+			return await checkReponse(res);
+		} else {
+			return Promise.reject(err.message);
+		}
 	}
   };
 
-const login = async (form: IFormLogin) => {
-	return await request('/auth/login', {
+const login = async <TDataType> (form: IFormLogin) => {
+	return await request<'user', TDataType>('/auth/login', {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
@@ -67,8 +77,8 @@ const login = async (form: IFormLogin) => {
 		});
 }
 
-const register = async (form: IFormRegister) => {
-	return await request('/auth/register', {
+const register = async <TDataType> (form: IFormRegister) => {
+	return await request<'user', TDataType>('/auth/register', {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json;charset=utf-8",
@@ -91,7 +101,7 @@ const forgot = async (form: IFormForgot) => {
 		body: JSON.stringify(form),
 	  })
 	  .then((data) => {
-		localStorage.setItem("resetPassword", data.success);
+		localStorage.setItem("resetPassword", `${data}`);
 		return data.message;
 	  });
 }

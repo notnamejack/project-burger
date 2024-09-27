@@ -8,7 +8,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { forgot, IFormForgot } from '../../services/auth/actions';
 import { useForm } from '../../hook/useForm';
 
-
 export function ForgotPassword (){
     const dispatch = useAppDispatch();
 	const loading = useAppSelector(getLoading);

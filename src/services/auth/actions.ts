@@ -1,6 +1,6 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import { api } from "../../utils/api";
-import { setIsAuthChecked } from "./reducer";
+import { IUser, setIsAuthChecked } from "./reducer";
 
 export interface IFormForgot{
 	email: string | undefined,
@@ -21,14 +21,14 @@ export interface IFormReset{
 export const login = createAsyncThunk(
     "auth/login",
     async ({ form }: { form: IFormLogin }) => {
-        return api.login(form)
+        return api.login<IUser>(form)
     }
 );
 
 export const register = createAsyncThunk(
     "auth/register",
     async ({ form }: { form: IFormRegister }) => {
-        return api.register(form)
+        return api.register<IUser>(form)
     }
 );
 

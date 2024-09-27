@@ -1,7 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {login, logout, register, forgot, setUser, reset, patchUser} from "./actions";
 
-
 interface UserState {
 	user: IUser | null,
 	message: string | null,
@@ -10,7 +9,7 @@ interface UserState {
 	error: string | null
 }
 
-interface IUser{
+export interface IUser{
 	name: string,
 	email: string,
 }

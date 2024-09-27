@@ -4,17 +4,15 @@ import s from './main.module.scss';
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { RootState, useAppDispatch, useAppSelector } from "../../services/store";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { BurgerConstructor, BurgerIngredients, Modal, OrderDetails } from "../../components";
 import { deleteOrder } from "../../services/order-details-splice/reducer";
 import { deleteAll } from "../../services/ingredients-select-splice/reducer";
 
-
-
 export function Main (){
 
 	const [height, setHeight] = useState(window.document.documentElement.clientHeight);
-	const order = useAppSelector((state: RootState) => state.order.orderDetail);
+	const order = useAppSelector((state) => state.order.orderDetail);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {

@@ -8,7 +8,6 @@ import { IFormReset, reset } from '../../services/auth/actions';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hook/useForm';
 
-
 export function ResetPassword (){
     const dispatch = useAppDispatch();
 	const loading = useAppSelector(getLoading);
@@ -19,7 +18,6 @@ export function ResetPassword (){
 		password: undefined,
 		token: undefined
 	});
-
 
 	const [isIcon, setIsIcon] = useState(false);
 

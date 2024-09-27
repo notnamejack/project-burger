@@ -6,11 +6,6 @@ const Protected = ({onlyUnAuth = false, resetPasswor = false, component}: {onlyU
     const isAuthChecked = useAppSelector(getIsAuthChecked);
     const user = useAppSelector(getUser);
     const location = useLocation();
-    // url = /profile, onlyUnAuth = false, user = null
-    // url = /login, from: /profile, onlyUnAuth = true, user = null
-    // url = /login, from: /profile, onlyUnAuth = true, user != null
-    // url = /profile, onlyUnAuth = false, user != null
-    // url = /profile, onlyUnAuth = false, user = null
 
     if (!isAuthChecked) {
         return <p>Загрузка...</p>;
