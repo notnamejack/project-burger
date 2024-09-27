@@ -8,7 +8,6 @@ import { useCallback, useState } from 'react';
 import { IFormRegister, register } from '../../services/auth/actions';
 import { useForm } from '../../hook/useForm';
 
-
 export function Register (){
     const dispatch = useAppDispatch();
 	const loading = useAppSelector(getLoading);

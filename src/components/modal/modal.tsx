@@ -13,7 +13,6 @@ interface IModal extends IModalOverlay{
 	title?: string,
 }
 
-
 export function Modal ({title, children, onClose}:IModal){
 
 	useEffect(() => {

@@ -6,8 +6,6 @@ import { useCallback, useState } from 'react';
 import { IFormLogin, login } from '../../services/auth/actions';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getError, getLoading, setError } from '../../services/auth/reducer';import { useForm } from '../../hook/useForm';
-;
-
 
 export function Login (){
     const dispatch = useAppDispatch();
