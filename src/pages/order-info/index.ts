@@ -1,0 +1,1 @@
+export {OrderIinfo as default} from './order-info';

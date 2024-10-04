@@ -23,7 +23,7 @@ export function AppHeader (){
 							</NavLink>
 						</li>
 						<li className={clsx(s.item)}>
-							<NavLink to={'/order'} className={({isActive}) => isActive ? clsx(s.active) : ''}>
+							<NavLink to={'/feed'} className={({isActive}) => isActive ? clsx(s.active) : ''}>
 								<ListIcon type="secondary" />
 								<span className='text text_type_main-default text_color_inactive'>Лента заказов</span>
 							</NavLink>
