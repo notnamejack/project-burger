@@ -10,6 +10,7 @@ export function Orders(){
 			<OrderCard/>
 			<OrderCard/>
 			<OrderCard/>
+			<OrderCard/>
 		</div>
 	)
 }

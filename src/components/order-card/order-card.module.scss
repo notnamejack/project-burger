@@ -4,7 +4,7 @@
 	align-items: flex-start;
 	gap: 24px;
 	padding: 24px;
-	width: 100%;
+	width: calc(100% - 60px);
 	background-color: #1c1c1c;
 	border-radius: 40px;
 	cursor: pointer;
@@ -36,6 +36,25 @@
 	height: 64px;
 }
 
+.other span{
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 64px;
+	height: 64px;
+	top: 0;
+	left: 0;
+	background-color: rgba($color: #1c1c1c, $alpha: .6);
+	border-radius: 50%;
+	opacity: .6;
+	z-index: 1;
+}
+
+.other.item img{
+	z-index: 0;
+}
+
 .item img{
 	position: absolute;
 	width: 64px;
@@ -45,7 +64,7 @@
 	border: 2px solid #801AB2;
 	background-color: #1c1c1c;
 	border-radius: 50%;
-	z-index: 0;
+	z-index: 2;
 }
 
 .total p{

@@ -4,5 +4,7 @@
 	align-items: flex-start;
 	gap: 24px;
 	padding-top: 40px;
-	width: 800px;
+	width: calc(100% - 320px);
+	height: 830px;
+	overflow-x: auto;
 }

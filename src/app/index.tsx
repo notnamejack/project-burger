@@ -35,7 +35,7 @@ export const App = () => {
 					<Route path='/register' element={<OnlyUnAuth component={<Register/>} />}/>
 					<Route path='/forgot-password' element={<OnlyUnAuth component={<ForgotPassword/>} />}/>
 					<Route path='/reset-password' element={<OnlyReset component={<ResetPassword/>} />}/>
-					<Route path='/feet' element={<Feed/>}>
+					<Route path='/feed' element={<Feed/>}>
 						<Route path=':id' element={<OrderIinfo/>}/>
 					</Route>
 					<Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
