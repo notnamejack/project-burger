@@ -49,13 +49,13 @@ export function Feed(){
 							<p className="text text_type_main-medium">
 								Выполнено за все время:
 							</p>
-							<p className="text text_type_digits-large">28 752</p>
+							<p className={`${clsx(s.result)} text text_type_digits-large`}>28 752</p>
 						</div>
 						<div>
 							<p className="text text_type_main-medium">
 								Выполнено за сегодня:
 							</p>
-							<p className="text text_type_digits-large">138</p>
+							<p className={`${clsx(s.result)} text text_type_digits-large`}>138</p>
 						</div>
 					</div>
 				</div>

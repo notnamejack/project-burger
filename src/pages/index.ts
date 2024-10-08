@@ -2,7 +2,6 @@ import Feed from "./feed";
 import ForgotPassword from "./forgot-password";
 import Login from "./login";
 import Main from "./main";
-import OrderIinfo from "./order-info";
 import Orders from "./orders";
 import Profile from "./profile";
 import ProfileUser from "./profile-user";
@@ -14,7 +13,6 @@ export {
 	ForgotPassword,
 	Login,
 	Main,
-	OrderIinfo,
 	Orders,
 	Profile,
 	ProfileUser,
