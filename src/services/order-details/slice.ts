@@ -13,6 +13,7 @@ export interface IOrderDetails{
 	name: string,
 	number: number,
 	date: Date,
+	status: string,
 	ingredients: IOrderIngredients[]
 }
 

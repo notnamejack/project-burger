@@ -8,6 +8,7 @@ export const orderDetailsUpdate = (prevTable: IOrderDetails | null, actions: IOr
 		number: actions?.number || 0,
 		name: actions?.name || '',
 		date: actions?.updatedAt || new Date(),
+		status: actions?.status || '',
 		ingredients: []
 	};
 

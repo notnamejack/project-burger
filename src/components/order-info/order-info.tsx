@@ -2,12 +2,13 @@ import clsx from 'clsx';
 import s from './order-info.module.scss';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getTapeOrders, IOrders } from '../../services/tape-orders/slice';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getMyOrders } from '../../services/my-orders/slice';
 import { useGetIngredientsQuery } from '../../services/ingredients/api';
-import { addOrderDetails } from '../../services/order-details/slice';
+import { addOrderDetails, IOrderIngredients } from '../../services/order-details/slice';
+import { IIngredients } from '../../data/ingredients';
 
 export function OrderInfo(){
 	const params = useParams()
@@ -48,6 +49,22 @@ export function OrderInfo(){
 		setTotal(totalAll);
 	}, [data?.data, orderDetail?.ingredients])
 
+	const getStatus = useMemo(() => {
+		let status = '';
+
+		switch(orderDetail?.status) {
+			case 'created':
+				status = 'Готовится';
+				break;
+			case 'pending':
+				status = 'Отменён';
+				break;
+			case 'done':
+				status = 'Выполнен';
+				break;
+		}
+		return status
+	}, [orderDetail])
 	return(
 		<div className={`${clsx(s.container)} ${(!state?.backgroundLocation) && clsx(s.notmodal)}`}>
 			<p className={`${(state?.backgroundLocation) && clsx(s.left)} text text_type_main-medium`}>
@@ -58,8 +75,8 @@ export function OrderInfo(){
 					<p className="text text_type_main-medium">
 						{orderDetail?.name}
 					</p>
-					<p className="text text_type_main-default">
-						Выполнен
+					<p className={`${clsx(s.done)} text text_type_main-default`}>
+						{getStatus}
 					</p>
 				</div>
 				<div className={clsx(s.order)}>
@@ -67,8 +84,8 @@ export function OrderInfo(){
 						Состав:
 					</p>
 					<ul className={clsx(s.items)}>
-						{orderDetail?.ingredients.map(ingredients =>
-							<OrderInfoData/>
+						{orderDetail?.ingredients.map(ingredient =>
+							<OrderInfoData ingredientOrder={ingredient}/>
 						)}
 					</ul>
 				</div>
@@ -83,15 +100,24 @@ export function OrderInfo(){
 	)
 }
 
-export function OrderInfoData(){
+export function OrderInfoData({ingredientOrder}:{ingredientOrder: IOrderIngredients}){
+
+	const {data} = useGetIngredientsQuery();
+	const [ingredient, setIngredient] = useState<IIngredients>()
+	useEffect(() => {
+		const find = data?.data.find(i => i._id == ingredientOrder._id);
+		if(!find){return (undefined)};
+		setIngredient(find);
+	},[data])
+
 	return(
 		<li className={clsx(s.item)}>
-			<img src='https://code.s3.yandex.net/react/code/bun-02-mobile.png'/>
+			<img src={ingredient?.image_mobile}/>
 			<p className="text text_type_main-default">
-				Флюоресцентная булка R2-D3
+				{ingredient?.name}
 			</p>
 			<div className={clsx(s.total)}>
-				<p className="text text_type_digits-default">{`${2} x ${480} `}<CurrencyIcon type="primary" /></p>
+				<p className="text text_type_digits-default">{`${ingredientOrder.count} x ${ingredient?.price} `}<CurrencyIcon type="primary" /></p>
 			</div>
 		</li>
 	)
