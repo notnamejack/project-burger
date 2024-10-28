@@ -17,6 +17,10 @@ export const App = () => {
 
 	const handleModalClose = () => {
 	  navigate(-1);
+	};
+
+	const handleIngredientModalClose = () => {
+	  navigate(-1);
 	  dispatch(closeModal())
 	};
 
@@ -49,8 +53,15 @@ export const App = () => {
 					<Route
 					path='/ingredients/:ingredientId'
 					element={
-						<Modal title='Детали ингредиента' onClose={handleModalClose}>
+						<Modal title='Детали ингредиента' onClose={handleIngredientModalClose}>
 							<IngredientDetails/>
+						</Modal>
+					}
+					/><Route
+					path='/feed/:id'
+					element={
+						<Modal onClose={handleModalClose}>
+							<OrderInfo/>
 						</Modal>
 					}
 					/>

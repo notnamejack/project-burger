@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../services/store';
 import { useEffect } from 'react';
 import { wsConnect, wsDisconnect } from '../../services/tape-orders/actions';
 import { getTapeOrders, getTotal, getTotalToday } from '../../services/tape-orders/slice';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export function Feed(){
 
@@ -12,6 +13,12 @@ export function Feed(){
 	const orders = useAppSelector(getTapeOrders);
 	const total = useAppSelector(getTotal);
 	const totalToday = useAppSelector(getTotalToday);
+	const orderDone = useAppSelector(state => state.tapeOrders.orders?.orders
+		.filter(i => i.status.toLocaleUpperCase() === 'done'.toLocaleUpperCase()).splice(0,10));
+	const orderCreated = useAppSelector(state => state.tapeOrders.orders?.orders
+		.filter(i => i.status.toLocaleUpperCase() === 'created'.toLocaleUpperCase()).splice(0,10) || [])
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
 		dispatch(wsConnect("wss://norma.nomoreparties.space/orders/all"))
@@ -28,7 +35,10 @@ export function Feed(){
 			<div className={clsx(s.body)}>
 				<div className={clsx(s.orders)}>
 					{orders?.map(order =>
-						<OrderCard key={order._id} order={order}/>
+						<OrderCard
+							key={order._id}
+							order={order}
+							onClick={() => navigate(`${order._id}`, {state:{backgroundLocation: location }})}/>
 					)}
 				</div>
 				<div className={clsx(s.panel)}>
@@ -38,9 +48,7 @@ export function Feed(){
 								Готовы:
 							</p>
 							<ul>
-								{orders?.filter(i => i.status.toLocaleUpperCase() === 'done'.toLocaleUpperCase())
-									.splice(0, 10)
-									.map(order =>
+								{orderDone?.map(order =>
 									<li key={`${order._id}_done`}>
 										<p className="text text_type_digits-default">{order.number}</p>
 									</li>
@@ -52,9 +60,7 @@ export function Feed(){
 								В работе:
 							</p>
 							<ul>
-								{orders?.filter(i => i.status.toLocaleUpperCase() === 'created'.toLocaleUpperCase())
-									.splice(0, 10)
-									.map(order =>
+								{orderCreated?.map(order =>
 									<li key={`${order._id}_pending`}>
 										<p className="text text_type_digits-default">{order.number}</p>
 									</li>

@@ -50,7 +50,7 @@ export function OrderCard({activeStatus, order, onClick}:IOrderCard){
 						<ImageOrder key={order.ingredients.at(-1)} id={order.ingredients.at(-1) || ''} count={order.ingredients.length - 5}/>
 					}
 					{order.ingredients.map((ingredient, index) =>
-						(index <= 5 && <ImageOrder key={ingredient} id={ingredient}/>)
+						(index <= 5 && <ImageOrder key={`${ingredient}_${index}`} id={ingredient}/>)
 					)}
 				</ul>
 				<div className={clsx(s.total)}>
@@ -66,7 +66,6 @@ export function ImageOrder({id, count}:{id: string, count?: number}){
 	const [ingredient, setIngredient] = useState<IIngredients>()
 	useEffect(() => {
 		const find = data?.data.find(i => i._id == id);
-		console.log(find)
 		if(!find){return (undefined)};
 		setIngredient(find);
 	},[data])
