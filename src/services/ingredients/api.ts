@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { IIngredients } from '../../data/ingredients';
 import { apiConfig } from '../../utils/apiConfig';
 
-interface IApi{
+export interface IApi{
 	data: IIngredients[]
 }
 

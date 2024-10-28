@@ -12,6 +12,7 @@ import { wsConnect, wsDisconnect } from "./tape-orders/actions";
 import { socketMiddleware } from "./middleware/socket-middleware";
 import { myOrdersSlice, wsError as myError, wsMessage as myMessage } from "./my-orders/slice";
 import { wsConnect as myConnect, wsDisconnect as myDisconnect} from "./tape-orders/actions";
+import { orderDetailsSplice } from "./order-details/slice";
 
 //произвел настройку согласно https://redux-toolkit.js.org/tutorials/quick-start
 
@@ -36,6 +37,7 @@ const rootReducer = combineSlices({
 	auth: authSlice.reducer,
 	tapeOrders: tapeOrdersSlice.reducer,
 	myOrders: myOrdersSlice.reducer,
+	orderDetails: orderDetailsSplice.reducer,
 	[ingredientsApi.reducerPath]: ingredientsApi.reducer,
 	[orderApi.reducerPath]: orderApi.reducer,
 });
