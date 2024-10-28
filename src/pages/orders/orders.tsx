@@ -7,10 +7,10 @@ import { OrderCard } from "../../components";
 export function Orders(){
 	return(
 		<div className={clsx(s.container)}>
+			{/* <OrderCard/>
 			<OrderCard/>
 			<OrderCard/>
-			<OrderCard/>
-			<OrderCard/>
+			<OrderCard/> */}
 		</div>
 	)
 }
