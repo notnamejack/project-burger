@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import s from './order-card.module.scss';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IOrders } from '../../services/tape-orders/slice';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAppSelector } from '../../services/store';
 import { useGetIngredientsQuery } from '../../services/ingredients/api';
 import { IIngredients } from '../../data/ingredients';
@@ -29,20 +29,37 @@ export function OrderCard({activeStatus, order, onClick}:IOrderCard){
 		setTotal(totalAll);
 	}, [data?.data, order])
 
+	const getStatus = useMemo(() => {
+		let status = '';
+
+		switch(order.status) {
+			case 'created':
+				status = 'Готовится';
+				break;
+			case 'pending':
+				status = 'Отменён';
+				break;
+			case 'done':
+				status = 'Выполнен';
+				break;
+		}
+		return status
+	}, [order])
+
 	return(
 		<div className={clsx(s.container)} onClick={onClick}>
 			<div className={clsx(s.header)}>
 				<p className="text text_type_digits-default">{`#${order.number}`}</p>
 				<FormattedDate date={new Date(order.updatedAt)} className='text text_type_main-default text_color_inactive'/>
 			</div>
-			<div>
-			<p className="text text_type_main-medium">
-				{order.name}
-			</p>
-			{activeStatus &&
-			<p className="text text_type_main-small">
-				Создан
-			</p>}
+			<div className={clsx(s.status)}>
+				<p className="text text_type_main-medium">
+					{order.name}
+				</p>
+				{activeStatus &&
+				<p className={`${clsx(s.done)} text text_type_main-default`}>
+					{getStatus}
+				</p>}
 			</div>
 			<div className={clsx(s.body)}>
 				<ul className={clsx(s.items)}>

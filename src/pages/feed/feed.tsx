@@ -8,20 +8,21 @@ import { getTapeOrders, getTotal, getTotalToday } from '../../services/tape-orde
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export function Feed(){
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const dispatch = useAppDispatch();
 	const orders = useAppSelector(getTapeOrders);
 	const total = useAppSelector(getTotal);
 	const totalToday = useAppSelector(getTotalToday);
 	const orderDone = useAppSelector(state => state.tapeOrders.orders?.orders
-		.filter(i => i.status.toLocaleUpperCase() === 'done'.toLocaleUpperCase()).splice(0,10));
+		.filter(i => i.status.toLocaleUpperCase() === 'done'.toLocaleUpperCase()).splice(0,10) || []);
 	const orderCreated = useAppSelector(state => state.tapeOrders.orders?.orders
 		.filter(i => i.status.toLocaleUpperCase() === 'created'.toLocaleUpperCase()).splice(0,10) || [])
-	const navigate = useNavigate();
-	const location = useLocation();
+
 
 	useEffect(() => {
-		dispatch(wsConnect("wss://norma.nomoreparties.space/orders/all"))
+		dispatch(wsConnect("wss://norma.nomoreparties.space/orders/all"));
 		return () => {
 			dispatch(wsDisconnect());
 		}
@@ -73,13 +74,13 @@ export function Feed(){
 							<p className="text text_type_main-medium">
 								Выполнено за все время:
 							</p>
-							<p className={`${clsx(s.result)} text text_type_digits-large`}>{`${total}`}</p>
+							<p className={`${clsx(s.result)} text text_type_digits-large`}>{total || ''}</p>
 						</div>
 						<div>
 							<p className="text text_type_main-medium">
 								Выполнено за сегодня:
 							</p>
-							<p className={`${clsx(s.result)} text text_type_digits-large`}>{`${totalToday}`}</p>
+							<p className={`${clsx(s.result)} text text_type_digits-large`}>{totalToday || ''}</p>
 						</div>
 					</div>
 				</div>

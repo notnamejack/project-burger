@@ -51,19 +51,28 @@ export const App = () => {
 			{state?.backgroundLocation && (
 				<Routes>
 					<Route
-					path='/ingredients/:ingredientId'
-					element={
-						<Modal title='Детали ингредиента' onClose={handleIngredientModalClose}>
-							<IngredientDetails/>
-						</Modal>
-					}
-					/><Route
-					path='/feed/:id'
-					element={
-						<Modal onClose={handleModalClose}>
-							<OrderInfo/>
-						</Modal>
-					}
+						path='/ingredients/:ingredientId'
+						element={
+							<Modal title='Детали ингредиента' onClose={handleIngredientModalClose}>
+								<IngredientDetails/>
+							</Modal>
+						}
+					/>
+					<Route
+						path='/feed/:id'
+						element={
+							<Modal onClose={handleModalClose}>
+								<OrderInfo/>
+							</Modal>
+						}
+					/>
+					<Route
+						path='/profile/orders/:id'
+						element={
+							<Modal onClose={handleModalClose}>
+								<OrderInfo/>
+							</Modal>
+						}
 					/>
 				</Routes>
 			)}

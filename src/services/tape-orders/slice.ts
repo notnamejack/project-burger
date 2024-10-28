@@ -18,12 +18,12 @@ export interface IOrders{
 	updatedAt: Date
 }
 
-export type TapeOrdersStore = {
+export type TTapeOrdersStore = {
 	orders: ITapeOrders | null
     connectionError: string | null;
 }
 
-const initialState: TapeOrdersStore = {
+const initialState: TTapeOrdersStore = {
     orders: null,
     connectionError: null,
 };
@@ -37,7 +37,6 @@ export const tapeOrdersSlice = createSlice({
         },
         wsMessage: (state, action: PayloadAction<ITapeOrders>) => {
             state.orders = action.payload;
-			console.log(action.payload);
         }
     },
     selectors: {

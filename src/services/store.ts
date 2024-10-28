@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ITapeOrders, tapeOrdersSlice, wsError, wsMessage } from "./tape-orders/slice";
 import { wsConnect, wsDisconnect } from "./tape-orders/actions";
 import { socketMiddleware } from "./middleware/socket-middleware";
+import { myOrdersSlice, wsError as myError, wsMessage as myMessage } from "./my-orders/slice";
+import { wsConnect as myConnect, wsDisconnect as myDisconnect} from "./tape-orders/actions";
 
 //произвел настройку согласно https://redux-toolkit.js.org/tutorials/quick-start
 
@@ -20,12 +22,20 @@ const tapeOrdersMiddleware = socketMiddleware<unknown, ITapeOrders>({
     onMessage: wsMessage
 });
 
+const myOrdersMiddleware = socketMiddleware<unknown, ITapeOrders>({
+    connect: myConnect,
+    disconnect: myDisconnect,
+    onError: myError,
+    onMessage: myMessage
+}, true);
+
 const rootReducer = combineSlices({
 	ingredientsSelect: ingredientsSelectSlice.reducer,
 	order: orderSplice.reducer,
 	ingredientsDetails: ingredientsDetailsSlice.reducer,
 	auth: authSlice.reducer,
 	tapeOrders: tapeOrdersSlice.reducer,
+	myOrders: myOrdersSlice.reducer,
 	[ingredientsApi.reducerPath]: ingredientsApi.reducer,
 	[orderApi.reducerPath]: orderApi.reducer,
 });
@@ -33,7 +43,7 @@ const rootReducer = combineSlices({
 export const store = configureStore({
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) => {
-		return getDefaultMiddleware().concat(ingredientsApi.middleware, orderApi.middleware, tapeOrdersMiddleware);
+		return getDefaultMiddleware().concat(ingredientsApi.middleware, orderApi.middleware, tapeOrdersMiddleware, myOrdersMiddleware);
 	},
 	devTools: process.env.NODE_ENV !== 'production',
 })

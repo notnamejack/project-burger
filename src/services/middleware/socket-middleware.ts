@@ -1,5 +1,6 @@
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload, Middleware} from "@reduxjs/toolkit";
 import {RootState} from "../store";
+import { refreshToken } from "../../utils/api";
 
 export type TWsActionTypes<S, R> = {
     connect: ActionCreatorWithPayload<string>;
@@ -54,22 +55,22 @@ export const socketMiddleware = <S, R>(wsActions: TWsActionTypes<S, R>, withToke
                         const parsedData = JSON.parse(data);
 
                         if (withTokenRefresh && parsedData.message === "Invalid or missing token") {
-//                            refreshToken()
-//                               .then(refreshData => {
-//                                   const wssUrl = new URL(url);
-//                                   wssUrl.searchParams.set(
-//                                       "token",
-//                                       refreshData.accessToken.replace("Bearer ","")
-//                                   );
-//                                   dispatch(connect(wssUrl.toString()));
-//                               })
-//                               .catch(err => {
-//                                   dispatch(onError((err as Error).message))
-//                               })
-//
-//                            dispatch(disconnect());
-//
-//                            return;
+							refreshToken()
+                              .then(refreshData => {
+                                  const wssUrl = new URL(url);
+                                  wssUrl.searchParams.set(
+                                      "token",
+                                      refreshData.accessToken.replace("Bearer ","")
+                                  );
+                                  dispatch(connect(wssUrl.toString()));
+                              })
+                              .catch(err => {
+                                  dispatch(onError((err as Error).message))
+                              })
+
+                           dispatch(disconnect());
+
+                           return;
                         }
 
                         dispatch(onMessage(parsedData));
