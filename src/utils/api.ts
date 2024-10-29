@@ -166,6 +166,16 @@ const patchUser = async (form: IFormRegister) => {
 
 }
 
+const getOrder = async (number: number) => {
+	const request = await fetchWithRefresh(`${BASE_URL}/orders/${number}`, {
+		method: "GET",
+		headers: {
+		  "Content-Type": "application/json;charset=utf-8",
+		}
+	})
+	return await request.orders[0];
+}
+
 export const api = {
     login,
 	register,
@@ -173,5 +183,6 @@ export const api = {
 	reset,
     logout,
 	getUser,
-	patchUser
+	patchUser,
+	getOrder
 };

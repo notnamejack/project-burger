@@ -3,11 +3,12 @@ import s from './order.module.scss';
 import { OrderCard } from "../../components";
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { wsConnect, wsDisconnect } from '../../services/my-orders/actions';
+import { wsMyConnect, wsMyDisconnect } from '../../services/my-orders/actions';
 import { getMyOrders } from '../../services/my-orders/slice';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { apiConfig } from '../../utils/apiConfig';
 
-
+const WS_URL = apiConfig.wsMyOrder;
 
 export function Orders(){
 	const navigate = useNavigate();
@@ -17,12 +18,11 @@ export function Orders(){
 	const orders = useAppSelector(getMyOrders);
 
 	useEffect(() => {
-		dispatch(wsConnect(`wss://norma.nomoreparties.space/orders?token=${localStorage.getItem('accessToken')}`));
+		dispatch(wsMyConnect(`${WS_URL}?token=${localStorage.getItem('accessToken')}`));
 		return () => {
-			dispatch(wsDisconnect());
+			dispatch(wsMyDisconnect());
 		}
 	},[])
-
 
 	return(
 		<div className={clsx(s.container)}>
@@ -31,7 +31,7 @@ export function Orders(){
 					key={order._id}
 					order={order}
 					activeStatus={true}
-					onClick={() => navigate(`${order._id}`, {state:{backgroundLocation: location }})}/>
+					onClick={() => navigate(`${order.number}`, {state:{backgroundLocation: location }})}/>
 			)}
 		</div>
 	)

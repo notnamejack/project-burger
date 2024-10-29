@@ -69,9 +69,10 @@ export const App = () => {
 					<Route
 						path='/profile/orders/:id'
 						element={
-							<Modal onClose={handleModalClose}>
-								<OrderInfo/>
-							</Modal>
+							<OnlyAuth component={
+								<Modal onClose={handleModalClose}>
+									<OrderInfo/>
+								</Modal>} />
 						}
 					/>
 				</Routes>

@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ITapeOrders, tapeOrdersSlice, wsError, wsMessage } from "./tape-orders/slice";
 import { wsConnect, wsDisconnect } from "./tape-orders/actions";
 import { socketMiddleware } from "./middleware/socket-middleware";
-import { myOrdersSlice, wsError as myError, wsMessage as myMessage } from "./my-orders/slice";
-import { wsConnect as myConnect, wsDisconnect as myDisconnect} from "./tape-orders/actions";
+import { myOrdersSlice, wsError as wsMyError, wsMessage as wsMyMessage } from "./my-orders/slice";
+import { wsMyConnect, wsMyDisconnect } from "./my-orders/actions";
 import { orderDetailsSplice } from "./order-details/slice";
 
 //произвел настройку согласно https://redux-toolkit.js.org/tutorials/quick-start
@@ -24,10 +24,10 @@ const tapeOrdersMiddleware = socketMiddleware<unknown, ITapeOrders>({
 });
 
 const myOrdersMiddleware = socketMiddleware<unknown, ITapeOrders>({
-    connect: myConnect,
-    disconnect: myDisconnect,
-    onError: myError,
-    onMessage: myMessage
+    connect: wsMyConnect,
+    disconnect: wsMyDisconnect,
+    onError: wsMyError,
+    onMessage: wsMyMessage
 }, true);
 
 const rootReducer = combineSlices({

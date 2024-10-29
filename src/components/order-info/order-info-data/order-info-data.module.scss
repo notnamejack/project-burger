@@ -1,0 +1,27 @@
+
+.item{
+	display: flex;
+	align-items: center;
+	width: 600px;
+}
+
+.item img{
+	margin-right: 16px;
+	width: 64px;
+	height: 64px;
+	object-position: center;
+	object-fit: cover;
+	border: 2px solid #801AB2;
+	background-color: #1c1c1c;
+	border-radius: 50%;
+}
+
+.item .total{
+	margin-left: auto;
+}
+
+.item .total p{
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}

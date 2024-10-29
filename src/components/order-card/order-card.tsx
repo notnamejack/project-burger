@@ -3,16 +3,14 @@ import s from './order-card.module.scss';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IOrders } from '../../services/tape-orders/slice';
 import { useEffect, useMemo, useState } from 'react';
-import { useAppSelector } from '../../services/store';
 import { useGetIngredientsQuery } from '../../services/ingredients/api';
-import { IIngredients } from '../../data/ingredients';
+import { ImageOrder } from './image-order/image-order';
 
 interface IOrderCard{
 	activeStatus?: boolean
 	order: IOrders,
 	onClick?: () => void
 }
-
 
 export function OrderCard({activeStatus, order, onClick}:IOrderCard){
 
@@ -78,21 +76,4 @@ export function OrderCard({activeStatus, order, onClick}:IOrderCard){
 	)
 }
 
-export function ImageOrder({id, count}:{id: string, count?: number}){
-	const {data} = useGetIngredientsQuery();
-	const [ingredient, setIngredient] = useState<IIngredients>()
-	useEffect(() => {
-		const find = data?.data.find(i => i._id == id);
-		if(!find){return (undefined)};
-		setIngredient(find);
-	},[data])
 
-	return (
-		<li className={clsx(s.item, count && s.other)}>
-			<img src={ingredient?.image_mobile}/>
-			{count && <span>
-				<p className="text text_type_digits-default">+{count}</p>
-			</span>}
-		</li>
-	)
-}

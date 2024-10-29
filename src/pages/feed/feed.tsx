@@ -6,6 +6,9 @@ import { useEffect } from 'react';
 import { wsConnect, wsDisconnect } from '../../services/tape-orders/actions';
 import { getTapeOrders, getTotal, getTotalToday } from '../../services/tape-orders/slice';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { apiConfig } from '../../utils/apiConfig';
+
+const WS_URL = apiConfig.wsOrder;
 
 export function Feed(){
 	const navigate = useNavigate();
@@ -22,7 +25,7 @@ export function Feed(){
 
 
 	useEffect(() => {
-		dispatch(wsConnect("wss://norma.nomoreparties.space/orders/all"));
+		dispatch(wsConnect(WS_URL));
 		return () => {
 			dispatch(wsDisconnect());
 		}
@@ -39,7 +42,7 @@ export function Feed(){
 						<OrderCard
 							key={order._id}
 							order={order}
-							onClick={() => navigate(`${order._id}`, {state:{backgroundLocation: location }})}/>
+							onClick={() => navigate(`${order.number}`, {state:{backgroundLocation: location }})}/>
 					)}
 				</div>
 				<div className={clsx(s.panel)}>

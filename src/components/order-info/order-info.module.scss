@@ -43,28 +43,6 @@
 	overflow: auto;
 }
 
-.item{
-	display: flex;
-	align-items: center;
-	width: 600px;
-}
-
-.item img{
-	margin-right: 16px;
-	width: 64px;
-	height: 64px;
-	object-position: center;
-	object-fit: cover;
-	border: 2px solid #801AB2;
-	background-color: #1c1c1c;
-	border-radius: 50%;
-}
-
-.item .total{
-	margin-left: auto;
-}
-
-.item .total p,
 .footer .total p{
 	display: flex;
 	align-items: center;
@@ -80,4 +58,29 @@
 
 .header .done{
 	color: #00CCCC;
+}
+
+
+.loading{
+	padding: 120px 0;
+}
+
+.loader {
+    width: 100px;
+    height: 100px;
+    border: 10px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
