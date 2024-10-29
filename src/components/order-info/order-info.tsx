@@ -92,8 +92,8 @@ export function OrderInfo(){
 						Состав:
 					</p>
 					<ul className={clsx(s.items)}>
-						{orderDetail?.ingredients.map(ingredient =>
-							<OrderInfoData ingredientOrder={ingredient}/>
+						{orderDetail?.ingredients.map((ingredient) =>
+							<OrderInfoData key={`${ingredient._id}`} ingredientOrder={ingredient}/>
 						)}
 					</ul>
 				</div>
