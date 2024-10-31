@@ -33,9 +33,8 @@ export function Profile(){
 					</li>
 				</ul>
 			</nav>
-			<div>
-				<Outlet/>
-			</div>
+			<Outlet/>
+
 		</div>
 	)
 }

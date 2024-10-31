@@ -1,12 +1,13 @@
 .container{
 	display: flex;
 	align-items: flex-start;
-	gap: 60px;
+	// gap: 60px;
 	width: 1240px;
 	height: calc(100vh - 88px);
 }
 
 .nav{
+	margin-right: 60px;
 	padding-top: 120px;
 	width: 320px;
 }
