@@ -1,4 +1,4 @@
-.container{
+.container {
 	display: flex;
 	align-items: flex-start;
 	// gap: 60px;
@@ -6,21 +6,21 @@
 	height: calc(100vh - 88px);
 }
 
-.nav{
+.nav {
 	margin-right: 60px;
 	padding-top: 120px;
 	width: 320px;
 }
 
-.nav li{
+.nav li {
 	padding: 20px 0;
 }
 
-.nav li:hover  span{
+.nav li:hover span {
 	color: #fff;
 }
 
-.nav li button{
+.nav li button {
 	padding: 0;
 	font-size: 24px;
 	font-weight: 700;
@@ -30,9 +30,9 @@
 .nav li button:focus,
 .nav li button:focus-visible,
 .nav li button:active,
-.nav li button:hover{
+.nav li button:hover {
 	outline: none;
 }
-.active span{
+.active span {
 	color: #fff;
 }

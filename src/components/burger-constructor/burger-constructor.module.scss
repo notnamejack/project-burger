@@ -1,11 +1,11 @@
-.constructor{
+.constructor {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 	width: 600px;
 }
 
-.body{
+.body {
 	display: flex;
 	align-items: flex-end;
 	flex-direction: column;
@@ -14,21 +14,21 @@
 	min-height: 200px;
 }
 
-.fixed{
+.fixed {
 	display: flex;
 	justify-content: flex-end;
 	padding-right: 15px;
 	width: 100%;
 }
 
-.footer{
+.footer {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
 	gap: 40px;
 	margin-top: 40px;
 }
-.bun{
+.bun {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -36,30 +36,30 @@
 	border: dashed 1px #fff;
 }
 
-.hover{
+.hover {
 	border-color: #4c4cff;
 }
 
-.loading{
+.loading {
 	padding: 120px 0;
 }
 
 .loader {
-    width: 100px;
-    height: 100px;
-    border: 10px solid #FFF;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
+	width: 100px;
+	height: 100px;
+	border: 10px solid #fff;
+	border-bottom-color: transparent;
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: border-box;
+	animation: rotation 1s linear infinite;
+}
 
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    }
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

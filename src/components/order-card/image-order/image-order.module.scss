@@ -1,10 +1,10 @@
-.item{
+.item {
 	position: relative;
 	width: 48px;
 	height: 64px;
 }
 
-.other span{
+.other span {
 	position: absolute;
 	display: flex;
 	align-items: center;
@@ -13,23 +13,23 @@
 	height: 64px;
 	top: 0;
 	left: 0;
-	background-color: rgba($color: #1c1c1c, $alpha: .6);
+	background-color: rgba($color: #1c1c1c, $alpha: 0.6);
 	border-radius: 50%;
-	opacity: .6;
+	opacity: 0.6;
 	z-index: 1;
 }
 
-.other.item img{
+.other.item img {
 	z-index: 0;
 }
 
-.item img{
+.item img {
 	position: absolute;
 	width: 64px;
 	height: 100%;
 	object-position: center;
 	object-fit: cover;
-	border: 2px solid #801AB2;
+	border: 2px solid #801ab2;
 	background-color: #1c1c1c;
 	border-radius: 50%;
 	z-index: 2;

@@ -1,5 +1,4 @@
-
-.container{
+.container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -7,17 +6,17 @@
 	width: 640px;
 }
 
-.notmodal{
+.notmodal {
 	padding-top: 120px;
 }
 
-.left{
+.left {
 	display: block;
 	text-align: start;
 	width: 100%;
 }
 
-.body{
+.body {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -25,7 +24,7 @@
 	width: 100%;
 }
 
-.order{
+.order {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -33,7 +32,7 @@
 	width: 100%;
 }
 
-.items{
+.items {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -43,44 +42,43 @@
 	overflow: auto;
 }
 
-.footer .total p{
+.footer .total p {
 	display: flex;
 	align-items: center;
 	gap: 8px;
 }
 
-.footer{
+.footer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
 }
 
-.header .done{
-	color: #00CCCC;
+.header .done {
+	color: #00cccc;
 }
 
-
-.loading{
+.loading {
 	padding: 120px 0;
 }
 
 .loader {
-    width: 100px;
-    height: 100px;
-    border: 10px solid #FFF;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
+	width: 100px;
+	height: 100px;
+	border: 10px solid #fff;
+	border-bottom-color: transparent;
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: border-box;
+	animation: rotation 1s linear infinite;
+}
 
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

@@ -1,4 +1,4 @@
-.container{
+.container {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -10,7 +10,7 @@
 	cursor: pointer;
 }
 
-.header{
+.header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -18,32 +18,31 @@
 	width: 100%;
 }
 
-
-.status{
+.status {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 8px;
 }
 
-.status .done{
-	color: #00CCCC;
+.status .done {
+	color: #00cccc;
 }
 
-.body{
+.body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
 }
 
-.items{
+.items {
 	display: flex;
 	align-items: center;
 	flex-direction: row-reverse;
 }
 
-.total p{
+.total p {
 	display: flex;
 	align-items: center;
 	gap: 5px;
