@@ -24,14 +24,14 @@ import { orderDetailsSplice } from './order-details/slice';
 
 //произвел настройку согласно https://redux-toolkit.js.org/tutorials/quick-start
 
-const tapeOrdersMiddleware = socketMiddleware<unknown, ITapeOrders>({
+const tapeOrdersMiddleware = socketMiddleware<ITapeOrders>({
 	connect: wsConnect,
 	disconnect: wsDisconnect,
 	onError: wsError,
 	onMessage: wsMessage,
 });
 
-const myOrdersMiddleware = socketMiddleware<unknown, ITapeOrders>(
+const myOrdersMiddleware = socketMiddleware<ITapeOrders>(
 	{
 		connect: wsMyConnect,
 		disconnect: wsMyDisconnect,
