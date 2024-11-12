@@ -2,7 +2,6 @@
 node_modules/
 .idea
 .vscode
-coverage
 
 # Logs
 logs
@@ -18,3 +17,4 @@ lerna-debug.log*
 
 build
 dist
+coverage
