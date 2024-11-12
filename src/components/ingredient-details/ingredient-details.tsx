@@ -28,7 +28,7 @@ export function IngredientDetails (){
 			{(!state?.backgroundLocation) && <p className="text text_type_main-large">Детали ингредиента</p>}
 			<img className={clsx(s.img)} alt={ingredient?.name} src={ingredient?.image_large}/>
 			<div className={clsx(s.description)}>
-				<p className="text text_type_main-medium">{ingredient?.name}</p>
+				<p className="text text_type_main-medium" data-testid="ingredient_title">{ingredient?.name}</p>
 				<ul className={clsx(s.items)}>
 					<li className={clsx(s.item)}>
 						<p className="text text_type_main-default text_color_inactive">Калории,ккал</p>

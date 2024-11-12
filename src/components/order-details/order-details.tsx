@@ -12,7 +12,7 @@ export function OrderDetails (){
 	return (
 		<div className={clsx(s.container)}>
 			<div className={clsx(s.number)}>
-				<p className={`${clsx(s.order)} text text_type_digits-large`}>{`${order?.order.number}`}</p>
+				<p className={`${clsx(s.order)} text text_type_digits-large`} data-testid="number_order">{`${order?.order.number}`}</p>
 				<p className="text text_type_main-medium">идентификатор заказа</p>
 			</div>
 			<div className={clsx(s.image)}>

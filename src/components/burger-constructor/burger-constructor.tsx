@@ -69,7 +69,7 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 
 	return(
 		<div className={`${clsx(s.constructor)} mt-25`}>
-			<div className={clsx(s.body)} ref={toppRef}>
+			<div className={clsx(s.body)} ref={toppRef} data-testid="constructor">
 				<div className={clsx(s.fixed)}>
 					{but && <ConstructorElement
 						type="top"
@@ -105,9 +105,9 @@ export function BurgerConstructor({height}: IBurgerConstructor){
 					</div>}
 				</div>
 			</div>
-			<div className={clsx(s.footer)}>
+			<div className={clsx(s.footer)} data-testid="constructor_create_order">
 				<p className="text text_type_digits-medium">{`${total} `}<CurrencyIcon type="primary" /></p>
-				<Button htmlType="button" type="primary" size="large" onClick={() => handlerSend()} disabled={isLoading}>
+				<Button htmlType="button" type="primary" size="large" onClick={handlerSend} disabled={isLoading}>
 					Оформить заказ
 				</Button>
 			</div>
