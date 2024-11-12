@@ -1,4 +1,3 @@
-import { number } from 'prop-types';
 import { addOrder, deleteOrder, initialState, orderSplice } from './reducer';
 
 const order = {

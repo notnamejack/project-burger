@@ -25,7 +25,7 @@ export function OrderInfo() {
 	const dispatch = useAppDispatch();
 	const tapeOrders = useAppSelector(getTapeOrders);
 	const myOrders = useAppSelector(getMyOrders);
-	const { orderDetail, loading, error } = useAppSelector(
+	const { orderDetail, loading } = useAppSelector(
 		(state) => state.orderDetails
 	);
 	const { data } = useGetIngredientsQuery();

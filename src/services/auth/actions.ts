@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../utils/api';
 import { IUser, setIsAuthChecked, setUser } from './reducer';
 

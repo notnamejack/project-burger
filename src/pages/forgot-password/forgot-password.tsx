@@ -12,7 +12,7 @@ import {
 	getMessage,
 	setError,
 } from '../../services/auth/reducer';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { forgot, IFormForgot } from '../../services/auth/actions';
 import { useForm } from '../../hook/useForm';
 

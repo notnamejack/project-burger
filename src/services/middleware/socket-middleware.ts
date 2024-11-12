@@ -6,7 +6,7 @@ import {
 import { RootState } from '../store';
 import { refreshToken } from '../../utils/api';
 
-export type TWsActionTypes<S, R> = {
+export type TWsActionTypes<R> = {
 	connect: ActionCreatorWithPayload<string>;
 	disconnect: ActionCreatorWithoutPayload;
 	onError: ActionCreatorWithPayload<string>;
@@ -15,8 +15,8 @@ export type TWsActionTypes<S, R> = {
 
 const RECONNECT_PERIOD = 3000;
 
-export const socketMiddleware = <S, R>(
-	wsActions: TWsActionTypes<S, R>,
+export const socketMiddleware = <R>(
+	wsActions: TWsActionTypes<R>,
 	withTokenRefresh = false
 ): Middleware<NonNullable<unknown>, RootState> => {
 	return (store) => {
@@ -34,7 +34,7 @@ export const socketMiddleware = <S, R>(
 				url = action.payload;
 				isConnected = true;
 
-				socket.onopen = () => {};
+				socket.onopen;
 
 				socket.onerror = () => {
 					dispatch(onError('Error'));

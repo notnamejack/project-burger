@@ -18,9 +18,7 @@ type IResponseApi<TDataKey extends string = '', TDataType = {}> = {
 };
 
 const checkReponse = (res: Response) => {
-	return res.ok
-		? res.json()
-		: res.json().then((err: Object) => Promise.reject(err));
+	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 const checkSuccess = <TDataKey extends string, TDataType>(

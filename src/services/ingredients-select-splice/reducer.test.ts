@@ -5,7 +5,6 @@ import {
 	ingredientsSelectSlice,
 	initialState,
 	moveItem,
-	newGuid,
 	setBun,
 	setIngredient,
 } from './reducer';

@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IIngredients } from '../../data/ingredients';
 import { orderDetailsUpdate } from './order-details-update';
-import { IOrders, ITapeOrders } from '../tape-orders/slice';
+import { IOrders } from '../tape-orders/slice';
 import { getOrder } from './actions';
 
 interface IOrderDetailsState {

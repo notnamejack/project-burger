@@ -1,5 +1,4 @@
-import { useGetIngredientsQuery } from '../ingredients/api';
-import { IOrders, ITapeOrders } from '../tape-orders/slice';
+import { IOrders } from '../tape-orders/slice';
 import { IOrderDetails, IOrderIngredients } from './slice';
 
 export const orderDetailsUpdate = (
