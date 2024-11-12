@@ -37,7 +37,7 @@ export function ResetPassword (){
 	(e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if(form.token && form.password){
-			dispatch(reset({form}));
+			dispatch(reset(form));
 		}
 		form.token === undefined && setForm({ ...form, token: '' });
 		form.password === undefined && setForm({ ...form, password: '' });

@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {login, logout, register, forgot, setUser, reset, patchUser} from "./actions";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {login, logout, register, forgot, reset, patchUser} from "./actions";
 
 interface UserState {
 	user: IUser | null,
@@ -14,7 +14,7 @@ export interface IUser{
 	email: string,
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
     user: null,
 	message: null,
     isAuthChecked: false,
@@ -31,7 +31,10 @@ export const authSlice = createSlice({
         },
         setError: (state) => {
             state.error = null;
-        }
+        },
+		setUser: (state, action: PayloadAction<IUser>) => {
+			state.user = action.payload;
+		}
     },
     selectors: {
         getUser: state => state.user,
@@ -42,9 +45,6 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(setUser, (state, action) => {
-                state.user = action.payload || null;
-            })
             .addCase(login.pending, (state) => {
                 state.loading = true;
 				state.error = null;
@@ -118,5 +118,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const { setIsAuthChecked, setError } = authSlice.actions;
+export const { setIsAuthChecked, setError, setUser } = authSlice.actions;
 export const { getIsAuthChecked, getUser, getLoading, getMessage, getError } = authSlice.selectors;

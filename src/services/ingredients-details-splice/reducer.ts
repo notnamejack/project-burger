@@ -10,7 +10,7 @@ interface IngredientDetails{
 	item: IIngredients
 }
 
-const initialState: IngredientDetailsState = {
+export const initialState: IngredientDetailsState = {
 	item: null,
 }
 

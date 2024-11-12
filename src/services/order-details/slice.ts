@@ -25,7 +25,7 @@ export interface IOrderIngredients{
 	count: number
 }
 
-const initialState: IOrderDetailsState = {
+export const initialState: IOrderDetailsState = {
 	orderDetail: null,
 	loading: false,
 	error: null

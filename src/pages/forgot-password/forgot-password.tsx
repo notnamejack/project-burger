@@ -34,7 +34,7 @@ export function ForgotPassword (){
 	(e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if(form.email){
-			dispatch(forgot({form}));
+			dispatch(forgot(form));
 		}
 		form.email === undefined && setForm({ ...form, email: '' });
 	}, [form]);
