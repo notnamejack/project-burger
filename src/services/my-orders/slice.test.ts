@@ -1,6 +1,6 @@
 import { order } from "../order-details/slice.test";
 import { ITapeOrders } from "../tape-orders/slice";
-import { initialState, myOrdersSlice, wsError, wsMessage } from "./slice";
+import { getMyOrders, initialState, myOrdersSlice, wsError, wsMessage } from "./slice";
 
 const message:ITapeOrders = {
 	success: true,
@@ -27,5 +27,13 @@ describe('Сheck my order', () => {
 			...initialState,
 			orders: message
 		});
+	});
+
+	it('Check selector null', () => {
+		expect(getMyOrders({myOrders: initialState})).toEqual(undefined);
+	});
+
+	it('Check selector my order', () => {
+		expect(getMyOrders({myOrders: {...initialState, orders: message}})).toEqual(message.orders);
 	});
 });

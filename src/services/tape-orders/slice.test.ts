@@ -1,5 +1,5 @@
 import { order } from "../order-details/slice.test";
-import { ITapeOrders, tapeOrdersSlice } from "../tape-orders/slice";
+import { getTapeOrders, getTotal, getTotalToday, ITapeOrders, tapeOrdersSlice } from "../tape-orders/slice";
 import { initialState, wsError, wsMessage } from "./slice";
 
 const message:ITapeOrders = {
@@ -27,5 +27,29 @@ describe('Сheck my order', () => {
 			...initialState,
 			orders: message
 		});
+	});
+
+	it('Check selector null', () => {
+		expect(getTapeOrders({tapeOrders: initialState})).toEqual(undefined);
+	});
+
+	it('Check selector tape order', () => {
+		expect(getTapeOrders({tapeOrders: {...initialState, orders: message}})).toEqual(message.orders);
+	});
+
+	it('Check selector total', () => {
+		expect(getTotal({tapeOrders: {...initialState, orders: message}})).toEqual(message.total);
+	});
+
+	it('Check selector total null', () => {
+		expect(getTotal({tapeOrders: initialState})).toEqual(undefined);
+	});
+
+	it('Check selector total today', () => {
+		expect(getTotalToday({tapeOrders: {...initialState, orders: message}})).toEqual(message.totalToday);
+	});
+
+	it('Check selector total today null', () => {
+		expect(getTotalToday({tapeOrders: initialState})).toEqual(undefined);
 	});
 });

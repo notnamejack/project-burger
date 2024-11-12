@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1731393165241" clover="3.2.0">
-  <project timestamp="1731393165241" name="All files">
-    <metrics statements="688" coveredstatements="528" conditionals="59" coveredconditionals="51" methods="45" coveredmethods="21" elements="792" coveredelements="600" complexity="0" loc="688" ncloc="688" packages="8" files="12" classes="12"/>
+<coverage generated="1731399867695" clover="3.2.0">
+  <project timestamp="1731399867695" name="All files">
+    <metrics statements="688" coveredstatements="528" conditionals="80" coveredconditionals="72" methods="45" coveredmethods="30" elements="813" coveredelements="630" complexity="0" loc="688" ncloc="688" packages="8" files="12" classes="12"/>
     <package name="services.auth">
-      <metrics statements="191" coveredstatements="173" conditionals="25" coveredconditionals="25" methods="9" coveredmethods="4"/>
+      <metrics statements="191" coveredstatements="173" conditionals="30" coveredconditionals="30" methods="9" coveredmethods="9"/>
       <file name="actions.ts" path="C:\react\project-burger\src\services\auth\actions.ts">
         <metrics statements="69" coveredstatements="51" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -77,7 +77,7 @@
         <line num="69" count="1" type="stmt"/>
       </file>
       <file name="reducer.ts" path="C:\react\project-burger\src\services\auth\reducer.ts">
-        <metrics statements="122" coveredstatements="122" conditionals="25" coveredconditionals="25" methods="9" coveredmethods="4"/>
+        <metrics statements="122" coveredstatements="122" conditionals="30" coveredconditionals="30" methods="9" coveredmethods="9"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -117,11 +117,11 @@
         <line num="37" count="1" type="stmt"/>
         <line num="38" count="1" type="stmt"/>
         <line num="39" count="1" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
+        <line num="40" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="41" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="42" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="43" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="44" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="45" count="1" type="stmt"/>
         <line num="46" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="47" count="1" type="stmt"/>
@@ -303,9 +303,9 @@
       </file>
     </package>
     <package name="services.my-orders">
-      <metrics statements="32" coveredstatements="32" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="2"/>
+      <metrics statements="32" coveredstatements="32" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
       <file name="slice.ts" path="C:\react\project-burger\src\services\my-orders\slice.ts">
-        <metrics statements="32" coveredstatements="32" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="2"/>
+        <metrics statements="32" coveredstatements="32" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -332,7 +332,7 @@
         <line num="24" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
+        <line num="27" count="1" type="cond" truecount="4" falsecount="0"/>
         <line num="28" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
@@ -490,9 +490,9 @@
       </file>
     </package>
     <package name="services.tape-orders">
-      <metrics statements="50" coveredstatements="50" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="2"/>
+      <metrics statements="50" coveredstatements="50" conditionals="14" coveredconditionals="14" methods="5" coveredmethods="5"/>
       <file name="slice.ts" path="C:\react\project-burger\src\services\tape-orders\slice.ts">
-        <metrics statements="50" coveredstatements="50" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="2"/>
+        <metrics statements="50" coveredstatements="50" conditionals="14" coveredconditionals="14" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -535,9 +535,9 @@
         <line num="40" count="1" type="stmt"/>
         <line num="41" count="1" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
+        <line num="43" count="1" type="cond" truecount="4" falsecount="0"/>
+        <line num="44" count="1" type="cond" truecount="4" falsecount="0"/>
+        <line num="45" count="1" type="cond" truecount="4" falsecount="0"/>
         <line num="46" count="1" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
