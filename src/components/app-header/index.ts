@@ -1,1 +1,1 @@
-export {AppHeader as default} from './app-header';
+export { AppHeader as default } from './app-header';

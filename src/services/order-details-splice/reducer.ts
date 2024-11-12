@@ -1,33 +1,33 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface OrderState {
-	orderDetail: IOrder | null
+	orderDetail: IOrder | null;
 }
 
-interface IOrder{
-	name: string,
-	order: IOrderDetails
+interface IOrder {
+	name: string;
+	order: IOrderDetails;
 }
 
-interface IOrderDetails{
-	number:string
+interface IOrderDetails {
+	number: string;
 }
 
 export const initialState: OrderState = {
-	orderDetail: null
-}
+	orderDetail: null,
+};
 
 export const orderSplice = createSlice({
 	name: 'order',
 	initialState,
 	reducers: {
 		addOrder: (state, action: PayloadAction<IOrder>) => {
-		  state.orderDetail = action.payload
+			state.orderDetail = action.payload;
 		},
 		deleteOrder: (state) => {
-			state.orderDetail = null
+			state.orderDetail = null;
 		},
 	},
-  })
+});
 
-export const { addOrder, deleteOrder } = orderSplice.actions
+export const { addOrder, deleteOrder } = orderSplice.actions;

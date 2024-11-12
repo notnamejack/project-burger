@@ -1,1 +1,1 @@
-export {OrderInfo as default} from './order-info';
+export { OrderInfo as default } from './order-info';

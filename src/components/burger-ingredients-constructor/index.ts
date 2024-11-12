@@ -1,1 +1,1 @@
-export {BurgerIngredientsConstructor as default} from './burger-ingredients-constructor';
+export { BurgerIngredientsConstructor as default } from './burger-ingredients-constructor';

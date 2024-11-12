@@ -1,8 +1,8 @@
 export const apiConfig = {
-	baseUrl: "https://norma.nomoreparties.space/api",
+	baseUrl: 'https://norma.nomoreparties.space/api',
 	headers: {
-	  "Content-Type": "application/json",
+		'Content-Type': 'application/json',
 	},
-	wsOrder: "wss://norma.nomoreparties.space/orders/all",
-	wsMyOrder: "wss://norma.nomoreparties.space/orders"
-  };
+	wsOrder: 'wss://norma.nomoreparties.space/orders/all',
+	wsMyOrder: 'wss://norma.nomoreparties.space/orders',
+};

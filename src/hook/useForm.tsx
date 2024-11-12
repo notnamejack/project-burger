@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export function useForm<TForm>(inputValues: TForm) {
 	const [form, setForm] = useState<TForm>(inputValues);
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-	  const {value, name} = event.target;
-	  setForm({...form, [name]: value});
+		const { value, name } = event.target;
+		setForm({ ...form, [name]: value });
 	};
 
 	const handleInputEdit = (name: string) => {
-        setForm({
+		setForm({
 			...form,
-			[name]: undefined
-		  });
-    }
+			[name]: undefined,
+		});
+	};
 
-	return {form, handleInputChange, handleInputEdit, setForm};
-  }
+	return { form, handleInputChange, handleInputEdit, setForm };
+}

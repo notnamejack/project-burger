@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import s from './order.module.scss';
-import { OrderCard } from "../../components";
+import { OrderCard } from '../../components';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { wsMyConnect, wsMyDisconnect } from '../../services/my-orders/actions';
@@ -10,7 +10,7 @@ import { apiConfig } from '../../utils/apiConfig';
 
 const WS_URL = apiConfig.wsMyOrder;
 
-export function Orders(){
+export function Orders() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -18,21 +18,28 @@ export function Orders(){
 	const orders = useAppSelector(getMyOrders);
 
 	useEffect(() => {
-		dispatch(wsMyConnect(`${WS_URL}?token=${localStorage.getItem('accessToken')}`));
+		dispatch(
+			wsMyConnect(`${WS_URL}?token=${localStorage.getItem('accessToken')}`)
+		);
 		return () => {
 			dispatch(wsMyDisconnect());
-		}
-	},[])
+		};
+	}, []);
 
-	return(
+	return (
 		<div className={clsx(s.container)}>
-			{orders?.map(order =>
+			{orders?.map((order) => (
 				<OrderCard
 					key={order._id}
 					order={order}
 					activeStatus={true}
-					onClick={() => navigate(`${order.number}`, {state:{backgroundLocation: location }})}/>
-			)}
+					onClick={() =>
+						navigate(`${order.number}`, {
+							state: { backgroundLocation: location },
+						})
+					}
+				/>
+			))}
 		</div>
-	)
+	);
 }

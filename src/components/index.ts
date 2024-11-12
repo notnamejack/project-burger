@@ -1,12 +1,12 @@
-import AppHeader from "./app-header";
-import BurgerConstructor from "./burger-constructor";
-import BurgerIngredients from "./burger-ingredients";
-import IngredientDetails from "./ingredient-details";
-import Modal from "./modal";
-import OrderCard from "./order-card";
-import OrderDetails from "./order-details";
-import OrderInfo from "./order-info";
-import { OnlyAuth,  OnlyUnAuth } from "./protected-route";
+import AppHeader from './app-header';
+import BurgerConstructor from './burger-constructor';
+import BurgerIngredients from './burger-ingredients';
+import IngredientDetails from './ingredient-details';
+import Modal from './modal';
+import OrderCard from './order-card';
+import OrderDetails from './order-details';
+import OrderInfo from './order-info';
+import { OnlyAuth, OnlyUnAuth } from './protected-route';
 
 export {
 	AppHeader,
@@ -18,5 +18,5 @@ export {
 	OrderDetails,
 	OrderInfo,
 	OnlyAuth,
-	OnlyUnAuth
-}
+	OnlyUnAuth,
+};
