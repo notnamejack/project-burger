@@ -23,7 +23,7 @@ export type TTapeOrdersStore = {
     connectionError: string | null;
 }
 
-const initialState: TTapeOrdersStore = {
+export const initialState: TTapeOrdersStore = {
     orders: null,
     connectionError: null,
 };

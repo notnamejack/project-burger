@@ -32,7 +32,7 @@ export function Register (){
 	(e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if(form.email && form.password && form.name){
-			dispatch(register({form}));
+			dispatch(register(form));
 		}
 		form.email === undefined && setForm({ ...form, email: '' });
 		form.name === undefined && setForm({ ...form, name: '' });

@@ -30,7 +30,7 @@ export function OrderInfo(){
 			if(!find){
 				find = myOrders?.find(i => i.number == Number(params.id));
 				if(!find){
-					dispatch(getOrder({number: Number(params.id)}))
+					dispatch(getOrder(Number(params.id)))
 				}
 				else{
 					dispatch(addOrderDetails(find));

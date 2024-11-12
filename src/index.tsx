@@ -4,7 +4,7 @@ import { App } from './app';
 import './styles.css';
 import { Provider } from 'react-redux';
 import { store } from './services/store';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 
 const domNode = document.getElementById('root') as HTMLDivElement;
@@ -13,10 +13,10 @@ root.render(
 	//в дев можно убрать двойное монтирование апп, если удалить
 	<StrictMode>
 
-		<BrowserRouter>
+		<HashRouter>
 			<Provider store={store}>
 				<App />
 			</Provider>
-		</BrowserRouter>
+		</HashRouter>
 	</StrictMode>
 );

@@ -17,3 +17,4 @@ lerna-debug.log*
 
 build
 dist
+coverage

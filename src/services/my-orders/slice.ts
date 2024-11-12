@@ -7,7 +7,7 @@ export type TMyOrdersStore = {
     connectionError: string | null;
 }
 
-const initialState: TMyOrdersStore = {
+export const initialState: TMyOrdersStore = {
     orders: null,
     connectionError: null,
 };

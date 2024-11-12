@@ -17,12 +17,12 @@ interface IngredientMoveState{
 	toIndex: number
 }
 
-const initialState: IngredientsSelectState = {
+export const initialState: IngredientsSelectState = {
 	items: [],
 	bun: null
 } satisfies IngredientsSelectState as IngredientsSelectState
 
-const newGuid = (): string => v4()
+export const newGuid = (): string => v4()
 
 export const ingredientsSelectSlice = createSlice({
 	name: 'ingredientsSelect',

@@ -13,7 +13,7 @@ interface IOrderDetails{
 	number:string
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
 	orderDetail: null
 }
 

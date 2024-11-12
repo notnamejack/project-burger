@@ -35,7 +35,7 @@ export function Login (){
 	(e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if(form.email && form.password){
-			dispatch(login({form}));
+			dispatch(login(form));
 		}
 		form.email === undefined && setForm({ ...form, email: '' });
 		form.password === undefined && setForm({ ...form, password: '' });

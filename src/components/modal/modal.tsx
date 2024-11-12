@@ -40,8 +40,8 @@ export function Modal ({title, children, onClose}:IModal){
 			<div className={clsx(s.container)}>
 				<div className={clsx(s.modal)}>
 					<div className={clsx(s.head)}>
-						{title && <p className="text text_type_main-large">{title}</p>}
-						<div className={clsx(s.close)} onClick={onClose}>
+						{title && <p className="text text_type_main-large" data-testid="modal_title">{title}</p>}
+						<div className={clsx(s.close)} onClick={onClose} data-testid="modal_close">
 							<CloseIcon type="primary" />
 						</div>
 					</div>

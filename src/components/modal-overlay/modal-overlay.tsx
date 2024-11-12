@@ -7,6 +7,6 @@ export interface IModalOverlay{
 
 export function ModalOverlay ({onClose}:IModalOverlay){
 	return (
-		<div className={clsx(s.back)} onClick={onClose}></div>
+		<div className={clsx(s.back)} onClick={onClose} data-testid="modal_overlay"></div>
 	)
 }

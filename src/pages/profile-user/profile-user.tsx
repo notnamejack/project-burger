@@ -49,7 +49,7 @@ export function ProfileUser(){
 	(e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if(form.email && form.name && form.password){
-			dispatch(patchUser({form}));
+			dispatch(patchUser(form));
 			setIsEdit(!isEdit)
 		}
 		else{

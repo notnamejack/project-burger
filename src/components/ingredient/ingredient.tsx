@@ -39,7 +39,7 @@ export function Ingredient ({ingredient}: IIngredient){
 	}, [selectIngredients, bun])
 
 	return (
-		<li key={ingredient._id} className={clsx(s.item)} ref={ref}
+		<li key={ingredient._id} className={clsx(s.item)} ref={ref} data-testid={`ingredient_${ingredient._id}`}
 			onClick={() => navigate(`/ingredients/${ingredient._id}`, {state:{backgroundLocation: location }})}>
 				{count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
 				<img alt={ingredient.name} src={ingredient.image}/>
