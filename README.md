@@ -4,7 +4,7 @@
 
 ## Github Pages
 
-[Опубликованный проект](https://notnamejack.github.io/project-burger/)
+[Проект](https://notnamejack.github.io/project-burger/)
 
 ## Установка и сборка
 
