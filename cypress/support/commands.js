@@ -8,7 +8,6 @@ Cypress.Commands.add('prepare', () => {
 });
 
 Cypress.Commands.add('authorize', () => {
-	cy.visit('/login');
 	cy.get('[name=email]').type('jack@test.ru');
 	cy.get('[name=password]').type('12@qwasZX');
 	cy.get('[type=submit]').contains('Войти').click();

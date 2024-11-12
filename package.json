@@ -66,6 +66,7 @@
 		"lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
 		"format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\" --ignore-path ./.prettierignore",
 		"test": "jest",
+    "cypress": "cypress open cache clear",
 		"deploy": "gh-pages -d dist",
 		"prepare": "husky install",
 		"commit": "yarn test && cz"

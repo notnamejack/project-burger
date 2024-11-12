@@ -54,12 +54,14 @@ describe('Офрмление заказа', () => {
 	  });
 
 	it('Добавляем ингредиентов в конструктор и отправка заказа', () => {
-		cy.authorize();
+
 
 		cy.getIngredient().trigger('dragstart');
 		cy.getConstructor().trigger('drop');
 		cy.getBun().trigger('dragstart');
 		cy.getConstructor().trigger('drop');
+		cy.get('[data-testid=constructor_create_order] [type=button]').click();
+		cy.authorize();
 		cy.get('[data-testid=constructor_create_order] [type=button]').click();
 		cy.get('[data-testid=number_order]').contains('59203');
 		cy.get('[data-testid=modal_close]').click();
